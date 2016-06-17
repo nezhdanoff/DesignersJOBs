@@ -29,8 +29,9 @@ import static jobsfordesigners.JobsForDesigners.User;
  */
 public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
-    private DefaultListModel KDO_Model = new DefaultListModel();
-
+    private final DefaultListModel KDO_Model = new DefaultListModel();
+    private final DefaultListModel Customer_List_Model = new DefaultListModel();
+    private final DefaultComboBoxModel Manager_CB_Model = new DefaultComboBoxModel();
     /**
      * Creates new form JOB_Jornal_JFrame
      */
@@ -39,9 +40,12 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         initComponents();
 
         KDO_Model.clear();
-        JL_KindList.setModel(KDO_Model);
+        Customer_List_Model.clear();
+        Manager_CB_Model.removeAllElements();
+
+//        JL_KindList.setModel(KDO_Model);
         LB_FIO_Redactor.setText(User.getEmp_Surname() + " " + User.getEmp_Name());
-        DefaultComboBoxModel Manager_CB_Model = new DefaultComboBoxModel();
+ //       DefaultComboBoxModel Manager_CB_Model = new DefaultComboBoxModel();
 
         // подключаемся к базе и вытаскиваем из нее данные
         // Заполняем ComboBox Менеджеры
@@ -78,7 +82,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
 
-                DefaultListModel Customer_List_Model = new DefaultListModel();
+            Customer_List_Model.clear();
                 // подключаемся к базе и вытаскиваем из нее данные
                 // Заполняем ComboBox Менеджеры
                 String Query = "CALL GetCustomerDataObjectByFilter('"
@@ -250,6 +254,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Виды; Масса (Объем)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        JL_KindList.setModel(KDO_Model);
         jScrollPane2.setViewportView(JL_KindList);
 
         jPanel5.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 16, 445, 95));
@@ -276,6 +281,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel2.add(JB_AddJOB, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 285, 85, 76));
 
         jButton3.setText("Очистить");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(475, 365, 83, -1));
 
         jButton4.setText("Выход");
@@ -297,6 +307,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
         jPanel2.add(CB_Unit, new org.netbeans.lib.awtextra.AbsoluteConstraints(257, 289, 53, -1));
 
+        CB_Manager.setModel(Manager_CB_Model);
         CB_Manager.setNextFocusableComponent(TF_Customer);
         CB_Manager.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ МЕНЕДЖЕРА"));
         CB_Manager.addActionListener(new java.awt.event.ActionListener() {
@@ -309,6 +320,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Заказчик"));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        JL_Customers.setModel(Customer_List_Model);
         JL_Customers.setNextFocusableComponent(TF_TM);
         JL_Customers.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -705,6 +717,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 }
             }
         }
+        clearTab_1();
+        TF_Job_Number.grabFocus();
     }//GEN-LAST:event_JB_AddJOBActionPerformed
 
     private void TF_Job_NumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_Job_NumberActionPerformed
@@ -752,6 +766,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private void CB_UnitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_UnitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_CB_UnitActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        clearTab_1();
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -843,4 +861,16 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void clearTab_1() {
+        TF_Job_Number.setText("");
+        CB_Manager.setSelectedIndex(-1);
+        TF_Customer.setText("");
+        TF_TM.setText("");
+        TF_NameOfKind.setText("");
+        TF_Volume.setText("");
+        CB_Unit.setSelectedIndex(-1);
+        KDO_Model.clear();
+        Customer_List_Model.clear();
+    }
 }
