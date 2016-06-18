@@ -108,7 +108,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 conn.close();
             }
         });
-        //***********************************************************************
+    TF_Job_Number.grabFocus();
+    //***********************************************************************
     }
 
     /**
@@ -718,7 +719,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         }
         clearTab_1();
-        TF_Job_Number.grabFocus();
+
     }//GEN-LAST:event_JB_AddJOBActionPerformed
 
     private void TF_Job_NumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_Job_NumberActionPerformed
@@ -872,5 +873,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         CB_Unit.setSelectedIndex(-1);
         KDO_Model.clear();
         Customer_List_Model.clear();
+        TF_Job_Number.grabFocus();
     }
 }
