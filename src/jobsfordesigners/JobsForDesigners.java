@@ -22,15 +22,15 @@ public class JobsForDesigners {
         public static final String PASSWORD = "";
     // имя Базы Данных MySQL сервера
         public static final String BASE = "itak";
-
-        public  static UserDataObject User = null;
+        public static  UserDataObject User = null;
+        public static  LoginJFrame LoginWindow = new LoginJFrame();
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        LoginJFrame LoginWindow = new LoginJFrame();
+//        LoginJFrame LoginWindow = new LoginJFrame();
         LoginWindow.setVisible(true);
 
     }

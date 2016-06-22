@@ -11,9 +11,9 @@ package jobsfordesigners;
  */
 public class CustomerDataObject {
 
-    private int cust_ID;
-    private String cust_Alias;
-    private String cust_Name;
+    private int     cust_ID;
+    private String  cust_Alias;
+    private String  cust_Name;
 
     CustomerDataObject(
             int ID,

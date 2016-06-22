@@ -54,6 +54,16 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
+        addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                formFocusGained(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
@@ -201,14 +211,22 @@ public class LoginJFrame extends javax.swing.JFrame {
                 rs.getString("pos_Name"),
                 rs.getInt("priv_ID")
                 );
-                if (DEBUGMESSAGE_ON) JOptionPane.showMessageDialog(null, "Пароль : " + EncryptorMD5.getMD5(jPassword_Password.getText()));
-                if (DEBUGMESSAGE_ON) JOptionPane.showMessageDialog(null, User.getLogin() + " " + User.getPassword() + " " + User.getEmp_Surname()+ " " + User.getEmp_Name()+ " " + User.getEmp_Mname());
-                if (EncryptorMD5.getMD5(jPassword_Password.getText()).equals(User.getPassword())){
-                if (DEBUGMESSAGE_ON) JOptionPane.showMessageDialog(null, ("Пароли совпадают : " + EncryptorMD5.getMD5(jPassword_Password.getText()) + " | " + User.getPassword()));
+                if (DEBUGMESSAGE_ON) {
+                    JOptionPane.showMessageDialog(null, "Пароль : " + EncryptorMD5.getMD5(jPassword_Password.getText()));
+                }
+                if (DEBUGMESSAGE_ON) {
+                    JOptionPane.showMessageDialog(null, User.getLogin() + " " + User.getPassword() + " " + User.getEmp_Surname() + " " + User.getEmp_Name() + " " + User.getEmp_Mname());
+                }
+                if (EncryptorMD5.getMD5(jPassword_Password.getText()).equals(User.getPassword())) {
+                    if (DEBUGMESSAGE_ON) {
+                        JOptionPane.showMessageDialog(null, ("Пароли совпадают : " + EncryptorMD5.getMD5(jPassword_Password.getText()) + " | " + User.getPassword()));
+                    }
                     JOB_Jornal_JFrame Form_2 = new JOB_Jornal_JFrame();
 // Сюда вставляем форму ввода журнала
+                    jTextField_Login.setText("");
+                    jPassword_Password.setText("");
                     this.setVisible(false);
-                   Form_2.setVisible(true);
+                    Form_2.setVisible(true);
                 } else {
                     JOptionPane.showMessageDialog(null, "Не угадали ПАРОЛЬ");
                 }
@@ -226,6 +244,14 @@ public class LoginJFrame extends javax.swing.JFrame {
     private void jTextField_LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_LoginActionPerformed
         jPassword_Password.requestFocusInWindow();
     }//GEN-LAST:event_jTextField_LoginActionPerformed
+
+    private void formFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_formFocusGained
+
+    }//GEN-LAST:event_formFocusGained
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        jTextField_Login.grabFocus();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
