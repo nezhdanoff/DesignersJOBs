@@ -192,16 +192,16 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel8 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList_NotCheckedJobs = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButton_1Check_Save = new javax.swing.JButton();
+        jButton_1Check_Cancel = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel_Job_Number2 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboBox_Status_Of_Choice = new javax.swing.JComboBox<>();
         jLabel_Job_Number3 = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        jComboBox_TypeOfWork = new javax.swing.JComboBox<>();
         jLabel_Job_Number4 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        jComboBox_Difficulty = new javax.swing.JComboBox<>();
         jPanel11 = new javax.swing.JPanel();
         jLabel_Job_Number5 = new javax.swing.JLabel();
         jLabel_Job_Number8 = new javax.swing.JLabel();
@@ -209,6 +209,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Job_Number7 = new javax.swing.JLabel();
         jPanel12 = new javax.swing.JPanel();
         jLabel_CheckJobInfo = new javax.swing.JLabel();
+        jCheckBox1 = new javax.swing.JCheckBox();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList4 = new javax.swing.JList<>();
@@ -431,12 +432,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(jScrollPane1))
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(TF_Customer)))
@@ -557,7 +556,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(3, 3, 3)
                 .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(3, 3, 3))
         );
 
         jTabbedPane1.addTab("Ввод новых ТЗ", jPanel1);
@@ -599,9 +598,16 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
         );
 
-        jButton1.setText("Сохранить");
+        jButton_1Check_Save.setText("Сохранить");
+        jButton_1Check_Save.setEnabled(false);
 
-        jButton2.setText("Отменить");
+        jButton_1Check_Cancel.setText("Отменить");
+        jButton_1Check_Cancel.setEnabled(false);
+        jButton_1Check_Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_1Check_CancelActionPerformed(evt);
+            }
+        });
 
         jButton5.setText("Выход");
 
@@ -611,10 +617,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Job_Number2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel_Job_Number2.setText("Статус после проверки");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "ОК", "Не соответствует требованиям", "Не хватает материалов, файлов" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_Status_Of_Choice.setMaximumRowCount(5);
+        jComboBox_Status_Of_Choice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "ОК", "Не соответствует требованиям", "Не хватает материалов, файлов" }));
+        jComboBox_Status_Of_Choice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                jComboBox_Status_Of_ChoiceActionPerformed(evt);
             }
         });
 
@@ -622,10 +629,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Job_Number3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel_Job_Number3.setText("Вид работы");
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Изменения", "Адаптация", "Отрисовка", "Разработка" }));
-        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_TypeOfWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "Изменения", "Адаптация", "Отрисовка", "Разработка" }));
+        jComboBox_TypeOfWork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox3ActionPerformed(evt);
+                jComboBox_TypeOfWorkActionPerformed(evt);
             }
         });
 
@@ -633,10 +640,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Job_Number4.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel_Job_Number4.setText("Сложность");
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "очень низкая", "низкая", "средняя", "высокая", "очень высокая\t", " " }));
-        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+        jComboBox_Difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "Очень низкая", "Низкая", "Средняя", "Высокая", "Очень высокая\t", " " }));
+        jComboBox_Difficulty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox4ActionPerformed(evt);
+                jComboBox_DifficultyActionPerformed(evt);
             }
         });
 
@@ -652,9 +659,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                     .addComponent(jLabel_Job_Number3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Status_Of_Choice, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jComboBox_Difficulty, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jComboBox_TypeOfWork, javax.swing.GroupLayout.Alignment.LEADING, 0, 197, Short.MAX_VALUE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
@@ -662,24 +670,23 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addGap(6, 6, 6)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_Status_Of_Choice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Job_Number2))
                 .addGap(11, 11, 11)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox_TypeOfWork, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Job_Number3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel_Job_Number4)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jComboBox_Difficulty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel11.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel_Job_Number5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number5.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number5.setText("Время минимум");
+        jLabel_Job_Number5.setText("Время в часах минимум");
 
         jLabel_Job_Number8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number8.setForeground(new java.awt.Color(0, 0, 204));
@@ -687,8 +694,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Job_Number8.setText("240");
 
         jLabel_Job_Number6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number6.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number6.setText("Время максимум");
+        jLabel_Job_Number6.setText("Время в часах максимум");
 
         jLabel_Job_Number7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number7.setForeground(new java.awt.Color(0, 0, 204));
@@ -704,7 +710,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_Job_Number5)
                     .addComponent(jLabel_Job_Number6))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel_Job_Number7, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Job_Number8, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -726,6 +732,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
+        jLabel_CheckJobInfo.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
+        jLabel_CheckJobInfo.setForeground(new java.awt.Color(0, 0, 204));
         jLabel_CheckJobInfo.setText("Выберите строку ТЗ в списке сверху...");
         jLabel_CheckJobInfo.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel_CheckJobInfo.setAlignmentX(1.0F);
@@ -739,12 +747,20 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 785, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 9, Short.MAX_VALUE))
         );
+
+        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jCheckBox1.setText("Оповестить менеджера по E-Mail");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -757,17 +773,21 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addContainerGap()
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(85, 85, 85)
-                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jPanel11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jCheckBox1)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 789, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(6, 6, 6)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_1Check_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton_1Check_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -777,23 +797,25 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jButton_1Check_Save, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton_1Check_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5)
+                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(16, 16, 16))
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGap(3, 3, 3)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap())))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jCheckBox1)))
+                        .addContainerGap(24, Short.MAX_VALUE))))
         );
 
         jTabbedPane1.addTab("Первая проверка", jPanel3);
@@ -830,7 +852,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 127, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -848,10 +870,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(26, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
@@ -859,7 +878,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTabbedPane1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbedPane1FocusGained
-        fillNotCheckedJobList();
+        cleanFirstCheckTab();
     }//GEN-LAST:event_jTabbedPane1FocusGained
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -1023,27 +1042,42 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JB_AddKindActionPerformed
 
-    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+    private void jComboBox_DifficultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_DifficultyActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox4ActionPerformed
+    }//GEN-LAST:event_jComboBox_DifficultyActionPerformed
 
-    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+    private void jComboBox_TypeOfWorkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_TypeOfWorkActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox3ActionPerformed
+    }//GEN-LAST:event_jComboBox_TypeOfWorkActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    private void jComboBox_Status_Of_ChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_Status_Of_ChoiceActionPerformed
+        if (jComboBox_Status_Of_Choice.getSelectedIndex() == 1){
+        jComboBox_TypeOfWork.setEnabled(true);
+        jComboBox_Difficulty.setEnabled(true);
+        } else {
+        jComboBox_TypeOfWork.setEnabled(false);
+        jComboBox_Difficulty.setEnabled(false);
+        jComboBox_TypeOfWork.setSelectedIndex(0);
+        jComboBox_Difficulty.setSelectedIndex(0);
+
+        }
+    }//GEN-LAST:event_jComboBox_Status_Of_ChoiceActionPerformed
 
     private void jList_NotCheckedJobsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_NotCheckedJobsValueChanged
         int i = jList_NotCheckedJobs.getSelectedIndex();
         Object obj = jList_NotCheckedJobs.getModel().getElementAt(i);
-        if (obj instanceof NotCheckedJobList_DataObject) {
-            NotCheckedJobList_DataObject item = (NotCheckedJobList_DataObject) obj;
+        if (obj instanceof JobDataObject_Full) {
+            JobDataObject_Full item = (JobDataObject_Full) obj;
 //            JL_Cust_ID.setText(Integer.toString(item.getCust_ID()));
-            jLabel_CheckJobInfo.setText(item.getjob_Info());
+            jLabel_CheckJobInfo.setText(item.toStringHTML());
+            jButton_1Check_Save.setEnabled(true);
+            jButton_1Check_Cancel.setEnabled(true);
         }
     }//GEN-LAST:event_jList_NotCheckedJobsValueChanged
+
+    private void jButton_1Check_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_1Check_CancelActionPerformed
+        cleanFirstCheckTab();
+    }//GEN-LAST:event_jButton_1Check_CancelActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1096,15 +1130,16 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JTextField TF_NameOfKind;
     private javax.swing.JTextField TF_TM;
     private javax.swing.JTextField TF_Volume;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
+    private javax.swing.JButton jButton_1Check_Cancel;
+    private javax.swing.JButton jButton_1Check_Save;
+    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JButton jClearButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JComboBox<String> jComboBox_Difficulty;
+    private javax.swing.JComboBox<String> jComboBox_Status_Of_Choice;
+    private javax.swing.JComboBox<String> jComboBox_TypeOfWork;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
@@ -1213,6 +1248,42 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         }
         conn.close();
     }
+    void fillJobListObjectsList() {
 
+        String Query = "CALL GetNotCheckedJobs_split()";
+        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        conn.init();
+        ResultSet rs = conn.query(Query);
+        try {
+            DefaultListModel NotCheckedJob_ObjectModel = new DefaultListModel();
+            while (rs.next()) {
+                JobDataObject_Full jobDataObject = new JobDataObject_Full(
+                        rs.getInt("job_ID"),
+                        rs.getInt("job_Number"),
+                        0,
+                        new EmployerDataObject(rs.getInt("job_Manager_ID"),rs.getString("job_Manager_Surname"), rs.getString("job_Manager_Name"), rs.getString("job_Manager_EMail")),
+                        new CustomerDataObject(rs.getInt("job_Customer_ID"), rs.getString("job_Customer_Alias"), rs.getString("job_Customer_Name")),
+                        rs.getString("job_TM"),
+                        (rs.getString("job_KindString")==null ? "" : rs.getString("job_KindString")) );
+               NotCheckedJob_ObjectModel.addElement(jobDataObject);
+            }
+            jList_NotCheckedJobs.setModel(NotCheckedJob_ObjectModel);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+    }
+    void cleanFirstCheckTab() {
+        jCheckBox1.setSelected(true);
+        jButton_1Check_Save.setEnabled(false);
+        jButton_1Check_Cancel.setEnabled(false);
+        jComboBox_Status_Of_Choice.setSelectedIndex(0);
+        jComboBox_TypeOfWork.setSelectedIndex(0);
+        jComboBox_Difficulty.setSelectedIndex(0);
+        jComboBox_TypeOfWork.setEnabled(false);
+        jComboBox_Difficulty.setEnabled(false);
+        fillJobListObjectsList();
+        jLabel_CheckJobInfo.setText("Выберите строку ТЗ в списке сверху...");
+    }
 }
 
