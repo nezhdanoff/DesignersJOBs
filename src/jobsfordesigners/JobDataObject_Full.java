@@ -23,7 +23,9 @@ public class JobDataObject_Full {
     private ComboBoxDataObject job_TypeOfWork = null;
     private ComboBoxDataObject job_Difficulty = null;
 
-    public JobDataObject_Full(int job_ID, int job_Number, int job_NumberIndex, EmployerDataObject job_Manager, CustomerDataObject job_Customer, String job_TM, String job_KindString) {
+    public JobDataObject_Full(int job_ID, int job_Number, int job_NumberIndex,
+                              EmployerDataObject job_Manager, CustomerDataObject job_Customer,
+                              String job_TM, String job_KindString) {
         this.job_ID = job_ID;
         this.job_Number = job_Number;
         this.job_NumberIndex = job_NumberIndex;
@@ -191,4 +193,12 @@ public class JobDataObject_Full {
         this.job_Customer = job_Customer;
     }
 
+    @Override
+    public String toString() {
+        return "ТЗ№-" + job_Number + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex)) + "; " + job_Manager.getEmp_SurName() + "; " + job_Customer.getCust_Name()+ "; " + job_TM + "; " + job_KindString + '.';
+    }
+
+    public String toStringHTML() {
+        return "<html>ТЗ№-" + job_Number + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex)) + "; " + job_Manager.getEmp_SurName() + "; <br>" + job_Customer.getCust_Name()+ "; " + job_TM + "; " + job_KindString + ".</html>";
+    }
 }
