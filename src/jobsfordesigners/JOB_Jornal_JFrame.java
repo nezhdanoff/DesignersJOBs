@@ -171,7 +171,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         CB_Unit = new javax.swing.JComboBox<>();
         jLabel12 = new javax.swing.JLabel();
         JB_AddKind1 = new javax.swing.JButton();
-        JB_AddKind2 = new javax.swing.JButton();
+        jButton__DeleteKind = new javax.swing.JButton();
         jLabel_Job_Number = new javax.swing.JLabel();
         TF_Job_Number = new javax.swing.JTextField();
         jLabel_Job_Number9 = new javax.swing.JLabel();
@@ -256,6 +256,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Виды; Масса (Объем)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         JL_KindList.setModel(KDO_Model);
+        JL_KindList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                JL_KindListValueChanged(evt);
+            }
+        });
         jScrollPane2.setViewportView(JL_KindList);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -293,6 +298,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         JB_AddKind1.setMnemonic('+');
         JB_AddKind1.setText("Исправить");
+        JB_AddKind1.setEnabled(false);
         JB_AddKind1.setNextFocusableComponent(TF_NameOfKind);
         JB_AddKind1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -300,12 +306,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         });
 
-        JB_AddKind2.setMnemonic('+');
-        JB_AddKind2.setText("Удалить");
-        JB_AddKind2.setNextFocusableComponent(TF_NameOfKind);
-        JB_AddKind2.addActionListener(new java.awt.event.ActionListener() {
+        jButton__DeleteKind.setMnemonic('+');
+        jButton__DeleteKind.setText("Удалить");
+        jButton__DeleteKind.setEnabled(false);
+        jButton__DeleteKind.setNextFocusableComponent(TF_NameOfKind);
+        jButton__DeleteKind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                JB_AddKind2ActionPerformed(evt);
+                jButton__DeleteKindActionPerformed(evt);
             }
         });
 
@@ -323,7 +330,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(JB_AddKind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(JB_AddKind2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jButton__DeleteKind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(JB_AddKind1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(TF_TM, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -367,7 +374,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(JB_AddKind1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(JB_AddKind2)
+                        .addComponent(jButton__DeleteKind)
                         .addContainerGap())))
         );
 
@@ -1152,9 +1159,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
     }//GEN-LAST:event_TF_Job_NumberActionPerformed
 
-    private void JB_AddKind2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AddKind2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_JB_AddKind2ActionPerformed
+    private void jButton__DeleteKindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton__DeleteKindActionPerformed
+        int i = JL_KindList.getSelectedIndex();
+        if (i >= 0) {
+            KDO_Model.remove(i);
+        }
+        jButton__DeleteKind.setEnabled(false);
+    }//GEN-LAST:event_jButton__DeleteKindActionPerformed
 
     private void JB_AddKind1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AddKind1ActionPerformed
         // TODO add your handling code here:
@@ -1270,6 +1281,12 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         doExit();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void JL_KindListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_JL_KindListValueChanged
+        if (JL_KindList.getSelectedIndex() >= 0) {
+            jButton__DeleteKind.setEnabled(true);
+        }
+    }//GEN-LAST:event_JL_KindListValueChanged
+
     /**
      * @param args the command line arguments
      */
@@ -1313,7 +1330,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JButton JB_AddJOB;
     private javax.swing.JButton JB_AddKind;
     private javax.swing.JButton JB_AddKind1;
-    private javax.swing.JButton JB_AddKind2;
     private javax.swing.JList<String> JL_Customers;
     private javax.swing.JList<String> JL_KindList;
     private javax.swing.JLabel LB_FIO_Redactor;
@@ -1331,6 +1347,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton_AssigneDesigner;
     private javax.swing.JButton jButton_ClearAssigne;
     private javax.swing.JButton jButton_Clear_CB_Designer;
+    private javax.swing.JButton jButton__DeleteKind;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox3;
     private javax.swing.JButton jClearButton1;

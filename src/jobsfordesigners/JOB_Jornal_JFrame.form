@@ -155,7 +155,7 @@
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                               <Component id="JB_AddKind" max="32767" attributes="0"/>
-                                              <Component id="JB_AddKind2" alignment="0" max="32767" attributes="0"/>
+                                              <Component id="jButton__DeleteKind" alignment="0" max="32767" attributes="0"/>
                                               <Component id="JB_AddKind1" alignment="0" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -210,7 +210,7 @@
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="JB_AddKind1" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="JB_AddKind2" min="-2" max="-2" attributes="0"/>
+                                  <Component id="jButton__DeleteKind" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
                           </Group>
@@ -301,6 +301,9 @@
                               <Connection code="KDO_Model" type="code"/>
                             </Property>
                           </Properties>
+                          <Events>
+                            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="JL_KindListValueChanged"/>
+                          </Events>
                           <AuxValues>
                             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                           </AuxValues>
@@ -357,6 +360,7 @@
                   <Properties>
                     <Property name="mnemonic" type="int" value="43"/>
                     <Property name="text" type="java.lang.String" value="&#x418;&#x441;&#x43f;&#x440;&#x430;&#x432;&#x438;&#x442;&#x44c;"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                     <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="TF_NameOfKind"/>
                     </Property>
@@ -365,16 +369,17 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_AddKind1ActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="javax.swing.JButton" name="JB_AddKind2">
+                <Component class="javax.swing.JButton" name="jButton__DeleteKind">
                   <Properties>
                     <Property name="mnemonic" type="int" value="43"/>
                     <Property name="text" type="java.lang.String" value="&#x423;&#x434;&#x430;&#x43b;&#x438;&#x442;&#x44c;"/>
+                    <Property name="enabled" type="boolean" value="false"/>
                     <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="TF_NameOfKind"/>
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JB_AddKind2ActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton__DeleteKindActionPerformed"/>
                   </Events>
                 </Component>
               </SubComponents>

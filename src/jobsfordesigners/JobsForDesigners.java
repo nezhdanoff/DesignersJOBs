@@ -14,8 +14,8 @@ public class JobsForDesigners {
     // Адрес (DNS-Name) : PORT MySQL сервера
 //        public static final String SERVER = "base:3306";
 //        public static final String SERVER = "ED-HOME-X64-PC:3306";
-//        public static final String SERVER = "pc-117:3306";
-        public static final String SERVER = "localhost:3306";
+        public static final String SERVER = "PC-117:3306";
+//        public static final String SERVER = "localhost:3306";
     // имя пользователя MySQL сервера
         public static final String USER = "itak_user";
     // пароль пользователя MySQL сервера
@@ -30,6 +30,14 @@ public class JobsForDesigners {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        /*        try {
+         * UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+         * } catch (UnsupportedLookAndFeelException | ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+         * // handle exception
+         * }*/
+            // handle exception
+            // handle exception
+            // handle exception
 //        LoginJFrame LoginWindow = new LoginJFrame();
         LoginWindow.setVisible(true);
 
