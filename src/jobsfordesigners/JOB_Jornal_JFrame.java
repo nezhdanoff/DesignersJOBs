@@ -226,6 +226,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jButton_ClearAssigne = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jCheckBox3 = new javax.swing.JCheckBox();
+        jButton_SendMail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -816,7 +817,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_CheckJobInfo.setAlignmentX(1.0F);
         jLabel_CheckJobInfo.setAlignmentY(1.0F);
         jLabel_CheckJobInfo.setFocusable(false);
-        jLabel_CheckJobInfo.setInheritsPopupMenu(false);
         jLabel_CheckJobInfo.setMaximumSize(new java.awt.Dimension(224, 35));
         jLabel_CheckJobInfo.setMinimumSize(new java.awt.Dimension(224, 35));
         jLabel_CheckJobInfo.setName(""); // NOI18N
@@ -943,6 +943,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jCheckBox3.setText("Оповестить менеджера по E-Mail");
         jCheckBox3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
+        jButton_SendMail.setText("SendMail");
+        jButton_SendMail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_SendMailActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -952,10 +959,15 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(CB_Designer_1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jCheckBox3))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(CB_Designer_1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jCheckBox3)))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jButton_SendMail)
+                                .addGap(0, 0, Short.MAX_VALUE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -978,7 +990,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton_ClearAssigne)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton_SendMail))
                 .addGap(23, 23, 23))
         );
 
@@ -1023,6 +1037,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String statusHTML;
         String query;
         String query2= "";
+        String rcpt1 ="nezhdanoff@itak.ua";
+        String rcpt;
+        String subj;
+        String body;
+
         int i = JL_Customers.getSelectedIndex();
         int cust_ID = 0;
         Object obj = JL_Customers.getModel().getElementAt(i);
@@ -1038,6 +1057,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         + ((ComboBoxDataObject) CB_Manager.getSelectedItem()).getField1() + ");\n"
         + " Заказчик: "
         + CName + " ID(" + Integer.toString(cust_ID) + "); \n\t ТМ: " + TF_TM.getText() + ";\n";
+
+        rcpt = "";
 
         statusHTML = "<html><b>Запись внесена в базу:</b><i> ТЗ №: </i>" + TF_Job_Number.getText()
         + "<i> Менеджер: </i>"
@@ -1094,6 +1115,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Status.setText(statusHTML);
         }
         clearTab_1();
+//        Mailer.sendMailTo(rcpt1, "Задание зврегистрировано в Журнале" , output);
     }//GEN-LAST:event_JB_AddJOBActionPerformed
 
     private void JL_CustomersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_JL_CustomersValueChanged
@@ -1287,6 +1309,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_JL_KindListValueChanged
 
+    private void jButton_SendMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendMailActionPerformed
+                Mailer.sendMailTo("nezhdanoff@itak.ua", "Задание зврегистрировано в Журнале" , "TEST");
+    }//GEN-LAST:event_jButton_SendMailActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -1347,6 +1373,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton_AssigneDesigner;
     private javax.swing.JButton jButton_ClearAssigne;
     private javax.swing.JButton jButton_Clear_CB_Designer;
+    private javax.swing.JButton jButton_SendMail;
     private javax.swing.JButton jButton__DeleteKind;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox3;

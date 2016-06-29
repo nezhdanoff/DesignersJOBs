@@ -1165,7 +1165,6 @@
                     <Property name="alignmentX" type="float" value="1.0"/>
                     <Property name="alignmentY" type="float" value="1.0"/>
                     <Property name="focusable" type="boolean" value="false"/>
-                    <Property name="inheritsPopupMenu" type="boolean" value="false"/>
                     <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
                       <Dimension value="[224, 35]"/>
                     </Property>
@@ -1213,10 +1212,18 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane4" pref="883" max="32767" attributes="0"/>
                           <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="CB_Designer_1" min="-2" pref="369" max="-2" attributes="0"/>
-                                  <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="CB_Designer_1" min="-2" pref="369" max="-2" attributes="0"/>
+                                          <Component id="jCheckBox3" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Component id="jButton_SendMail" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -1247,7 +1254,10 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jButton_ClearAssigne" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButton_SendMail" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace min="-2" pref="23" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -1325,6 +1335,14 @@
                 <Property name="text" type="java.lang.String" value="&#x41e;&#x43f;&#x43e;&#x432;&#x435;&#x441;&#x442;&#x438;&#x442;&#x44c; &#x43c;&#x435;&#x43d;&#x435;&#x434;&#x436;&#x435;&#x440;&#x430; &#x43f;&#x43e; E-Mail"/>
                 <Property name="horizontalAlignment" type="int" value="11"/>
               </Properties>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton_SendMail">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="SendMail"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton_SendMailActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
