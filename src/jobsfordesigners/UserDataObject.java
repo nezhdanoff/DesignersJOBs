@@ -67,7 +67,7 @@ public class UserDataObject {
     public String getEmp_Surname(){
         return this.emp_Surname;
     }
-    public void setemp_Surname(String str){
+    public void setEmp_Surname(String str){
         this.emp_Surname = str;
     }
     public String getEmp_Name(){
@@ -117,9 +117,9 @@ public class UserDataObject {
     public String toString() {
 
         if (this.emp_Mname != null){
-            return this.emp_Surname + ' ' + this.dep_Name + ' ' + this.emp_Mname;
+            return this.emp_Surname + ' ' + this.emp_Name + ' ' + this.emp_Mname;
         } else {
-            return this.emp_Surname + ' ' + this.dep_Name;
+            return this.emp_Surname + ' ' + this.emp_Name;
         }
    }
 

@@ -30,9 +30,7 @@ import static jobsfordesigners.JobsForDesigners.User;
  */
 public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
-     final static DefaultListModel KDO_Model = new DefaultListModel();
-     final static DefaultListModel Customer_List_Model = new DefaultListModel();
-     final static DefaultComboBoxModel Manager_CB_Model = new DefaultComboBoxModel();
+//     final static DefaultListModel Customer_List_Model = new DefaultListModel();
     /**
      * Creates new form JOB_Jornal_JFrame
      */
@@ -40,42 +38,14 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         initComponents();
 
-        KDO_Model.clear();
-        Customer_List_Model.clear();
-        Manager_CB_Model.removeAllElements();
-
-//        JL_KindList.setModel(KDO_Model);
+        JL_Customers.setModel(new DefaultListModel());
         LB_FIO_Redactor.setText(User.getEmp_Surname() + " " + User.getEmp_Name());
- //       DefaultComboBoxModel Manager_CB_Model = new DefaultComboBoxModel();
 
-        // подключаемся к базе и вытаскиваем из нее данные
+        DefaultListModel KDO_Model = new DefaultListModel();
+        JL_KindList.setModel(KDO_Model);
+
         // Заполняем ComboBox Менеджеры
-        String Query = "SELECT "
-                + "employers.ID AS emp_ID, "
-                + "CONCAT_WS(' ', employers.surname , employers.name) AS emp_Name "
-                + "FROM employers "
-                + "WHERE employers.department_ID = 2 "
-                + "ORDER BY employers.surname, employers.name";
-
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
-        conn.init();
-        ResultSet rs = conn.query(Query);
-        try {
-            while (rs.next()) {
-                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
-                ComboBoxDataObject CB_Object = new ComboBoxDataObject(
-                        rs.getInt("emp_ID"),
-                        rs.getString("emp_Name"));
-                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
-                Manager_CB_Model.addElement(CB_Object);
-            }
-            // ВСТАВЛЯЕМ ДАННЫЕ МОДЕЛИ В ComboBox
-            CB_Manager.setModel(Manager_CB_Model);
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        conn.close();
-        CB_Manager.setSelectedIndex(-1);
+        fillManagerComboBox();
         //***********************************************************************
         fillDesignerComboBox();
         //***********************************************************************
@@ -110,8 +80,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         TF_Customer.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
-
-            JOB_Jornal_JFrame.Customer_List_Model.clear();
+                DefaultListModel dlm = new DefaultListModel();
                 // подключаемся к базе и вытаскиваем из нее данные
                 // Заполняем ComboBox Менеджеры
                 String Query = "CALL GetCustomerDataObjectByFilter('"
@@ -127,9 +96,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                                 rs.getString("cust_Alias"),
                                 rs.getString("cust_Name"));
                         // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
-                        JOB_Jornal_JFrame.Customer_List_Model.addElement(Customer_Object);
+                        dlm.addElement(Customer_Object);
                     }
-                    JL_Customers.setModel(Customer_List_Model);
+                    JL_Customers.setModel(dlm);
                 } catch (SQLException ex) {
                     Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -256,7 +225,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Виды; Масса (Объем)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
-        JL_KindList.setModel(KDO_Model);
+        JL_KindList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JL_KindList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 JL_KindListValueChanged(evt);
@@ -415,7 +384,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Job_Number1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
         jLabel_Job_Number1.setText("Менеджер");
 
-        CB_Manager.setModel(Manager_CB_Model);
         CB_Manager.setNextFocusableComponent(TF_Customer);
         CB_Manager.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ МЕНЕДЖЕРА"));
         CB_Manager.addActionListener(new java.awt.event.ActionListener() {
@@ -437,7 +405,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         TF_Customer.setNextFocusableComponent(JL_Customers);
 
-        JL_Customers.setModel(Customer_List_Model);
         JL_Customers.setNextFocusableComponent(TF_TM);
         JL_Customers.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -1032,7 +999,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jClearButton1ActionPerformed
 
     private void JB_AddJOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AddJOBActionPerformed
-        String CName = "";
         String output;
         String statusHTML;
         String query;
@@ -1043,99 +1009,102 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String body;
 
         int i = JL_Customers.getSelectedIndex();
-        int cust_ID = 0;
-        Object obj = JL_Customers.getModel().getElementAt(i);
-        if (obj instanceof CustomerDataObject) {
-            CustomerDataObject item = (CustomerDataObject) obj;
-            cust_ID = item.getCust_ID();
-            CName = item.getCust_Name();
-        }
-        output = "Заполнил: " + LB_FIO_Redactor.getText() + "\n";
-        output = output + "ТЗ №: " + TF_Job_Number.getText() + "\n"
-        + " Менеджер: "
-        + ((ComboBoxDataObject) CB_Manager.getSelectedItem()).toString() + " (ID "
-        + ((ComboBoxDataObject) CB_Manager.getSelectedItem()).getField1() + ");\n"
-        + " Заказчик: "
-        + CName + " ID(" + Integer.toString(cust_ID) + "); \n\t ТМ: " + TF_TM.getText() + ";\n";
+        if (i >= 0) {
+        DefaultListModel Cust_List_Model = ((DefaultListModel)JL_Customers.getModel());
+        DefaultListModel KDO_Model = ((DefaultListModel)JL_KindList.getModel());
+        DefaultComboBoxModel Manager_LM = (DefaultComboBoxModel) CB_Manager.getModel();
 
-        rcpt = "";
+            String CName = ((CustomerDataObject) Cust_List_Model.getElementAt(i)).getCust_Name();
+            String MName =  Manager_LM.getSelectedItem().toString();
+            String TM = TF_TM.getText();
+            int cust_ID = ((CustomerDataObject) Cust_List_Model.getElementAt(i)).getCust_ID();
+            int Job_NUM = Integer.parseInt(TF_Job_Number.getText());
+            int Manager_ID = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getField1();
 
-        statusHTML = "<html><b>Запись внесена в базу:</b><i> ТЗ №: </i>" + TF_Job_Number.getText()
-        + "<i> Менеджер: </i>"
-        + ((ComboBoxDataObject) CB_Manager.getSelectedItem()).toString() + "<br>"
-        + "<i>Заказчик: </i>"
-        + CName + "; ТМ: " + TF_TM.getText();
+            output = "Заполнил: " + LB_FIO_Redactor.getText() + "\n";
+            output = output + "ТЗ №: " + Job_NUM + "\n"
+                    + " Менеджер: "
+                    + MName
+                    + " Заказчик: "
+                    + CName + "); \n\t ТМ: " + TM + ";\n";
 
+            statusHTML = "<html><b>Запись внесена в базу:</b><i> ТЗ №: </i>" + Job_NUM
+                    + "<i> Менеджер: </i>"
+                    + MName + "<br>"
+                    + "<i>Заказчик: </i>"
+                    + CName + "; ТМ: " + TM;
 
-        query = "INSERT INTO designers_jobs (Job_Number, Create_Date, ID_Manager, ID_Customer, Trade_Mark) "
-        + "  VALUES ("
-        + TF_Job_Number.getText() + ","
-        + " NOW(), "
-        + ((ComboBoxDataObject) CB_Manager.getSelectedItem()).getField1() + ", "
-        + Integer.toString(cust_ID) + ", '"
-        + TF_TM.getText()
-        + "')";
-        if (KDO_Model.getSize() > 0) {
-            query2 = "INSERT INTO kind_of_job (Job_ID, kind, volume, unit)  VALUES ";
+            query = "INSERT INTO designers_jobs (Job_Number, Create_Date, ID_Manager, ID_Customer, Trade_Mark) "
+                    + "  VALUES ("
+                    + Job_NUM + ","
+                    + " NOW(), "
+                    + Manager_ID + ", "
+                    + cust_ID + ", '"
+                    + TM
+                    + "')";
+            int x = KDO_Model.getSize();
+            if (x > 0) {
+                query2 = "INSERT INTO kind_of_job (Job_ID, kind, volume, unit)  VALUES ";
 
-            for (int j = 0; j < KDO_Model.getSize(); j++) {
-                output = output + "\t\t Вид № "
-                + Integer.toString(j + 1) + " - "
-                + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
-                + "\n";
+                for (int j = 0; j < x; j++) {
+                    output = output + "\t\t Вид № "
+                            + Integer.toString(j + 1) + " - "
+                            + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
+                            + "\n";
 
-                statusHTML = statusHTML + " Вид № "
-                + Integer.toString(j + 1) + " - "
-                + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
-                + "; ";
+                    statusHTML = statusHTML + " Вид № "
+                            + Integer.toString(j + 1) + " - "
+                            + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
+                            + "; ";
 
-                query2 = query2 + "(-###-, '"
-                + ((KindDataObject) KDO_Model.getElementAt(j)).getKind().trim() + "', ";
-                if (((KindDataObject) KDO_Model.getElementAt(j)).getVolume() == 0) {
-                    query2 = query2 + "NULL, ";
-                } else {
-                    query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getVolume_toString().replace(",", ".").trim() + ", '";
-                }
-                if (((KindDataObject) KDO_Model.getElementAt(j)).getUnit() == null) {
-                    query2 = query2 + "NULL) ";
-                } else {
-                    query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getUnit().trim() + "')";
-                }
-                if (j < KDO_Model.getSize()-1) {
-                    query2 = query2 + ", ";
+                    query2 = query2 + "(-###-, '"
+                            + ((KindDataObject) KDO_Model.getElementAt(j)).getKind().trim() + "', ";
+                    if (((KindDataObject) KDO_Model.getElementAt(j)).getVolume() == 0) {
+                        query2 = query2 + "NULL, ";
+                    } else {
+                        query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getVolume_toString().replace(",", ".").trim() + ", '";
+                    }
+                    if (((KindDataObject) KDO_Model.getElementAt(j)).getUnit() == null) {
+                        query2 = query2 + "NULL) ";
+                    } else {
+                        query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getUnit().trim() + "')";
+                    }
+                    if (j < KDO_Model.getSize() - 1) {
+                        query2 = query2 + ", ";
+                    }
                 }
             }
+            if (JOptionPane.showConfirmDialog(null, output,
+                                              "Внести информацию в базу?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+                conn.init();
+                conn.updateTransactionOneToMany(query, query2, "-###-");
+                conn.close();
+                jLabel_Status.setText(statusHTML);
+            }
+            clearTab_1();
+
         }
-        if (JOptionPane.showConfirmDialog(null, output,
-            "Внести информацию в базу?", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
-        conn.init();
-        conn.updateTransactionOneToMany(query, query2, "-###-");
-        conn.close();
-        jLabel_Status.setText(statusHTML);
-        }
-        clearTab_1();
-//        Mailer.sendMailTo(rcpt1, "Задание зврегистрировано в Журнале" , output);
+        //        Mailer.sendMailTo(rcpt1, "Задание зврегистрировано в Журнале" , output);
     }//GEN-LAST:event_JB_AddJOBActionPerformed
 
     private void JL_CustomersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_JL_CustomersValueChanged
         int i = JL_Customers.getSelectedIndex();
-        Object obj = JL_Customers.getModel().getElementAt(i);
-        if (obj instanceof CustomerDataObject) {
-            CustomerDataObject item = (CustomerDataObject) obj;
+        if (i >= 0) {
+            Object obj = JL_Customers.getModel().getElementAt(i);
+            if (obj instanceof CustomerDataObject) {
+                CustomerDataObject item = (CustomerDataObject) obj;
 //            JL_Cust_ID.setText(Integer.toString(item.getCust_ID()));
-            TF_Customer.setText(item.getCust_Name());
+                TF_Customer.setText(item.getCust_Name());
+            }
         }
     }//GEN-LAST:event_JL_CustomersValueChanged
 
     private void CB_ManagerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CB_ManagerActionPerformed
-        //        DefaultListModel Customer_List_Model = new DefaultListModel();
 
-        // подключаемся к базе и вытаскиваем из нее данные
-        // Заполняем ComboBox Менеджеры
         int managerID = 0;
         if (CB_Manager.getSelectedIndex() >= 0) {
-            managerID = ((ComboBoxDataObject) CB_Manager.getSelectedItem()).getField1();
+            managerID = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getField1();
             fillCustomerNameByManagerID(0);
             //            fillCustomerNameByManagerID(managerID);
         }
@@ -1184,7 +1153,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private void jButton__DeleteKindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton__DeleteKindActionPerformed
         int i = JL_KindList.getSelectedIndex();
         if (i >= 0) {
-            KDO_Model.remove(i);
+            ((DefaultListModel)JL_KindList.getModel()).remove(i);
         }
         jButton__DeleteKind.setEnabled(false);
     }//GEN-LAST:event_jButton__DeleteKindActionPerformed
@@ -1204,10 +1173,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             float V = Float.parseFloat(TF_Volume.getText().trim().replace(",", "."));
             String U = CB_Unit.getSelectedItem().toString().trim();
             KindDataObject iKind = new KindDataObject(K, V, U);
-            KDO_Model.addElement(iKind);
+            ((DefaultListModel)JL_KindList.getModel()).addElement(iKind);
         } catch (Exception e) {
             KindDataObject iKind = new KindDataObject(K);
-            KDO_Model.addElement(iKind);
+            ((DefaultListModel)JL_KindList.getModel()).addElement(iKind);
         }
     }//GEN-LAST:event_JB_AddKindActionPerformed
 
@@ -1342,6 +1311,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new JOB_Jornal_JFrame().setVisible(true);
             }
@@ -1431,18 +1401,15 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         TF_NameOfKind.setText("");
         TF_Volume.setText("");
         CB_Unit.setSelectedIndex(-1);
-        JL_KindList.clearSelection();
-        KDO_Model.removeAllElements();
-//        KDO_Model.clear();
-        JL_KindList.setModel(KDO_Model);
-        JL_Customers.clearSelection();
-        Customer_List_Model.removeAllElements();
-        JL_Customers.setModel(Customer_List_Model);
+        CB_Manager.setSelectedIndex(-1);
+        JL_Customers.setModel(new DefaultListModel());
+        JL_KindList.setModel(new DefaultListModel());
         TF_Job_Number.grabFocus();
     }
 
     void fillCustomerNameByManagerID(int ID) {
 
+        DefaultListModel dlm = new DefaultListModel();
         String Query = "CALL GetCustomerDataObjectsByManagerID(";
         Query = Query + Integer.toString(ID) + ")";
         ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
@@ -1456,9 +1423,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         rs.getString("cust_Alias"),
                         rs.getString("cust_Name"));
                 // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
-                Customer_List_Model.addElement(Customer_Object);
+                dlm.addElement(Customer_Object);
             }
-            JL_Customers.setModel(Customer_List_Model);
+            JL_Customers.setModel(dlm);
         } catch (SQLException ex) {
             Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -1644,6 +1611,37 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         }
     }
 
+    void fillManagerComboBox() {
+        String Query = "CALL GetUserDataObject_by_Departament(2)";
+
+        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        conn.init();
+        ResultSet rs = conn.query(Query);
+        try {
+        DefaultComboBoxModel cbm = new DefaultComboBoxModel();
+            while (rs.next()) {
+                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
+                UserDataObjectWithEmail CB_Object = new UserDataObjectWithEmail(rs.getInt("emp_ID"),
+                        rs.getString("emp_Surname"),
+                        rs.getString("emp_Name"),
+                        rs.getString("emp_Mname"),
+                        rs.getString("emp_EMail"),
+                        rs.getInt("dep_ID"),
+                        rs.getString("dep_Name"),
+                        rs.getInt("pos_ID"),
+                        rs.getString("pos_Name"));
+                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
+                cbm.addElement(CB_Object);
+            }
+            // ВСТАВЛЯЕМ ДАННЫЕ МОДЕЛИ В ComboBox
+            CB_Manager.setModel(cbm);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+        CB_Manager.setSelectedIndex(-1);
+
+    }
 
 void fillDesignerComboBox(){
         // подключаемся к базе и вытаскиваем из нее данные
@@ -1677,6 +1675,7 @@ void fillDesignerComboBox(){
         CB_Designer.setSelectedIndex(-1);
         CB_Designer_1.setSelectedIndex(-1);
 }
+
     void doExit() {
         this.setVisible(false);
         JobsForDesigners.LoginWindow.setVisible(true);
