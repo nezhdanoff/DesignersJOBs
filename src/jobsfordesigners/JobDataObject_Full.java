@@ -195,7 +195,7 @@ public class JobDataObject_Full {
 
     @Override
     public String toString() {
-        return "ТЗ№-" + job_Number
+        return "�ǹ-" + job_Number
                 + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex))
                 + "; " + job_Manager.getEmp_SurName() + "; "
                 + job_Customer.getCust_Name()+ "; "
@@ -203,7 +203,7 @@ public class JobDataObject_Full {
     }
 
     public String toStringHTML() {
-        return "<html>ТЗ№-" + job_Number
+        return "<html>�ǹ-" + job_Number
                 + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex))
                 + "; " + job_Manager.getEmp_SurName()
                 + "; <br>" + job_Customer.getCust_Name()+ "; "

@@ -67,13 +67,13 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setText("Р’С…РѕРґ РІ РїСЂРѕРіСЂР°РјРјСѓ");
+        jLabel1.setText("Вход в программу");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Р›РѕРіРёРЅ");
+        jLabel2.setText("Логин");
 
-        jLabel3.setText("РџР°СЂРѕР»СЊ");
+        jLabel3.setText("Пароль");
 
         jTextField_Login.setNextFocusableComponent(jPassword_Password);
         jTextField_Login.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +91,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox_ShowPassword.setText("РџРѕРєР°Р·С‹РІР°С‚СЊ РїР°СЂРѕР»СЊ");
+        jCheckBox_ShowPassword.setText("Показывать пароль");
         jCheckBox_ShowPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox_ShowPasswordActionPerformed(evt);
@@ -130,14 +130,14 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton_Login.setText("Р’С…РѕРґ");
+        jButton_Login.setText("Вход");
         jButton_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LoginActionPerformed(evt);
             }
         });
 
-        jButton_Exit.setText("Р’С‹С…РѕРґ");
+        jButton_Exit.setText("Выход");
         jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ExitActionPerformed(evt);
@@ -212,23 +212,23 @@ public class LoginJFrame extends javax.swing.JFrame {
                 rs.getInt("priv_ID")
                 );
                 if (DEBUGMESSAGE_ON) {
-                    JOptionPane.showMessageDialog(null, "РџР°СЂРѕР»СЊ : " + EncryptorMD5.getMD5(jPassword_Password.getText()));
+                    JOptionPane.showMessageDialog(null, "Пароль : " + EncryptorMD5.getMD5(jPassword_Password.getText()));
                 }
                 if (DEBUGMESSAGE_ON) {
                     JOptionPane.showMessageDialog(null, User.getLogin() + " " + User.getPassword() + " " + User.getEmp_Surname() + " " + User.getEmp_Name() + " " + User.getEmp_Mname());
                 }
                 if (EncryptorMD5.getMD5(jPassword_Password.getText()).equals(User.getPassword())) {
                     if (DEBUGMESSAGE_ON) {
-                        JOptionPane.showMessageDialog(null, ("РџР°СЂРѕР»Рё СЃРѕРІРїР°РґР°СЋС‚ : " + EncryptorMD5.getMD5(jPassword_Password.getText()) + " | " + User.getPassword()));
+                        JOptionPane.showMessageDialog(null, ("Пароли совпадают : " + EncryptorMD5.getMD5(jPassword_Password.getText()) + " | " + User.getPassword()));
                     }
                     JOB_Jornal_JFrame Form_2 = new JOB_Jornal_JFrame();
-// РЎСЋРґР° РІСЃС‚Р°РІР»СЏРµРј С„РѕСЂРјСѓ РІРІРѕРґР° Р¶СѓСЂРЅР°Р»Р°
+// Сюда вставляем форму ввода журнала
                     jTextField_Login.setText("");
                     jPassword_Password.setText("");
                     this.setVisible(false);
                     Form_2.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "РќРµ СѓРіР°РґР°Р»Рё РџРђР РћР›Р¬");
+                    JOptionPane.showMessageDialog(null, "Не угадали ПАРОЛЬ");
                 }
             }
         } catch (SQLException ex) {

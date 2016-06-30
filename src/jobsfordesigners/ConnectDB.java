@@ -5,11 +5,13 @@
  */
 package jobsfordesigners;
 
-import java.sql.Connection;
+//import com.mysql.jdbc.Connection;
+//import com.mysql.jdbc.Statement;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.Statement;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,18 +45,20 @@ public class ConnectDB {
     public void init() {
         if (iConnection == null) {
             try {
-                Class.forName("com.mysql.jdbc.Driver");
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
                 try {
-                    iConnection = DriverManager.getConnection(
+                    iConnection = (Connection) DriverManager.getConnection(
                             iURL, iUser, iPassword
                     );
                 } catch (SQLException ex) {
                     Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "Р‘Р°Р·Р° Р”Р°РЅРЅС‹С… РЅРµ РґРѕСЃС‚СѓРїРЅР°");
+                    JOptionPane.showMessageDialog(null, "База Данных не доступна");
                 }
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "JDBC РґСЂР°Р№РІРµСЂ РЅРµ РґРѕСЃС‚СѓРїРµРЅ");
+                JOptionPane.showMessageDialog(null, "JDBC драйвер не доступен");
+            } catch (InstantiationException | IllegalAccessException ex) {
+                Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -62,22 +66,22 @@ public class ConnectDB {
     public ResultSet query(String Query) {
         ResultSet result = null;
         try {
-            Statement stmt = iConnection.createStatement();
+            Statement stmt = (Statement) iConnection.createStatement();
             result = stmt.executeQuery(Query);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "РћС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ SQL-Р·Р°РїСЂРѕСЃР°\n" + Query);
+            JOptionPane.showMessageDialog(null, "Ошибка выполнения SQL-запроса\n" + Query);
         }
         return result;
     }
 
     public void updateQuery(String Query) {
         try {
-            Statement stmt = iConnection.createStatement();
+            Statement stmt = (Statement) iConnection.createStatement();
             stmt.executeUpdate(Query);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "РћС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ SQL-Р·Р°РїСЂРѕСЃР°\n" + Query);
+            JOptionPane.showMessageDialog(null, "Ошибка выполнения SQL-запроса\n" + Query);
         }
     }
 
@@ -88,23 +92,23 @@ public class ConnectDB {
 //        System.out.println(str);
         try {
             this.iConnection.setAutoCommit(false);
-            Statement ss = this.iConnection.createStatement();
+            Statement ss = (Statement) this.iConnection.createStatement();
             ss.executeUpdate(qry1);
             ResultSet result = ss.executeQuery("SELECT LAST_INSERT_ID()");
             if (result.next()) {
                 ID = result.getInt(1);
             }
             String str = qry2.replace(WldCRD, Integer.toString(ID));
-//            JOptionPane.showMessageDialog(null, "Р’РЅРµСЃРµРЅР° Р·Р°РїРёСЃСЊ СЃ ID=" + ID);
+//            JOptionPane.showMessageDialog(null, "Внесена запись с ID=" + ID);
 //            query1 = query2.replace("-###-", Integer.toString(ID));
 //            System.out.println(qry1);
             ss.executeUpdate(str);
             this.iConnection.commit();
-//            JOptionPane.showMessageDialog(null, "Р’РЅРµСЃРµРЅР° Р·Р°РїРёСЃСЊ СЃ SQL \n"
+//            JOptionPane.showMessageDialog(null, "Внесена запись с SQL \n"
 //                    + qry1.replace("),", "), \n"));
         } catch (SQLException ex) {
             try {
-                JOptionPane.showMessageDialog(null, "РћС€РёР±РєР°. РћРўРљРђРў РўР РђРќР—РђРљР¦РР!");
+                JOptionPane.showMessageDialog(null, "Ошибка. ОТКАТ ТРАНЗАКЦИИ!");
                 this.iConnection.rollback();
             } catch (SQLException ex1) {
                 Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex1);

@@ -21,7 +21,7 @@ public class NotCheckedJobList_DataObject {
     ) {
         this.job_ID = ID;
         this.job_Info = Info;
-        if (Status == null) this.job_Status ="РќРµ РїСЂРѕРІРµСЂРµРЅРѕ";
+        if (Status == null) this.job_Status ="Не проверено";
         else this.job_Status = Status;
     }
 

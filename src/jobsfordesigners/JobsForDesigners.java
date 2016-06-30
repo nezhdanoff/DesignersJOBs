@@ -11,18 +11,18 @@ package jobsfordesigners;
  * @author Nezhdanoff
  */
 public class JobsForDesigners {
-    // РђРґСЂРµСЃ (DNS-Name) : PORT MySQL СЃРµСЂРІРµСЂР°
+    // Адрес (DNS-Name) : PORT MySQL сервера
 //        public static final String SERVER = "base:3306";
 //        public static final String SERVER = "ED-HOME-X64-PC:3306";
         public static final String SERVER = "PC-117:3306";
 //        public static final String SERVER = "localhost:3306";
-    // РёРјСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ MySQL СЃРµСЂРІРµСЂР°
+    // имя пользователя MySQL сервера
         public static final String USER = "itak_user";
 //        public static final String USER = "Ed";
-    // РїР°СЂРѕР»СЊ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ MySQL СЃРµСЂРІРµСЂР°
+    // пароль пользователя MySQL сервера
         public static final String PASSWORD = "";
 //        public static final String PASSWORD = "123";
-    // РёРјСЏ Р‘Р°Р·С‹ Р”Р°РЅРЅС‹С… MySQL СЃРµСЂРІРµСЂР°
+    // имя Базы Данных MySQL сервера
         public static final String BASE = "itak";
         public static  UserDataObject User = null;
         public static  LoginJFrame LoginWindow = new LoginJFrame();

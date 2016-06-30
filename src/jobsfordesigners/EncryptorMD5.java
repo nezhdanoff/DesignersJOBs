@@ -26,7 +26,7 @@ public class EncryptorMD5 {
             mDigest.update(st.getBytes());
             digest = mDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            System.out.println("РњРѕРґСѓР»СЊ Р°Р»РіРѕСЂРёС‚РјР° MD5 РЅРµ РЅР°Р№РґРµРЅ");
+            System.out.println("Модуль алгоритма MD5 не найден");
         }
 
         BigInteger bigInt = new BigInteger(1, digest);

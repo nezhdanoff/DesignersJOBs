@@ -45,19 +45,19 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         DefaultListModel KDO_Model = new DefaultListModel();
         JL_KindList.setModel(KDO_Model);
 
-        // Р—Р°РїРѕР»РЅСЏРµРј ComboBox РњРµРЅРµРґР¶РµСЂС‹
+        // Заполняем ComboBox Менеджеры
         fillManagerComboBox();
         //***********************************************************************
         fillDesignerComboBox();
         //***********************************************************************
 
-         // РћРїСЂРµРґРµР»СЏРµРј Listener РїРѕРёСЃРєРѕРІРѕРіРѕ С‚РµРєСЃС‚РѕРІРѕРіРѕ РїРѕР»СЏ
+         // Определяем Listener поискового текстового поля
         TF_Customer.addKeyListener(new KeyAdapter() {
             @Override
             public void keyReleased(KeyEvent e) {
                 DefaultListModel dlm = new DefaultListModel();
-                // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РІС‹С‚Р°СЃРєРёРІР°РµРј РёР· РЅРµРµ РґР°РЅРЅС‹Рµ
-                // Р—Р°РїРѕР»РЅСЏРµРј ComboBox РњРµРЅРµРґР¶РµСЂС‹
+                // подключаемся к базе и вытаскиваем из нее данные
+                // Заполняем ComboBox Менеджеры
                 String Query = "CALL GetCustomerDataObjectByFilter('"
                         + TF_Customer.getText() + "')";
                 ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
@@ -65,12 +65,12 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 ResultSet rs = conn.query(Query);
                 try {
                     while (rs.next()) {
-                        // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
+                        // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
                         CustomerDataObject Customer_Object = new CustomerDataObject(
                                 rs.getInt("cust_ID"),
                                 rs.getString("cust_Alias"),
                                 rs.getString("cust_Name"));
-                        // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
+                        // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
                         dlm.addElement(Customer_Object);
                     }
                     JL_Customers.setModel(dlm);
@@ -84,7 +84,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 //        fillNotCheckedJobList();
 
 
-// РџСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РїРµСЂРІС‹Рј РїРѕР»СѓС‡Р°РµС‚ С„РѕРєСѓСЃ РїРѕР»Рµ РўР—в„–
+// При инициализации первым получает фокус поле ТЗ№
         TF_Job_Number.grabFocus();
 
         //***********************************************************************
@@ -134,14 +134,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel9 = new javax.swing.JPanel();
         jLabel_Status = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jList_NotCheckedJobs = new javax.swing.JList<>();
-        jButton_1Check_Save = new javax.swing.JButton();
-        jButton_1Check_Cancel = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         jLabel_Job_Number2 = new javax.swing.JLabel();
         jComboBox_Status_Of_Choice = new javax.swing.JComboBox<>();
@@ -162,6 +157,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel12 = new javax.swing.JPanel();
         jLabel_CheckJobInfo = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
+        jPanel7 = new javax.swing.JPanel();
+        jButton_1Check_Save = new javax.swing.JButton();
+        jButton_1Check_Cancel = new javax.swing.JButton();
+        jButton5 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList_NotAssignedJobs = new javax.swing.JList<>();
@@ -173,6 +172,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jButton_SendMail = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setMaximumSize(new java.awt.Dimension(922, 476));
+        setMinimumSize(new java.awt.Dimension(922, 476));
         setResizable(false);
 
         jTabbedPane1.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -186,13 +187,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         TF_TM.setNextFocusableComponent(TF_NameOfKind);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel6.setText("РўРѕСЂРіРѕРІР°СЏ РњР°СЂРєР°");
+        jLabel6.setText("Торговая Марка");
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel7.setText("РќР°Р·РІР°РЅРёРµ Р’РёРґР°");
+        jLabel7.setText("Название Вида");
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel8.setText("РњР°СЃСЃР° (РћР±СЉРµРј)");
+        jLabel8.setText("Масса (Объем)");
 
         TF_NameOfKind.setNextFocusableComponent(TF_Volume);
 
@@ -209,7 +210,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
         TF_Volume.setNextFocusableComponent(CB_Unit);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Р’РёРґС‹; РњР°СЃСЃР° (РћР±СЉРµРј)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Виды; Масса (Объем)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         JL_KindList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JL_KindList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -231,7 +232,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         );
 
         JB_AddKind.setMnemonic('+');
-        JB_AddKind.setText("Р”РѕР±Р°РІРёС‚СЊ СЌС‚РѕС‚ Р’РР”");
+        JB_AddKind.setText("Добавить этот ВИД");
         JB_AddKind.setNextFocusableComponent(TF_NameOfKind);
         JB_AddKind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,7 +240,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         });
 
-        CB_Unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РєРі.", "Рі.", "РјРі.", "Р».", "РјР»." }));
+        CB_Unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "кг.", "г.", "мг.", "л.", "мл." }));
         CB_Unit.setSelectedIndex(-1);
         CB_Unit.setToolTipText("");
         CB_Unit.setNextFocusableComponent(JB_AddKind);
@@ -250,10 +251,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel12.setText("Р•Рґ.РёР·Рј.");
+        jLabel12.setText("Ед.изм.");
 
         JB_AddKind1.setMnemonic('+');
-        JB_AddKind1.setText("РСЃРїСЂР°РІРёС‚СЊ");
+        JB_AddKind1.setText("Исправить");
         JB_AddKind1.setEnabled(false);
         JB_AddKind1.setNextFocusableComponent(TF_NameOfKind);
         JB_AddKind1.addActionListener(new java.awt.event.ActionListener() {
@@ -263,7 +264,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jButton__DeleteKind.setMnemonic('+');
-        jButton__DeleteKind.setText("РЈРґР°Р»РёС‚СЊ");
+        jButton__DeleteKind.setText("Удалить");
         jButton__DeleteKind.setEnabled(false);
         jButton__DeleteKind.setNextFocusableComponent(TF_NameOfKind);
         jButton__DeleteKind.addActionListener(new java.awt.event.ActionListener() {
@@ -336,7 +337,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_Job_Number.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel_Job_Number.setText("в„– РўР—");
+        jLabel_Job_Number.setText("№ ТЗ");
 
         TF_Job_Number.setDocument(new PlainDocument() {
             String chars = "0123456789";
@@ -393,10 +394,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_Job_Number1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number1.setText("РњРµРЅРµРґР¶РµСЂ");
+        jLabel_Job_Number1.setText("Менеджер");
 
         CB_Manager.setNextFocusableComponent(TF_Customer);
-        CB_Manager.setRenderer(new CB_DataRenderer("Р’Р«Р‘Р•Р РРўР• РњР•РќР•Р”Р–Р•Р Рђ"));
+        CB_Manager.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ МЕНЕДЖЕРА"));
         CB_Manager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_ManagerActionPerformed(evt);
@@ -412,7 +413,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel2.setText("Р¤РёР»СЊС‚СЂ");
+        jLabel2.setText("Фильтр");
 
         TF_Customer.setNextFocusableComponent(JL_Customers);
 
@@ -450,21 +451,21 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         );
 
         JB_AddJOB.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        JB_AddJOB.setText("<html><center>Р’РЅРµСЃС‚Рё<br>Р·Р°РїРёСЃСЊ РІ<br>Р¶СѓСЂРЅР°Р»</html>");
+        JB_AddJOB.setText("<html><center>Внести<br>запись в<br>журнал</html>");
         JB_AddJOB.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JB_AddJOBActionPerformed(evt);
             }
         });
 
-        jClearButton1.setText("РћС‡РёСЃС‚РёС‚СЊ");
+        jClearButton1.setText("Очистить");
         jClearButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jClearButton1ActionPerformed(evt);
             }
         });
 
-        jButton4.setText("Р’С‹С…РѕРґ");
+        jButton4.setText("Выход");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
@@ -473,7 +474,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jPanel9.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel_Status.setText("<html>РЎС‚СЂРѕРєР°<br>СЃС‚Р°С‚СѓСЃР°</html>");
+        jLabel_Status.setText("<html>Строка<br>статуса</html>");
         jLabel_Status.setMaximumSize(new java.awt.Dimension(890, 35));
         jLabel_Status.setMinimumSize(new java.awt.Dimension(890, 35));
         jLabel_Status.setPreferredSize(new java.awt.Dimension(890, 35));
@@ -560,7 +561,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbedPane1.addTab("Р’РІРѕРґ РЅРѕРІС‹С… РўР—", jPanel1);
+        jTabbedPane1.addTab("Ввод новых ТЗ", jPanel1);
 
         jPanel3.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -568,23 +569,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText(" ");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-                .addGap(268, 268, 268))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel4)
-        );
-
-        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Р—Р°РґР°РЅРёСЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё"));
+        jPanel8.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED), "Задания для проверки"));
 
         jList_NotCheckedJobs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jList_NotCheckedJobs.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -598,44 +583,22 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel8.setLayout(jPanel8Layout);
         jPanel8Layout.setHorizontalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 895, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
         );
         jPanel8Layout.setVerticalGroup(
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        jButton_1Check_Save.setText("РЎРѕС…СЂР°РЅРёС‚СЊ");
-        jButton_1Check_Save.setEnabled(false);
-        jButton_1Check_Save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_1Check_SaveActionPerformed(evt);
-            }
-        });
-
-        jButton_1Check_Cancel.setText("РћС‚РјРµРЅРёС‚СЊ");
-        jButton_1Check_Cancel.setEnabled(false);
-        jButton_1Check_Cancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton_1Check_CancelActionPerformed(evt);
-            }
-        });
-
-        jButton5.setText("Р’С‹С…РѕРґ");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "РЎС‚Р°С‚СѓСЃС‹"));
+        jPanel10.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Статусы"));
 
         jLabel_Job_Number2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number2.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number2.setText("РЎС‚Р°С‚СѓСЃ РїРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё");
+        jLabel_Job_Number2.setText("Статус после проверки");
 
         jComboBox_Status_Of_Choice.setMaximumRowCount(5);
-        jComboBox_Status_Of_Choice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РЎР”Р•Р›РђР™РўР• Р’Р«Р‘РћР ", "РћРљ", "РќРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ С‚СЂРµР±РѕРІР°РЅРёСЏРј", "РќРµ С…РІР°С‚Р°РµС‚ РјР°С‚РµСЂРёР°Р»РѕРІ, С„Р°Р№Р»РѕРІ" }));
+        jComboBox_Status_Of_Choice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "ОК", "Не соответствует требованиям", "Не хватает материалов, файлов" }));
+        jComboBox_Status_Of_Choice.setEnabled(false);
         jComboBox_Status_Of_Choice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_Status_Of_ChoiceActionPerformed(evt);
@@ -644,9 +607,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_Job_Number3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number3.setText("Р’РёРґ СЂР°Р±РѕС‚С‹");
+        jLabel_Job_Number3.setText("Вид работы");
 
-        jComboBox_TypeOfWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РЎР”Р•Р›РђР™РўР• Р’Р«Р‘РћР ", "РР·РјРµРЅРµРЅРёСЏ", "РђРґР°РїС‚Р°С†РёСЏ", "РћС‚СЂРёСЃРѕРІРєР°", "Р Р°Р·СЂР°Р±РѕС‚РєР°" }));
+        jComboBox_TypeOfWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "Изменения", "Адаптация", "Отрисовка", "Разработка" }));
         jComboBox_TypeOfWork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_TypeOfWorkActionPerformed(evt);
@@ -654,9 +617,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Job_Number4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number4.setText("РЎР»РѕР¶РЅРѕСЃС‚СЊ");
+        jLabel_Job_Number4.setText("Сложность");
 
-        jComboBox_Difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РЎР”Р•Р›РђР™РўР• Р’Р«Р‘РћР ", "РћС‡РµРЅСЊ РЅРёР·РєР°СЏ", "РќРёР·РєР°СЏ", "РЎСЂРµРґРЅСЏСЏ", "Р’С‹СЃРѕРєР°СЏ", "РћС‡РµРЅСЊ РІС‹СЃРѕРєР°СЏ" }));
+        jComboBox_Difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "Очень низкая", "Низкая", "Средняя", "Высокая", "Очень высокая" }));
         jComboBox_Difficulty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_DifficultyActionPerformed(evt);
@@ -664,10 +627,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Job_Number5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number5.setText("Р’СЂРµРјСЏ РІ С‡Р°СЃР°С… РјРёРЅРёРјСѓРј");
+        jLabel_Job_Number5.setText("Время в часах минимум");
 
         jLabel_Job_Number6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number6.setText("Р’СЂРµРјСЏ РІ С‡Р°СЃР°С… РјР°РєСЃРёРјСѓРј");
+        jLabel_Job_Number6.setText("Время в часах максимум");
 
         jLabel_Max_Time.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Max_Time.setForeground(new java.awt.Color(0, 0, 204));
@@ -683,7 +646,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         CB_Designer.setMaximumSize(new java.awt.Dimension(266, 20));
         CB_Designer.setMinimumSize(new java.awt.Dimension(266, 20));
         CB_Designer.setPreferredSize(new java.awt.Dimension(266, 20));
-        CB_Designer.setRenderer(new CB_DataRenderer("Р’Р«Р‘Р•Р РРўР• Р”РР—РђР™РќР•Р Рђ"));
+        CB_Designer.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ ДИЗАЙНЕРА"));
         CB_Designer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_DesignerActionPerformed(evt);
@@ -691,9 +654,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Job_Number7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number7.setText("Р”РёР·Р°Р№РЅРµСЂ");
+        jLabel_Job_Number7.setText("Дизайнер");
 
-        jButton_Clear_CB_Designer.setText("<- РћС‡РёСЃС‚РёС‚СЊ");
+        jButton_Clear_CB_Designer.setText("<- Очистить");
         jButton_Clear_CB_Designer.setEnabled(false);
         jButton_Clear_CB_Designer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -711,7 +674,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addComponent(jLabel_Job_Number2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jComboBox_Status_Of_Choice, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jComboBox_Status_Of_Choice, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel10Layout.createSequentialGroup()
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel_Job_Number3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -720,23 +683,24 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel10Layout.createSequentialGroup()
+                                .addComponent(CB_Designer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jButton_Clear_CB_Designer, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+                            .addGroup(jPanel10Layout.createSequentialGroup()
                                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jComboBox_Difficulty, 0, 167, Short.MAX_VALUE)
                                     .addComponent(jComboBox_TypeOfWork, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(10, 10, 10)
-                                .addComponent(jLabel_Job_Number5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel_Min_Time, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(jLabel_Job_Number6)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel_Max_Time, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel10Layout.createSequentialGroup()
-                                .addComponent(CB_Designer, javax.swing.GroupLayout.PREFERRED_SIZE, 266, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton_Clear_CB_Designer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                .addContainerGap())
+                                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jLabel_Job_Number6, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel_Max_Time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel10Layout.createSequentialGroup()
+                                        .addComponent(jLabel_Job_Number5)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jLabel_Min_Time, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                .addGap(6, 6, 6))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -759,13 +723,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                     .addComponent(jLabel_Max_Time))
                 .addGap(7, 7, 7)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(CB_Designer, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CB_Designer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Job_Number7)
                     .addComponent(jButton_Clear_CB_Designer))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "РџСЂРёРјРµС‡Р°РЅРёРµ"));
+        jPanel11.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Примечание"));
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -778,11 +742,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel11.setLayout(jPanel11Layout);
         jPanel11Layout.setHorizontalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+            .addGroup(jPanel11Layout.createSequentialGroup()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addGap(3, 3, 3))
         );
         jPanel11Layout.setVerticalGroup(
             jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5)
+            .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         jPanel12.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -791,7 +757,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_CheckJobInfo.setFont(new java.awt.Font("Tahoma", 3, 11)); // NOI18N
         jLabel_CheckJobInfo.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel_CheckJobInfo.setText("Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂРѕРєСѓ РўР— РІ СЃРїРёСЃРєРµ СЃРІРµСЂС…Сѓ...");
+        jLabel_CheckJobInfo.setText("Выберите строку ТЗ в списке сверху...");
         jLabel_CheckJobInfo.setAlignmentX(1.0F);
         jLabel_CheckJobInfo.setAlignmentY(1.0F);
         jLabel_CheckJobInfo.setFocusable(false);
@@ -806,19 +772,68 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel12.setLayout(jPanel12Layout);
         jPanel12Layout.setHorizontalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.DEFAULT_SIZE, 789, Short.MAX_VALUE)
+            .addGroup(jPanel12Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel12Layout.setVerticalGroup(
             jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel12Layout.createSequentialGroup()
-                .addGap(2, 2, 2)
-                .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jCheckBox1.setText("РћРїРѕРІРµСЃС‚РёС‚СЊ РјРµРЅРµРґР¶РµСЂР° РїРѕ E-Mail");
+        jCheckBox1.setText("Оповестить менеджера по E-Mail");
         jCheckBox1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+
+        jButton_1Check_Save.setText("Сохранить");
+        jButton_1Check_Save.setEnabled(false);
+        jButton_1Check_Save.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_1Check_SaveActionPerformed(evt);
+            }
+        });
+
+        jButton_1Check_Cancel.setText("Отменить");
+        jButton_1Check_Cancel.setEnabled(false);
+        jButton_1Check_Cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton_1Check_CancelActionPerformed(evt);
+            }
+        });
+
+        jButton5.setText("Выход");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_1Check_Save, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton_1Check_Cancel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton_1Check_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton_1Check_Cancel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton5)
+                .addGap(4, 4, 4))
+        );
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -827,55 +842,45 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jCheckBox1)
-                                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, 793, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton_1Check_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton_1Check_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel12, javax.swing.GroupLayout.DEFAULT_SIZE, 890, Short.MAX_VALUE)))
+                .addGap(3, 3, 3))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton_1Check_Save, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton_1Check_Cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jPanel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(4, 4, 4)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(11, 11, 11))
+                            .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox1)
-                                .addGap(0, 0, Short.MAX_VALUE))))))
+                                .addComponent(jCheckBox1)))
+                        .addGap(12, 20, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
-        jTabbedPane1.addTab("РџРµСЂРІР°СЏ РїСЂРѕРІРµСЂРєР°", jPanel3);
+        jTabbedPane1.addTab("Первая проверка", jPanel3);
 
         jPanel4.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -886,14 +891,14 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jList_NotAssignedJobs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane4.setViewportView(jList_NotAssignedJobs);
 
-        CB_Designer_1.setRenderer(new CB_DataRenderer("Р’Р«Р‘Р•Р РРўР• Р”РР—РђР™РќР•Р Рђ"));
+        CB_Designer_1.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ ДИЗАЙНЕРА"));
         CB_Designer_1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_Designer_1ActionPerformed(evt);
             }
         });
 
-        jButton_AssigneDesigner.setText("РќР°Р·РЅР°С‡РёС‚СЊ");
+        jButton_AssigneDesigner.setText("Назначить");
         jButton_AssigneDesigner.setEnabled(false);
         jButton_AssigneDesigner.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -901,7 +906,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton_ClearAssigne.setText("РћС‡РёСЃС‚РёС‚СЊ");
+        jButton_ClearAssigne.setText("Очистить");
         jButton_ClearAssigne.setEnabled(false);
         jButton_ClearAssigne.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -909,7 +914,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setText("Р’С‹С…РѕРґ");
+        jButton3.setText("Выход");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -918,7 +923,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jCheckBox3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jCheckBox3.setSelected(true);
-        jCheckBox3.setText("РћРїРѕРІРµСЃС‚РёС‚СЊ РјРµРЅРµРґР¶РµСЂР° РїРѕ E-Mail");
+        jCheckBox3.setText("Оповестить менеджера по E-Mail");
         jCheckBox3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
         jButton_SendMail.setText("SendMail");
@@ -974,22 +979,23 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addGap(23, 23, 23))
         );
 
-        jTabbedPane1.addTab("РќР°Р·РЅР°С‡РµРЅРёРµ РСЃРїРѕР»РЅРёС‚РµР»СЏ", jPanel4);
+        jTabbedPane1.addTab("Назначение Исполнителя", jPanel4);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(4, 4, 4)
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(3, 3, 3)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 908, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(3, 3, 3)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 465, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -1010,101 +1016,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_jClearButton1ActionPerformed
 
     private void JB_AddJOBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JB_AddJOBActionPerformed
-        String output;
-        String statusHTML;
-        String query;
-        String query2 = "";
-        String rcpt1 = "nezhdanoff@itak.ua";
-        String rcpt;
-        String subj;
-        String body;
-
-        int i = JL_Customers.getSelectedIndex();
-        if (i >= 0) {
-            DefaultListModel Cust_List_Model = ((DefaultListModel) JL_Customers.getModel());
-            DefaultListModel KDO_Model = ((DefaultListModel) JL_KindList.getModel());
-            DefaultComboBoxModel Manager_LM = (DefaultComboBoxModel) CB_Manager.getModel();
-
-            String CName = ((CustomerDataObject) Cust_List_Model.getElementAt(i)).getCust_Name();
-            String MName = Manager_LM.getSelectedItem().toString();
-            String TM = TF_TM.getText();
-            int cust_ID = ((CustomerDataObject) Cust_List_Model.getElementAt(i)).getCust_ID();
-            int Job_NUM = Integer.parseInt(TF_Job_Number.getText());
-            int Job_NUM_INDEX = TF_Job_Number_Index.getText().length()>0 ? Integer.parseInt(TF_Job_Number_Index.getText()): 0;
-            int Manager_ID = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getField1();
-            String JobNumIndexStr = (Job_NUM_INDEX==0) ? "" : "/" + Integer.toString(Job_NUM_INDEX);
-
-            output = "Р—Р°РїРѕР»РЅРёР»: " + LB_FIO_Redactor.getText() + "\n";
-            output = output + "РўР— в„–: "
-                    + Job_NUM
-                    + JobNumIndexStr + "\n"
-                    + "РњРµРЅРµРґР¶РµСЂ: "
-                    + MName+ ";\n"
-                    + "Р—Р°РєР°Р·С‡РёРє: "
-                    + CName + "; \nРўРњ: " + TM + ";\n";
-
-            statusHTML = "<html><b>Р—Р°РїРёСЃСЊ РІРЅРµСЃРµРЅР° РІ Р±Р°Р·Сѓ:</b><bi> РўР— в„–: </bi>"
-                    + Job_NUM + JobNumIndexStr + "; "
-                    + "<bi>РњРµРЅРµРґР¶РµСЂ: </bi>"
-                    + MName + ";<br>"
-                    + "<bi>Р—Р°РєР°Р·С‡РёРє: </bi>"
-                    + CName + "; <bi>РўРњ: </bi>" + TM;
-
-            query = "INSERT INTO designers_jobs (Job_Number, Job_Number_Index, Create_Date, ID_Manager, ID_Customer, Trade_Mark) "
-                    + "  VALUES ("
-                    + Job_NUM + ","
-                    + Job_NUM_INDEX + ","
-                    + " NOW(), "
-                    + Manager_ID + ", "
-                    + cust_ID + ", '"
-                    + TM
-                    + "')";
-            int x = KDO_Model.getSize();
-            if (x > 0) {
-                query2 = "INSERT INTO kind_of_job (Job_ID, kind, volume, unit)  VALUES ";
-
-                for (int j = 0; j < x; j++) {
-                    output = output + "\t Р’РёРґ в„– "
-                            + Integer.toString(j + 1) + " - "
-                            + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
-                            + ";\n";
-
-                    statusHTML = statusHTML + " Р’РёРґ в„– "
-                            + Integer.toString(j + 1) + " - "
-                            + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
-                            + "; ";
-
-                    query2 = query2 + "(-###-, '"
-                            + ((KindDataObject) KDO_Model.getElementAt(j)).getKind().trim() + "', ";
-                    if (((KindDataObject) KDO_Model.getElementAt(j)).getVolume() == 0) {
-                        query2 = query2 + "NULL, ";
-                    } else {
-                        query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getVolume_toString().replace(",", ".").trim() + ", '";
-                    }
-                    if (((KindDataObject) KDO_Model.getElementAt(j)).getUnit() == null) {
-                        query2 = query2 + "NULL) ";
-                    } else {
-                        query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getUnit().trim() + "')";
-                    }
-                    if (j < KDO_Model.getSize() - 1) {
-                        query2 = query2 + ", ";
-                    }
-                }
-            }
-            if (JOptionPane.showConfirmDialog(null, output,
-                                              "Р’РЅРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ РІ Р±Р°Р·Сѓ?",
-                                              JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
-                conn.init();
-                conn.updateTransactionOneToMany(query, query2, "-###-");
-                conn.close();
-                jLabel_Status.setText(statusHTML);
-                Mailer.sendMailTo(rcpt1, "Р—Р°РґР°РЅРёРµ Р·РІСЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ РІ Р–СѓСЂРЅР°Р»Рµ" , output);
-            } else return;
-            clearTab_1();
-
-        }
-//                Mailer.sendMailTo(rcpt1, "Р—Р°РґР°РЅРёРµ Р·РІСЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ РІ Р–СѓСЂРЅР°Р»Рµ" , output);
+        checkBeforeAddJob();
     }//GEN-LAST:event_JB_AddJOBActionPerformed
 
     private void JL_CustomersValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_JL_CustomersValueChanged
@@ -1130,7 +1042,51 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_ManagerActionPerformed
 
     private void TF_Job_Number_IndexFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TF_Job_Number_IndexFocusLost
-        // TODO add your handling code here:
+
+        // подключаемся к базе и проверяем нет ли такого номера ТЗ
+        if (TF_Job_Number.getText().length() > 0 ) {
+                int jNum = Integer.parseInt(TF_Job_Number.getText());
+                int jIndex = (TF_Job_Number_Index.getText().length()> 0) ? Integer.parseInt(TF_Job_Number_Index.getText()): 0;
+                String Query = "CALL JobNumberIndexIsPresent("
+                        + jNum + ", "
+                        + jIndex + ")";
+                ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+                conn.init();
+                ResultSet rs = conn.query(Query);
+            try {
+                if (rs.next()) {
+                    /*
+                     * JOptionPane.showMessageDialog(null, "В этом году ТЗ с
+                     * таким номером уже есть!!!");
+                     * TF_Job_Number.grabFocus();
+                     * TF_Job_Number.selectAll();
+                     */
+                    TF_Job_Number_Index.setBackground(Color.red);
+                    TF_Job_Number_Index.setForeground(Color.yellow);
+                    TF_Job_Number.setBackground(Color.red);
+                    TF_Job_Number.setForeground(Color.yellow);
+
+                    JOptionPane.showMessageDialog(null,
+                                                  "В этом году ТЗ с номером: "
+                                                  + jNum
+                                                  + (jIndex == 0 ? "" : "/" + jIndex)
+                                                  + "  уже есть!!! "
+                    );
+                    TF_Job_Number_Index.grabFocus();
+                } else {
+                    TF_Job_Number_Index.setBackground(Color.white);
+                    TF_Job_Number_Index.setForeground(Color.black);
+                    TF_Job_Number.setBackground(Color.white);
+                    TF_Job_Number.setForeground(Color.black);
+
+
+                    }
+                } catch (SQLException ex) {
+                    Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                conn.close();
+
+        }
     }//GEN-LAST:event_TF_Job_Number_IndexFocusLost
 
     private void TF_Job_Number_IndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TF_Job_Number_IndexActionPerformed
@@ -1139,7 +1095,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
     private void TF_Job_NumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TF_Job_NumberFocusLost
 
-        // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РїСЂРѕРІРµСЂСЏРµРј РЅРµС‚ Р»Рё С‚Р°РєРѕРіРѕ РЅРѕРјРµСЂР° РўР—
+        // подключаемся к базе и проверяем нет ли такого номера ТЗ
         if (TF_Job_Number.getText().length() > 0) {
             try {
                 int jNum = Integer.parseInt(TF_Job_Number.getText().trim());
@@ -1149,7 +1105,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 ResultSet rs = conn.query(Query);
                 try {
                     if (rs.next()) {
-                        /*                        JOptionPane.showMessageDialog(null, "Р’ СЌС‚РѕРј РіРѕРґСѓ РўР— СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј СѓР¶Рµ РµСЃС‚СЊ!!!");
+                        /*                        JOptionPane.showMessageDialog(null, "В этом году ТЗ с таким номером уже есть!!!");
                          * TF_Job_Number.grabFocus();
                          * TF_Job_Number.selectAll();
                          */
@@ -1165,7 +1121,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 }
                 conn.close();
             } catch (NumberFormatException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, "Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РІ РїРѕР»Рµ [в„– РўР—]");
+                JOptionPane.showMessageDialog(null, "Введите число в поле [№ ТЗ]");
                 TF_Job_Number.grabFocus();
                 TF_Job_Number.selectAll();
             }
@@ -1234,14 +1190,16 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
     private void jList_NotCheckedJobsValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_jList_NotCheckedJobsValueChanged
         int i = jList_NotCheckedJobs.getSelectedIndex();
-        Object obj = jList_NotCheckedJobs.getModel().getElementAt(i);
-        if (obj instanceof JobDataObject_Full) {
-            JobDataObject_Full item = (JobDataObject_Full) obj;
+        if (i>=0){
+        DefaultListModel dlm = (DefaultListModel) jList_NotCheckedJobs.getModel();
+        JobDataObject_Full item = ((JobDataObject_Full)dlm.getElementAt(i));
 //            JL_Cust_ID.setText(Integer.toString(item.getCust_ID()));
             jLabel_CheckJobInfo.setText(item.toStringHTML());
+            jComboBox_Status_Of_Choice.setEnabled(true);
             jButton_1Check_Save.setEnabled(true);
             jButton_1Check_Cancel.setEnabled(true);
         }
+ //       else JOptionPane.showMessageDialog(null, "Не выбрано ТЗ из списка!!!");
     }//GEN-LAST:event_jList_NotCheckedJobsValueChanged
 
     private void jButton_1Check_CancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_1Check_CancelActionPerformed
@@ -1305,7 +1263,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_JL_KindListValueChanged
 
     private void jButton_SendMailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_SendMailActionPerformed
-                Mailer.sendMailTo("nezhdanoff@itak.ua", "Р—Р°РґР°РЅРёРµ Р·РІСЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ РІ Р–СѓСЂРЅР°Р»Рµ" , "TEST");
+                Mailer.sendMailTo("nezhdanoff@itak.ua", "Задание зврегистрировано в Журнале" , "TEST");
     }//GEN-LAST:event_jButton_SendMailActionPerformed
 
     /**
@@ -1379,7 +1337,6 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox_TypeOfWork;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -1443,12 +1400,12 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         ResultSet rs = conn.query(Query);
         try {
             while (rs.next()) {
-                // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
+                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
                 CustomerDataObject Customer_Object = new CustomerDataObject(
                         rs.getInt("cust_ID"),
                         rs.getString("cust_Alias"),
                         rs.getString("cust_Name"));
-                // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
+                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
                 dlm.addElement(Customer_Object);
             }
             JL_Customers.setModel(dlm);
@@ -1526,6 +1483,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jComboBox_Status_Of_Choice.setSelectedIndex(0);
         jComboBox_TypeOfWork.setSelectedIndex(0);
         jComboBox_Difficulty.setSelectedIndex(0);
+        jComboBox_Status_Of_Choice.setEnabled(false);
         jComboBox_TypeOfWork.setEnabled(false);
         jComboBox_Difficulty.setEnabled(false);
         jTextArea1.setEnabled(false);
@@ -1533,7 +1491,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Min_Time.setText("0");
         jLabel_Max_Time.setText("0");
         fillJobListObjectsList();
-        jLabel_CheckJobInfo.setText("Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂРѕРєСѓ РўР— РІ СЃРїРёСЃРєРµ СЃРІРµСЂС…Сѓ...");
+        jLabel_CheckJobInfo.setText("Выберите строку ТЗ в списке сверху...");
     }
 
     void cleanAssigneDesignerTab() {
@@ -1564,18 +1522,131 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         conn.close();
     }
 
+    void checkBeforeAddJob(){
+
+        String output;
+        String statusHTML;
+        String query;
+        String query2 = "";
+        String rcpt1 = "nezhdanoff@itak.ua";
+        String subj;
+        String body;
+
+        // Проверим, выбран ли Менеджер...
+        if (CB_Manager.getSelectedIndex() >=0){
+        String rcpt = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getEmp_EMail();
+        } else {
+            JOptionPane.showMessageDialog(null, "Не выбран Менеджер");
+            CB_Manager.grabFocus();
+            return;
+        }
+
+
+        int i = JL_Customers.getSelectedIndex();
+        if (i >= 0) {
+            DefaultListModel Cust_List_Model = ((DefaultListModel) JL_Customers.getModel());
+            DefaultListModel KDO_Model = ((DefaultListModel) JL_KindList.getModel());
+            DefaultComboBoxModel Manager_LM = (DefaultComboBoxModel) CB_Manager.getModel();
+
+
+            String CName = ((CustomerDataObject) Cust_List_Model.getElementAt(i)).getCust_Name();
+            String MName = Manager_LM.getSelectedItem().toString();
+            String TM = TF_TM.getText();
+            int cust_ID = ((CustomerDataObject) Cust_List_Model.getElementAt(i)).getCust_ID();
+            int Job_NUM = Integer.parseInt(TF_Job_Number.getText());
+            int Job_NUM_INDEX = TF_Job_Number_Index.getText().length()>0 ? Integer.parseInt(TF_Job_Number_Index.getText()): 0;
+            int Manager_ID = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getField1();
+            String JobNumIndexStr = (Job_NUM_INDEX==0) ? "" : "/" + Integer.toString(Job_NUM_INDEX);
+
+            output = "Заполнил: " + LB_FIO_Redactor.getText() + "\n";
+            output = output + "ТЗ №: "
+                    + Job_NUM
+                    + JobNumIndexStr + "\n"
+                    + "Менеджер: "
+                    + MName+ ";\n"
+                    + "Заказчик: "
+                    + CName + "; \nТМ: " + TM + ";\n";
+
+            statusHTML = "<html><b>Запись внесена в базу:</b><bi> ТЗ №: </bi>"
+                    + Job_NUM + JobNumIndexStr + "; "
+                    + "<bi>Менеджер: </bi>"
+                    + MName + ";<br>"
+                    + "<bi>Заказчик: </bi>"
+                    + CName + "; <bi>ТМ: </bi>" + TM;
+
+            query = "INSERT INTO designers_jobs (Job_Number, Job_Number_Index, Create_Date, ID_Manager, ID_Customer, Trade_Mark) "
+                    + "  VALUES ("
+                    + Job_NUM + ","
+                    + Job_NUM_INDEX + ","
+                    + " NOW(), "
+                    + Manager_ID + ", "
+                    + cust_ID + ", '"
+                    + TM
+                    + "')";
+            int x = KDO_Model.getSize();
+            if (x > 0) {
+                query2 = "INSERT INTO kind_of_job (Job_ID, kind, volume, unit)  VALUES ";
+
+                for (int j = 0; j < x; j++) {
+                    output = output + "\t Вид № "
+                            + Integer.toString(j + 1) + " - "
+                            + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
+                            + ";\n";
+
+                    statusHTML = statusHTML + " Вид № "
+                            + Integer.toString(j + 1) + " - "
+                            + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
+                            + "; ";
+
+                    query2 = query2 + "(-###-, '"
+                            + ((KindDataObject) KDO_Model.getElementAt(j)).getKind().trim() + "', ";
+                    if (((KindDataObject) KDO_Model.getElementAt(j)).getVolume() == 0) {
+                        query2 = query2 + "NULL, ";
+                    } else {
+                        query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getVolume_toString().replace(",", ".").trim() + ", '";
+                    }
+                    if (((KindDataObject) KDO_Model.getElementAt(j)).getUnit() == null) {
+                        query2 = query2 + "NULL) ";
+                    } else {
+                        query2 = query2 + ((KindDataObject) KDO_Model.getElementAt(j)).getUnit().trim() + "')";
+                    }
+                    if (j < KDO_Model.getSize() - 1) {
+                        query2 = query2 + ", ";
+                    }
+                }
+            }
+            if (JOptionPane.showConfirmDialog(null, output,
+                                              "Внести информацию в базу?",
+                                              JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+                ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+                conn.init();
+                conn.updateTransactionOneToMany(query, query2, "-###-");
+                conn.close();
+                jLabel_Status.setText(statusHTML);
+                Mailer.sendMailTo(rcpt1, "Задание зврегистрировано в Журнале" , output);
+            } else return;
+            clearTab_1();
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Не выбран Заказчик");
+            JL_Customers.grabFocus();
+        }
+    }
+
     void checkBeforeSaveFirstCheck() {
         int i = jList_NotCheckedJobs.getSelectedIndex();
         int status = jComboBox_Status_Of_Choice.getSelectedIndex();
         int type = jComboBox_TypeOfWork.getSelectedIndex();
         int difficulty = jComboBox_Difficulty.getSelectedIndex();
         int designer = CB_Designer.getSelectedIndex();
+        String rcpt1 = "nezhdanoff@itak.ua";
+
 //        int designer = ((ComboBoxDataObject) CB_Designer.getSelectedItem()).getField1();
-        //РџСЂРѕРІРµСЂСЏРµРј, РІС‹Р±СЂР°РЅ Р»Рё РўР— РІ СЃРїРёСЃРєРµ
+        //Проверяем, выбран ли ТЗ в списке
         if (i >= 0) {
-            // Р•СЃР»Рё РІС‹Р±СЂР°РЅ, РїСЂРѕРІРµСЂСЏРµРј РІС‹Р±СЂР°РЅ Р»Рё РЎРўРђРўРЈРЎ РїСЂРѕРІРµСЂРєРё
+            // Если выбран, проверяем выбран ли СТАТУС проверки
             if (status > 0) {
-                //РџРѕР»СѓС‡Р°РµРј РћР±СЉРµРєС‚ РўР—
+                //Получаем Объект ТЗ
                 String query;
                 String query1;
                 Object obj = jList_NotCheckedJobs.getModel().getElementAt(i);
@@ -1586,7 +1657,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                             + "Check_1_Status_ID = "
                             + Integer.toString(status) ;
                     query1 = " WHERE ID = " + Integer.toString(item.getJob_ID());
-                    // Р•СЃР»Рё РІС‹Р±СЂР°РЅ РЎРўРђРўРЈРЎ, РїСЂРѕРІРµСЂСЏРµРј РІС‹Р±СЂР°РЅС‹ Р»Рё РўРёРїР Р°Р±РѕС‚С‹ Рё РЎР»РѕР¶РЅРѕСЃС‚СЊ
+                    // Если выбран СТАТУС, проверяем выбраны ли ТипРаботы и Сложность
                     if (type > 0 && difficulty > 0) {
                         query = query
                                 + ", Type_Of_Work_ID = "
@@ -1600,40 +1671,40 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         }
                     } else {
                         if (status == 1) {
-                            JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ РўРёРї СЂР°Р±РѕС‚С‹ Рё РЎР»РѕР¶РЅРѕСЃС‚СЊ!");
+                            JOptionPane.showMessageDialog(null, "Не выбран Тип работы и Сложность!");
                             return;
                         }
                     }
-                    JOptionPane.showMessageDialog(null, "SQL: \n" + query + "\n" + query1);
+//                    JOptionPane.showMessageDialog(null, "SQL: \n" + query + "\n" + query1);
                     ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
                     conn.init();
                     conn.updateQuery(query + query1);
                     conn.close();
+
+                    Mailer.sendMailTo(rcpt1, "Задание проверено" , "Задание проверено");
                 }
-            } else  JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ РЎС‚Р°С‚СѓСЃ РўР— РїРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё!");
-        } else  JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅРѕ РўР— РёР· СЃРїРёСЃРєР°!");
+            } else  JOptionPane.showMessageDialog(null, "Не выбран Статус ТЗ после проверки!");
+        } else  JOptionPane.showMessageDialog(null, "Не выбрано ТЗ из списка!");
     }
 
     void checkBeforeSaveAssigneDesigner() {
 
         int i = jList_NotAssignedJobs.getSelectedIndex();
         int designer = CB_Designer_1.getSelectedIndex();
-        //РџСЂРѕРІРµСЂСЏРµРј, РІС‹Р±СЂР°РЅ Р»Рё РўР— РІ СЃРїРёСЃРєРµ
+        //Проверяем, выбран ли ТЗ в списке
         if (i >= 0) {
-            // Р•СЃР»Рё РІС‹Р±СЂР°РЅ, РїСЂРѕРІРµСЂСЏРµРј РІС‹Р±СЂР°РЅ Р»Рё Р”РёР·Р°Р№РЅРµСЂ
-            if (designer > 0) {
-                //РџРѕР»СѓС‡Р°РµРј РћР±СЉРµРєС‚ РўР—
-                Object obj = jList_NotAssignedJobs.getModel().getElementAt(i);
-                if (obj instanceof JobDataObject_Full) {
-                    JobDataObject_Full item = (JobDataObject_Full) obj;
-                    assigneDesignerDB(((ComboBoxDataObject) CB_Designer_1.getSelectedItem()).getField1(),
-                                      item.getJob_ID());
-                }
+            // Если выбран, проверяем выбран ли Дизайнер
+            if (designer >= 0) {
+                //Получаем Объект ТЗ
+                DefaultListModel dlm = (DefaultListModel) jList_NotAssignedJobs.getModel();
+                JobDataObject_Full item = ((JobDataObject_Full) dlm.getElementAt(i));
+                int designer_ID = ((ComboBoxDataObject) CB_Designer_1.getSelectedItem()).getField1();
+                assigneDesignerDB(designer_ID, item.getJob_ID());
             } else {
-                JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ РЎС‚Р°С‚СѓСЃ РўР— РїРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё!");
+                JOptionPane.showMessageDialog(null, "Не выбран Дизайнер!");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅРѕ РўР— РёР· СЃРїРёСЃРєР°!");
+            JOptionPane.showMessageDialog(null, "Не выбрано ТЗ из списка!");
         }
     }
 
@@ -1646,7 +1717,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         try {
         DefaultComboBoxModel cbm = new DefaultComboBoxModel();
             while (rs.next()) {
-                // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
+                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
                 UserDataObjectWithEmail CB_Object = new UserDataObjectWithEmail(rs.getInt("emp_ID"),
                         rs.getString("emp_Surname"),
                         rs.getString("emp_Name"),
@@ -1656,10 +1727,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         rs.getString("dep_Name"),
                         rs.getInt("pos_ID"),
                         rs.getString("pos_Name"));
-                // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
+                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
                 cbm.addElement(CB_Object);
             }
-            // Р’РЎРўРђР’Р›РЇР•Рњ Р”РђРќРќР«Р• РњРћР”Р•Р›Р Р’ ComboBox
+            // ВСТАВЛЯЕМ ДАННЫЕ МОДЕЛИ В ComboBox
             CB_Manager.setModel(cbm);
         } catch (SQLException ex) {
             Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
@@ -1670,8 +1741,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }
 
 void fillDesignerComboBox(){
-        // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РІС‹С‚Р°СЃРєРёРІР°РµРј РёР· РЅРµРµ РґР°РЅРЅС‹Рµ
-        // Р—Р°РїРѕР»РЅСЏРµРј ComboBox РњРµРЅРµРґР¶РµСЂС‹
+        // подключаемся к базе и вытаскиваем из нее данные
+        // Заполняем ComboBox Менеджеры
         String Query = "SELECT "
                 + "employers.ID AS emp_ID, "
                 + "CONCAT_WS(' ', employers.surname , employers.name) AS emp_Name "
@@ -1684,14 +1755,14 @@ void fillDesignerComboBox(){
         ResultSet rs = conn.query(Query);
         try {
             while (rs.next()) {
-                // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
+                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
                 ComboBoxDataObject CB_Object = new ComboBoxDataObject(
                         rs.getInt("emp_ID"),
                         rs.getString("emp_Name"));
-                // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
+                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
                 Designer_CB_Model.addElement(CB_Object);
             }
-            // Р’РЎРўРђР’Р›РЇР•Рњ Р”РђРќРќР«Р• РњРћР”Р•Р›Р Р’ ComboBox
+            // ВСТАВЛЯЕМ ДАННЫЕ МОДЕЛИ В ComboBox
             CB_Designer.setModel(Designer_CB_Model);
             CB_Designer_1.setModel(Designer_CB_Model);
         } catch (SQLException ex) {

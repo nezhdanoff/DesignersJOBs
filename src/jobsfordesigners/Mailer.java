@@ -12,19 +12,19 @@ import java.net.*;
  * @author Nezhdanoff
  */
 public class Mailer {
-   static PrintStream ps = null;          // РїРѕСЃС‹Р»РєР° СЃРѕРѕР±С‰РµРЅРёР№
-   static DataInputStream dis = null;     // РїРѕР»СѓС‡РµРЅРёРµ СЃРѕРѕР±С‰РµРЅРёР№
+   static PrintStream ps = null;          // посылка сообщений
+   static DataInputStream dis = null;     // получение сообщений
 
    public static void send(String str) throws IOException
      {
-        ps.println(str);      // РїРѕСЃС‹Р»РєР° СЃС‚СЂРѕРєРё РЅР° SMTP
-        ps.flush();           // РѕС‡РёСЃС‚РєР° Р±СѓС„РµСЂР°
+        ps.println(str);      // посылка строки на SMTP
+        ps.flush();           // очистка буфера
         System.out.println("Java sent: " + str);
      }
 
    public static void receive() throws IOException
      {
-        String readstr = dis.readLine();  // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° РѕС‚ SMTP
+        String readstr = dis.readLine();  // получение ответа от SMTP
         System.out.println("SMTP respons: " + readstr);
      }
     public static void sendMailTo(String rcpt, String subj, String body) {
@@ -33,15 +33,15 @@ public class Mailer {
         String MAIL_FROM = "MAIL FROM: <reprocentr@itak.ua> ";
         String RCPT_TO = "RCPT TO: <" + rcpt + "> ";
         String SUBJECT = "SUBJECT: " + subj;
-        String DATA = "DATA ";    // РЅР°С‡Р°Р»Рѕ СЃРѕРѕР±С‰РµРЅРёСЏ*/
+        String DATA = "DATA ";    // начало сообщения*/
 
 
-        // Р·Р°РјРµС‚РєР°: "\r\n.\r\n" СѓРєР°Р·С‹РІР°РµС‚ РЅР° РєРѕРЅРµС† СЃРѕРѕР±С‰РµРЅРёСЏ
+        // заметка: "\r\n.\r\n" указывает на конец сообщения
         String BODY = body + "\r\n.\r\n";
 
-        Socket smtp = null;     // СЃРѕРєРµС‚ SMTP
+        Socket smtp = null;     // сокет SMTP
 
-        try {  // Р·Р°РјРµС‚РєР°: 25 - СЌС‚Рѕ СЃС‚Р°РЅРґР°СЂС‚РЅС‹Р№ РЅРѕРјРµСЂ РїРѕСЂС‚Р° SMTP
+        try {  // заметка: 25 - это стандартный номер порта SMTP
             smtp = new Socket("192.168.0.1", 25);
             OutputStream os = smtp.getOutputStream();
             ps = new PrintStream(os);
@@ -53,20 +53,20 @@ public class Mailer {
             System.out.println("Error connection: " + e);
           }
 
-        try {  // СЃРєР°Р¶РµРј SMTP helo
+        try {  // скажем SMTP helo
             String loc = InetAddress.getLocalHost().getHostName();
             send(HELO + loc);
-            receive();          // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° SMTP
-            send(MAIL_FROM);    // РїРѕСЃС‹Р»РєР° РЅР° SMTP
-            receive();          // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° SMTP
-            send(RCPT_TO);      // РїРѕСЃС‹Р»РєР° Р°РґСЂРµСЃР°С‚Сѓ SMTP
-            receive();          // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° SMTP
-            send(DATA);         // РЅР°С‡РёРЅР°РµС‚СЃСЏ РїРѕСЃС‹Р»РєР° РЅР° SMTP
-            receive();          // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° SMTP
-            send(SUBJECT);      // РїРѕСЃС‹Р»РєР° С‚РµРјС‹ РЅР° SMTP
-            receive();          // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° SMTP
-            send(BODY);         // РїРѕСЃС‹Р»РєР° С‚РµР»Р° СЃРѕРѕР±С‰РµРЅРёСЏ
-            receive();          // РїРѕР»СѓС‡РµРЅРёРµ РѕС‚РІРµС‚Р° SMTP
+            receive();          // получение ответа SMTP
+            send(MAIL_FROM);    // посылка на SMTP
+            receive();          // получение ответа SMTP
+            send(RCPT_TO);      // посылка адресату SMTP
+            receive();          // получение ответа SMTP
+            send(DATA);         // начинается посылка на SMTP
+            receive();          // получение ответа SMTP
+            send(SUBJECT);      // посылка темы на SMTP
+            receive();          // получение ответа SMTP
+            send(BODY);         // посылка тела сообщения
+            receive();          // получение ответа SMTP
             smtp.close();       //
           }
         catch (IOException e)

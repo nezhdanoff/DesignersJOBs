@@ -36,7 +36,7 @@ public class ComboBoxDataObject {
         @Override
        public String toString()
         {
-//            return " РљРѕРґ : " + Integer.toString(field1) + " - " + field2;
+//            return " Код : " + Integer.toString(field1) + " - " + field2;
             return field2;
         }
         
