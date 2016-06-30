@@ -70,7 +70,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel_Job_Number9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="TF_Job_Number1" min="-2" pref="28" max="-2" attributes="0"/>
+                              <Component id="TF_Job_Number_Index" min="-2" pref="28" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="jLabel_Job_Number1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -91,7 +91,7 @@
                               <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
-                              <Component id="jPanel9" min="-2" pref="885" max="-2" attributes="0"/>
+                              <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="0" pref="15" max="32767" attributes="0"/>
                           </Group>
                       </Group>
@@ -107,7 +107,7 @@
                           <Component id="TF_Job_Number" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel_Job_Number" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel_Job_Number9" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="TF_Job_Number1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="TF_Job_Number_Index" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel_Job_Number1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="CB_Manager" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="LB_FIO_Redactor" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -259,6 +259,9 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="TF_Volume">
                   <Properties>
+                    <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                      <Connection code="new PlainDocument() {&#xa;            String chars = &quot;0123456789.,&quot;;&#xa;            @Override&#xa;            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {&#xa;                if (chars.contains(str)) {&#xa;                    if (getLength()&lt; 6) {&#xa;                        super.insertString(offs, str, a);&#xa;                    }&#xa;                }&#xa;            }&#xa;        }" type="code"/>
+                    </Property>
                     <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                       <ComponentRef name="CB_Unit"/>
                     </Property>
@@ -297,9 +300,7 @@
                       <SubComponents>
                         <Component class="javax.swing.JList" name="JL_KindList">
                           <Properties>
-                            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                              <Connection code="KDO_Model" type="code"/>
-                            </Property>
+                            <Property name="selectionMode" type="int" value="0"/>
                           </Properties>
                           <Events>
                             <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="JL_KindListValueChanged"/>
@@ -395,8 +396,12 @@
             </Component>
             <Component class="javax.swing.JTextField" name="TF_Job_Number">
               <Properties>
+                <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new PlainDocument() {&#xa;            String chars = &quot;0123456789&quot;;&#xa;&#xa;            @Override&#xa;            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {&#xa;                if (chars.indexOf(str) != -1) {&#xa;                    if (getLength()&lt; 5) {&#xa;                        super.insertString(offs, str, a);&#xa;                    }&#xa;                }&#xa;            }&#xa;        }" type="code"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="4"/>
                 <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
-                  <ComponentRef name="CB_Manager"/>
+                  <ComponentRef name="TF_Job_Number_Index"/>
                 </Property>
               </Properties>
               <Events>
@@ -413,15 +418,18 @@
                 <Property name="text" type="java.lang.String" value="/"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JTextField" name="TF_Job_Number1">
+            <Component class="javax.swing.JTextField" name="TF_Job_Number_Index">
               <Properties>
+                <Property name="document" type="javax.swing.text.Document" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
+                  <Connection code="new PlainDocument() {&#xa;            String chars = &quot;0123456789&quot;;&#xa;&#xa;            @Override&#xa;            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {&#xa;                if (chars.indexOf(str) != -1) {&#xa;                    if (getLength()&lt; 3) {&#xa;                        super.insertString(offs, str, a);&#xa;                    }&#xa;                }&#xa;            }&#xa;        }" type="code"/>
+                </Property>
                 <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                   <ComponentRef name="CB_Manager"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_Job_Number1ActionPerformed"/>
-                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TF_Job_Number1FocusLost"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TF_Job_Number_IndexActionPerformed"/>
+                <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="TF_Job_Number_IndexFocusLost"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel_Job_Number1">
@@ -435,9 +443,6 @@
             </Component>
             <Component class="javax.swing.JComboBox" name="CB_Manager">
               <Properties>
-                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                  <Connection code="Manager_CB_Model" type="code"/>
-                </Property>
                 <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                   <ComponentRef name="TF_Customer"/>
                 </Property>
@@ -530,9 +535,6 @@
                   <SubComponents>
                     <Component class="javax.swing.JList" name="JL_Customers">
                       <Properties>
-                        <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                          <Connection code="Customer_List_Model" type="code"/>
-                        </Property>
                         <Property name="nextFocusableComponent" type="java.awt.Component" editor="org.netbeans.modules.form.ComponentChooserEditor">
                           <ComponentRef name="TF_TM"/>
                         </Property>
@@ -587,18 +589,18 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jLabel_Status" min="-2" pref="880" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel_Status" pref="861" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
-                          <Component id="jLabel_Status" min="-2" pref="27" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="19" max="32767" attributes="0"/>
+                          <Component id="jLabel_Status" min="-2" pref="35" max="-2" attributes="0"/>
+                          <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>

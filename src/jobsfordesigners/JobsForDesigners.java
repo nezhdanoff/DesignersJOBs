@@ -17,11 +17,11 @@ public class JobsForDesigners {
         public static final String SERVER = "PC-117:3306";
 //        public static final String SERVER = "localhost:3306";
     // имя пользователя MySQL сервера
-//        public static final String USER = "itak_user";
-        public static final String USER = "Ed";
+        public static final String USER = "itak_user";
+//        public static final String USER = "Ed";
     // пароль пользователя MySQL сервера
-//        public static final String PASSWORD = "";
-        public static final String PASSWORD = "123";
+        public static final String PASSWORD = "";
+//        public static final String PASSWORD = "123";
     // имя Базы Данных MySQL сервера
         public static final String BASE = "itak";
         public static  UserDataObject User = null;

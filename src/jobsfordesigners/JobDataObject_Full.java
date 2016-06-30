@@ -195,10 +195,18 @@ public class JobDataObject_Full {
 
     @Override
     public String toString() {
-        return "ТЗ№-" + job_Number + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex)) + "; " + job_Manager.getEmp_SurName() + "; " + job_Customer.getCust_Name()+ "; " + job_TM + "; " + job_KindString + '.';
+        return "ТЗ№-" + job_Number
+                + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex))
+                + "; " + job_Manager.getEmp_SurName() + "; "
+                + job_Customer.getCust_Name()+ "; "
+                + job_TM + "; " + job_KindString + '.';
     }
 
     public String toStringHTML() {
-        return "<html>ТЗ№-" + job_Number + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex)) + "; " + job_Manager.getEmp_SurName() + "; <br>" + job_Customer.getCust_Name()+ "; " + job_TM + "; " + job_KindString + ".</html>";
+        return "<html>ТЗ№-" + job_Number
+                + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex))
+                + "; " + job_Manager.getEmp_SurName()
+                + "; <br>" + job_Customer.getCust_Name()+ "; "
+                + job_TM + "; " + job_KindString + ".</html>";
     }
 }
