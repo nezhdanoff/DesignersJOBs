@@ -133,6 +133,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jPanel9 = new javax.swing.JPanel();
         jLabel_Status = new javax.swing.JLabel();
+        jCheckBox_New_Job_Mail = new javax.swing.JCheckBox();
         jPanel3 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -156,7 +157,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jPanel12 = new javax.swing.JPanel();
         jLabel_CheckJobInfo = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox_First_Check_Mail = new javax.swing.JCheckBox();
         jPanel7 = new javax.swing.JPanel();
         jButton_1Check_Save = new javax.swing.JButton();
         jButton_1Check_Cancel = new javax.swing.JButton();
@@ -487,7 +488,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 861, Short.MAX_VALUE)
+                .addComponent(jLabel_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel9Layout.setVerticalGroup(
@@ -496,6 +497,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addComponent(jLabel_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 4, Short.MAX_VALUE))
         );
+
+        jCheckBox_New_Job_Mail.setSelected(true);
+        jCheckBox_New_Job_Mail.setText("Оповестить по E-Mail");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -520,17 +524,20 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         .addComponent(LB_FIO_Redactor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(6, 6, 6))
                     .addComponent(jPanel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jClearButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JB_AddJOB, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                            .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(8, 8, 8))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 15, Short.MAX_VALUE)))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 737, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(jClearButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(JB_AddJOB, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 5, Short.MAX_VALUE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jCheckBox_New_Job_Mail)
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(jPanel9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(6, 6, 6))
         );
         jPanel1Layout.setVerticalGroup(
@@ -548,15 +555,17 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(JB_AddJOB)
+                        .addComponent(jCheckBox_New_Job_Mail)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(JB_AddJOB, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jClearButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jClearButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(3, 3, 3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -784,9 +793,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addGap(0, 6, Short.MAX_VALUE))
         );
 
-        jCheckBox1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jCheckBox1.setText("Оповестить менеджера по E-Mail");
-        jCheckBox1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
+        jCheckBox_First_Check_Mail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jCheckBox_First_Check_Mail.setText("Оповестить менеджера по E-Mail");
+        jCheckBox_First_Check_Mail.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
 
         jButton_1Check_Save.setText("Сохранить");
         jButton_1Check_Save.setEnabled(false);
@@ -849,7 +858,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                                 .addComponent(jPanel10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckBox1)
+                                    .addComponent(jCheckBox_First_Check_Mail)
                                     .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -872,7 +881,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addComponent(jPanel11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jCheckBox1)))
+                                .addComponent(jCheckBox_First_Check_Mail)))
                         .addGap(12, 20, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -940,30 +949,31 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 883, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(CB_Designer_1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCheckBox3)))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(jButton_SendMail)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_ClearAssigne, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton_AssigneDesigner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(0, 412, Short.MAX_VALUE)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(CB_Designer_1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jCheckBox3)))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jButton_SendMail)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_ClearAssigne, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton_AssigneDesigner, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 92, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(139, 139, 139)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(92, 92, 92)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(149, 149, 149)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(CB_Designer_1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1329,8 +1339,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Clear_CB_Designer;
     private javax.swing.JButton jButton_SendMail;
     private javax.swing.JButton jButton__DeleteKind;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JCheckBox jCheckBox_First_Check_Mail;
+    private javax.swing.JCheckBox jCheckBox_New_Job_Mail;
     private javax.swing.JButton jClearButton1;
     private javax.swing.JComboBox<String> jComboBox_Difficulty;
     private javax.swing.JComboBox<String> jComboBox_Status_Of_Choice;
@@ -1477,7 +1488,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         conn.close();
     }
     void cleanFirstCheckTab() {
-        jCheckBox1.setSelected(true);
+        jCheckBox_First_Check_Mail.setSelected(true);
         jButton_1Check_Save.setEnabled(false);
         jButton_1Check_Cancel.setEnabled(false);
         jComboBox_Status_Of_Choice.setSelectedIndex(0);
@@ -1529,12 +1540,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String query;
         String query2 = "";
         String rcpt1 = "nezhdanoff@itak.ua";
+        String rcpt;
         String subj;
         String body;
 
         // Проверим, выбран ли Менеджер...
         if (CB_Manager.getSelectedIndex() >=0){
-        String rcpt = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getEmp_EMail();
+        rcpt = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getEmp_EMail();
         } else {
             JOptionPane.showMessageDialog(null, "Не выбран Менеджер");
             CB_Manager.grabFocus();
@@ -1558,14 +1570,17 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             int Manager_ID = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getField1();
             String JobNumIndexStr = (Job_NUM_INDEX==0) ? "" : "/" + Integer.toString(Job_NUM_INDEX);
 
-            output = "Заполнил: " + LB_FIO_Redactor.getText() + "\n";
-            output = output + "ТЗ №: "
+
+            output =  "ТЗ №: "
                     + Job_NUM
                     + JobNumIndexStr + "\n"
                     + "Менеджер: "
                     + MName+ ";\n"
                     + "Заказчик: "
                     + CName + "; \nТМ: " + TM + ";\n";
+            subj = "ТЗ №: "
+                    + Job_NUM
+                    + JobNumIndexStr + " зарегистрировано в Журнале Заказов";
 
             statusHTML = "<html><b>Запись внесена в базу:</b><bi> ТЗ №: </bi>"
                     + Job_NUM + JobNumIndexStr + "; "
@@ -1614,6 +1629,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         query2 = query2 + ", ";
                     }
                 }
+                output = output + "\t\t\tЗаполнил: " + LB_FIO_Redactor.getText() + "\n";
             }
             if (JOptionPane.showConfirmDialog(null, output,
                                               "Внести информацию в базу?",
@@ -1623,8 +1639,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 conn.updateTransactionOneToMany(query, query2, "-###-");
                 conn.close();
                 jLabel_Status.setText(statusHTML);
-                Mailer.sendMailTo(rcpt1, "Задание зврегистрировано в Журнале" , output);
-            } else return;
+                if (jCheckBox_New_Job_Mail.isSelected()) {
+                    Mailer.sendMailTo(rcpt, subj, output);
+                }
+            } else
+                return;
             clearTab_1();
 
         } else {
@@ -1639,35 +1658,83 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         int type = jComboBox_TypeOfWork.getSelectedIndex();
         int difficulty = jComboBox_Difficulty.getSelectedIndex();
         int designer = CB_Designer.getSelectedIndex();
+
         String rcpt1 = "nezhdanoff@itak.ua";
+        String rcpt;
+        String subj;
+        String body = "";
 
 //        int designer = ((ComboBoxDataObject) CB_Designer.getSelectedItem()).getField1();
         //Проверяем, выбран ли ТЗ в списке
         if (i >= 0) {
             // Если выбран, проверяем выбран ли СТАТУС проверки
+            DefaultListModel dlm = (DefaultListModel) jList_NotCheckedJobs.getModel();
+            JobDataObject_Full item = ((JobDataObject_Full) dlm.getElementAt(i));
+            rcpt = item.getJob_Manager().getEmp_EMail();
+//            rcpt = rcpt1;
+
             if (status > 0) {
                 //Получаем Объект ТЗ
                 String query;
                 String query1;
-                Object obj = jList_NotCheckedJobs.getModel().getElementAt(i);
-                if (obj instanceof JobDataObject_Full) {
-                    JobDataObject_Full item = (JobDataObject_Full) obj;
-                    query = "UPDATE designers_jobs "
-                            + "SET Check_1 = NOW(), "
-                            + "Check_1_Status_ID = "
-                            + Integer.toString(status) ;
-                    query1 = " WHERE ID = " + Integer.toString(item.getJob_ID());
-                    // Если выбран СТАТУС, проверяем выбраны ли ТипРаботы и Сложность
+                int Job_NUM_INDEX = item.getJob_NumberIndex();
+                String JobNumIndexStr = (Job_NUM_INDEX==0) ? "" : "/" + Integer.toString(Job_NUM_INDEX);
+
+
+                query = "UPDATE designers_jobs "
+                        + "SET Check_1 = NOW(), "
+                        + "Check_1_Status_ID = "
+                        + status ;
+                query1 = " WHERE ID = " + item.getJob_ID();
+                // Если выбран СТАТУС, проверяем выбраны ли ТипРаботы и Сложность
+
+                    subj = "ТЗ № "
+                            + item.getJob_Number()
+                            + JobNumIndexStr
+                            + " проверено, присвоен статус: "
+                            + jComboBox_Status_Of_Choice.getSelectedItem().toString();
+                    body = "ТЗ № "
+                            + item.getJob_Number()
+                            + JobNumIndexStr
+                            + " проверено.\nПрисвоен статус: "
+                            + jComboBox_Status_Of_Choice.getSelectedItem().toString() + "\n";
+
+                if (status >1) { // Если статус проверки отличен от ОК
+                    subj = subj + " (комментарии в тексте письма)";
+                    if (jTextArea1.getText().length()>0){
+                            body = body + "\n"
+                            + jTextArea1.getText() + "\n\n";
+                    } else {
+                        body = body + "\n"
+                                + "-=  Комментариев нет  =- \n\n";
+;
+                    }
+
+                }
                     if (type > 0 && difficulty > 0) {
                         query = query
                                 + ", Type_Of_Work_ID = "
-                                + Integer.toString(type) + ", "
+                                + type + ", "
                                 + "Difficulty = "
-                                + Integer.toString(difficulty);
+                                + difficulty;
+
+                                body = body + "Необходима обработка заказа. \n"
+                                        + "Тип обработки:\t"
+                                        + jComboBox_TypeOfWork.getSelectedItem().toString() + "\n"
+                                        + "Сложность:\t"
+                                        + jComboBox_Difficulty.getSelectedItem().toString() + "\n"
+                                        + "Ориентировочно, потребуется от "
+                                        + jLabel_Min_Time.getText() + " до "
+                                        + jLabel_Max_Time.getText() + " часов работы дизайнера.\n"
+                                        + "Время указано без учета загрузки дизайнера другими ТЗ!" + "\n";
+
                         if (designer >= 0){
                            query = query
                             + ", Designer_ID = "
                             + ((ComboBoxDataObject) CB_Designer.getSelectedItem()).getField1();
+
+                           body = body + "Заказ передан для работы дизайнеру : "
+                                        + CB_Designer.getSelectedItem().toString() + "\n";
                         }
                     } else {
                         if (status == 1) {
@@ -1675,14 +1742,19 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                             return;
                         }
                     }
+                         body = body + "\n\t\t\t проверил - "
+                                + LB_FIO_Redactor.getText();
+
 //                    JOptionPane.showMessageDialog(null, "SQL: \n" + query + "\n" + query1);
                     ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
                     conn.init();
                     conn.updateQuery(query + query1);
                     conn.close();
+                    if (jCheckBox_First_Check_Mail.isSelected()) {
 
-                    Mailer.sendMailTo(rcpt1, "Задание проверено" , "Задание проверено");
-                }
+                        Mailer.sendMailTo(rcpt, subj, body);
+                    }
+
             } else  JOptionPane.showMessageDialog(null, "Не выбран Статус ТЗ после проверки!");
         } else  JOptionPane.showMessageDialog(null, "Не выбрано ТЗ из списка!");
     }
@@ -1788,6 +1860,22 @@ void fillDesignerComboBox(){
         conn.init();
         conn.updateQuery(query);
         conn.close();
+    }
+    String getEmailByEmployerID(int ID){
+
+        String Email = null;
+         String Query = "SELECT employers.EMail AS EMail FROM employers WHERE employers.ID = "
+         + ID ;
+        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        conn.init();
+        ResultSet rs = conn.query(Query);
+        try {
+             if (rs.next())  Email = rs.getString("EMail");
+        } catch (SQLException ex) {
+            Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+        return Email;
     }
 
 }
