@@ -376,6 +376,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
         });
         TF_Job_Number.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                TF_Job_NumberFocusGained(evt);
+            }
             public void focusLost(java.awt.event.FocusEvent evt) {
                 TF_Job_NumberFocusLost(evt);
             }
@@ -1080,13 +1083,17 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         TF_Job_Number.setBackground(Color.red);
                         TF_Job_Number.setForeground(Color.yellow);
 
+                        /*
                         JOptionPane.showMessageDialog(null,
-                            "В этом году ТЗ с номером: "
-                            + jNum
-                            + (jIndex == 0 ? "" : "/" + jIndex)
-                            + "  уже есть!!! "
+                        "В этом году ТЗ с номером: "
+                        + jNum
+                        + (jIndex == 0 ? "" : "/" + jIndex)
+                        + "  уже есть!!! "
                         );
-                        TF_Job_Number_Index.grabFocus();
+                        */
+
+                        TF_Job_Number.grabFocus();
+                        TF_Job_Number.selectAll();
                     } else {
                         TF_Job_Number_Index.setBackground(Color.white);
                         TF_Job_Number_Index.setForeground(Color.black);
@@ -1246,6 +1253,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private void jPanel_JobListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_JobListMouseClicked
        fillJobListObjectsList();
     }//GEN-LAST:event_jPanel_JobListMouseClicked
+
+    private void TF_Job_NumberFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TF_Job_NumberFocusGained
+        TF_Job_Number_Index.setBackground(Color.white);
+        TF_Job_Number_Index.setForeground(Color.black);
+    }//GEN-LAST:event_TF_Job_NumberFocusGained
 
     /**
      * @param args the command line arguments
