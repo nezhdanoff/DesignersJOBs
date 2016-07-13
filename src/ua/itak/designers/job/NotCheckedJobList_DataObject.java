@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 /**
  *
@@ -21,7 +21,7 @@ public class NotCheckedJobList_DataObject {
     ) {
         this.job_ID = ID;
         this.job_Info = Info;
-        if (Status == null) this.job_Status ="Не проверено";
+        if (Status == null) this.job_Status ="РќРµ РїСЂРѕРІРµСЂРµРЅРѕ";
         else this.job_Status = Status;
     }
 

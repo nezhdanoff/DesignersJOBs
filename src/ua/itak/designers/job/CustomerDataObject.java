@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 /**
  *
@@ -15,7 +15,7 @@ public class CustomerDataObject {
     private String  cust_Alias;
     private String  cust_Name;
 
-    CustomerDataObject(
+public CustomerDataObject(
             int ID,
             String Alias,
             String Name

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 /**
  *
  * @author Nezhdanoff
@@ -21,7 +21,9 @@ public class UserDataObject {
     private String   pos_Name;
     private int      priv_ID;
 
-    UserDataObject(
+
+
+public UserDataObject(
          String   i_login,
          String   i_password,
          int      i_emp_ID,

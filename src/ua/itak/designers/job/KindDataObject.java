@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 import java.text.DecimalFormat;
 

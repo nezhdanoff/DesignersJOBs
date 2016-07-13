@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -26,7 +26,7 @@ public class EncryptorMD5 {
             mDigest.update(st.getBytes());
             digest = mDigest.digest();
         } catch (NoSuchAlgorithmException e) {
-            System.out.println("Модуль алгоритма MD5 не найден");
+            System.out.println("РњРѕРґСѓР»СЊ Р°Р»РіРѕСЂРёС‚РјР° MD5 РЅРµ РЅР°Р№РґРµРЅ");
         }
 
         BigInteger bigInt = new BigInteger(1, digest);

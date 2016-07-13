@@ -3,15 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 //import com.mysql.jdbc.Connection;
 //import com.mysql.jdbc.Statement;
-import com.mysql.jdbc.Connection;
-import com.mysql.jdbc.Statement;
+
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -45,20 +46,12 @@ public class ConnectDB {
     public void init() {
         if (iConnection == null) {
             try {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                try {
-                    iConnection = (Connection) DriverManager.getConnection(
-                            iURL, iUser, iPassword
-                    );
-                } catch (SQLException ex) {
-                    Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-                    JOptionPane.showMessageDialog(null, "База Данных не доступна");
-                }
-            } catch (ClassNotFoundException ex) {
+                iConnection = DriverManager.getConnection(
+                        iURL, iUser, iPassword
+                );
+            } catch (SQLException ex) {
                 Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "JDBC драйвер не доступен");
-            } catch (InstantiationException | IllegalAccessException ex) {
-                Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(null, "Р‘Р°Р·Р° Р”Р°РЅРЅС‹С… РЅРµ РґРѕСЃС‚СѓРїРЅР°");
             }
         }
     }
@@ -70,7 +63,7 @@ public class ConnectDB {
             result = stmt.executeQuery(Query);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Ошибка выполнения SQL-запроса\n" + Query);
+            JOptionPane.showMessageDialog(null, "РћС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ SQL-Р·Р°РїСЂРѕСЃР°\n" + Query);
         }
         return result;
     }
@@ -81,7 +74,7 @@ public class ConnectDB {
             stmt.executeUpdate(Query);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(null, "Ошибка выполнения SQL-запроса\n" + Query);
+            JOptionPane.showMessageDialog(null, "РћС€РёР±РєР° РІС‹РїРѕР»РЅРµРЅРёСЏ SQL-Р·Р°РїСЂРѕСЃР°\n" + Query);
         }
     }
 
@@ -99,27 +92,27 @@ public class ConnectDB {
                 ID = result.getInt(1);
             }
             String str = qry2.replace(WldCRD, Integer.toString(ID));
-//            JOptionPane.showMessageDialog(null, "Внесена запись с ID=" + ID);
+//            JOptionPane.showMessageDialog(null, "Р’РЅРµСЃРµРЅР° Р·Р°РїРёСЃСЊ СЃ ID=" + ID);
 //            query1 = query2.replace("-###-", Integer.toString(ID));
 //            System.out.println(qry1);
             ss.executeUpdate(str);
             this.iConnection.commit();
-//            JOptionPane.showMessageDialog(null, "Внесена запись с SQL \n"
+//            JOptionPane.showMessageDialog(null, "Р’РЅРµСЃРµРЅР° Р·Р°РїРёСЃСЊ СЃ SQL \n"
 //                    + qry1.replace("),", "), \n"));
         } catch (SQLException ex) {
             try {
-                JOptionPane.showMessageDialog(null, "Ошибка. ОТКАТ ТРАНЗАКЦИИ!");
+                JOptionPane.showMessageDialog(null, "РћС€РёР±РєР°. РћРўРљРђРў РўР РђРќР—РђРљР¦РР!");
                 this.iConnection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 this.iConnection.setAutoCommit(true);
                 this.close();
             } catch (SQLException ex) {
-                Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

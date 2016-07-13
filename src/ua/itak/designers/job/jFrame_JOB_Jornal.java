@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 import java.awt.Color;
 import java.awt.HeadlessException;
@@ -21,42 +21,38 @@ import javax.swing.JOptionPane;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
-import static jobsfordesigners.JobsForDesigners.BASE;
-import static jobsfordesigners.JobsForDesigners.PASSWORD;
-import static jobsfordesigners.JobsForDesigners.SERVER;
-import static jobsfordesigners.JobsForDesigners.USER;
-import static jobsfordesigners.JobsForDesigners.User;
+import static ua.itak.designers.job.JobsForDesigners.User;
 
 /**
  *
  * @author Nezhdanoff
  */
-public class JOB_Jornal_JFrame extends javax.swing.JFrame {
+public class jFrame_JOB_Jornal extends javax.swing.JFrame {
 
 //     final static DefaultListModel Customer_List_Model = new DefaultListModel();
     /**
      * Creates new form JOB_Jornal_JFrame
      */
-    JOB_Jornal_JFrame() {
+    jFrame_JOB_Jornal() {
 
         initComponents();
 
-// Заполняем ComboBox полным списком
+// Р—Р°РїРѕР»РЅСЏРµРј ComboBox РїРѕР»РЅС‹Рј СЃРїРёСЃРєРѕРј
         jComboBox_Customer.setModel(getCustomerListModel(""));
 //*****************************************************************************
 
-// Создаем FocusListener для редактора в ComboBox
+// РЎРѕР·РґР°РµРј FocusListener РґР»СЏ СЂРµРґР°РєС‚РѕСЂР° РІ ComboBox
         jComboBox_Customer.getEditor().getEditorComponent().addFocusListener(new FocusAdapter() {
 
             @Override
             public void focusGained(FocusEvent e) {
-                jComboBox_Customer.showPopup(); // Раскрываем список
-                jComboBox_Customer.getEditor().selectAll(); // Выделяем весь текст в строке редактирования
+                jComboBox_Customer.showPopup(); // Р Р°СЃРєСЂС‹РІР°РµРј СЃРїРёСЃРѕРє
+                jComboBox_Customer.getEditor().selectAll(); // Р’С‹РґРµР»СЏРµРј РІРµСЃСЊ С‚РµРєСЃС‚ РІ СЃС‚СЂРѕРєРµ СЂРµРґР°РєС‚РёСЂРѕРІР°РЅРёСЏ
             }
         });
 //*****************************************************************************
 
-// Создаем Listener клавиатуры, отлавливаем ввод текста и формируем модель для ComboBox
+// РЎРѕР·РґР°РµРј Listener РєР»Р°РІРёР°С‚СѓСЂС‹, РѕС‚Р»Р°РІР»РёРІР°РµРј РІРІРѕРґ С‚РµРєСЃС‚Р° Рё С„РѕСЂРјРёСЂСѓРµРј РјРѕРґРµР»СЊ РґР»СЏ ComboBox
         jComboBox_Customer.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
 
             @Override
@@ -75,9 +71,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 }
                 }
                  */
-                String str = "0123456789абвгдеёжзиклмнопрстуфхцчшщыэюяАБВГДЕЁЖЗИКЛМНОПРСТУФХЦЧШЩЫЭЮЯ"
+                String str = " 0123456789Р°Р±РІРіРґРµС‘Р¶Р·РёРєР»РјРЅРѕРїСЂСЃС‚СѓС„С…С†С‡С€С‰С‹СЌСЋСЏРђР‘Р’Р“Р”Р•РЃР–Р—РРљР›РњРќРћРџР РЎРўРЈР¤РҐР¦Р§РЁР©Р«Р­Р®РЇ"
                         + "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-+*(){}[].,;:";
-                int j = str.indexOf(evt.getKeyChar()); // Проверяем, есть ли введенный символ в строке str
+                int j = str.indexOf(evt.getKeyChar()); // РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РІРІРµРґРµРЅРЅС‹Р№ СЃРёРјРІРѕР» РІ СЃС‚СЂРѕРєРµ str
 
                 if (evt.getKeyCode() >= 48 && evt.getKeyCode() <= 57
                         || evt.getKeyCode() >= 96 && evt.getKeyCode() <= 107
@@ -107,37 +103,37 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         DefaultListModel KDO_Model = new DefaultListModel();
         JL_KindList.setModel(KDO_Model);
 
-        // Заполняем ComboBox Менеджеры
+        // Р—Р°РїРѕР»РЅСЏРµРј ComboBox РњРµРЅРµРґР¶РµСЂС‹
         fillManagerComboBox();
         //***********************************************************************
         fillDesignerComboBox();
         //***********************************************************************
 
-        /*         // Определяем Listener поискового текстового поля
+        /*         // РћРїСЂРµРґРµР»СЏРµРј Listener РїРѕРёСЃРєРѕРІРѕРіРѕ С‚РµРєСЃС‚РѕРІРѕРіРѕ РїРѕР»СЏ
          * TF_Customer.addKeyListener(new KeyAdapter() {
          * @Override
          * public void keyReleased(KeyEvent e) {
          * DefaultListModel dlm = new DefaultListModel();
-         * // подключаемся к базе и вытаскиваем из нее данные
-         * // Заполняем ComboBox Менеджеры
+         * // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РІС‹С‚Р°СЃРєРёРІР°РµРј РёР· РЅРµРµ РґР°РЅРЅС‹Рµ
+         * // Р—Р°РїРѕР»РЅСЏРµРј ComboBox РњРµРЅРµРґР¶РµСЂС‹
          * String Query = "CALL GetCustomerDataObjectByFilter('"
          * + TF_Customer.getText() + "')";
-         * ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+         * ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
          * conn.init();
          * ResultSet rs = conn.query(Query);
          * try {
          * while (rs.next()) {
-         * // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
+         * // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
          * CustomerDataObject Customer_Object = new CustomerDataObject(
          * rs.getInt("cust_ID"),
          * rs.getString("cust_Alias"),
          * rs.getString("cust_Name"));
-         * // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
+         * // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
          * dlm.addElement(Customer_Object);
          * }
          * JL_Customers.setModel(dlm);
          * } catch (SQLException ex) {
-         * Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+         * Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
          * }
          * conn.close();
          * }
@@ -145,7 +141,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 //        fillNotCheckedJobList();
 
 
-// При инициализации первым получает фокус поле ТЗ№
+// РџСЂРё РёРЅРёС†РёР°Р»РёР·Р°С†РёРё РїРµСЂРІС‹Рј РїРѕР»СѓС‡Р°РµС‚ С„РѕРєСѓСЃ РїРѕР»Рµ РўР—в„–
         TF_Job_Number.grabFocus();
 
         //***********************************************************************
@@ -211,6 +207,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel_AssigneDesigner = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jList_NotAssignedJobs = new javax.swing.JList<>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jLabel_Status = new javax.swing.JLabel();
         jButton_OK = new javax.swing.JButton();
         jButton_Cancel = new javax.swing.JButton();
@@ -218,9 +215,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jCheckBox_Send_Mail = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(new java.awt.Dimension(870, 575));
         setMinimumSize(new java.awt.Dimension(870, 575));
-        setPreferredSize(new java.awt.Dimension(870, 575));
         setResizable(false);
 
         jTabbed_Pan1.setMaximumSize(new java.awt.Dimension(32767, 464));
@@ -240,19 +235,19 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel_TM.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel_TM.setText("Торговая Марка");
+        jLabel_TM.setText("РўРѕСЂРіРѕРІР°СЏ РњР°СЂРєР°");
         jLabel_TM.setFocusable(false);
 
         TF_TM.setNextFocusableComponent(TF_NameOfKind);
 
         jLabel_NameOfKind.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel_NameOfKind.setText("Название Вида");
+        jLabel_NameOfKind.setText("РќР°Р·РІР°РЅРёРµ Р’РёРґР°");
         jLabel_NameOfKind.setFocusable(false);
 
         TF_NameOfKind.setNextFocusableComponent(TF_Volume);
 
         jLabel_Volume.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel_Volume.setText("Масса (Объем)");
+        jLabel_Volume.setText("РњР°СЃСЃР° (РћР±СЉРµРј)");
         jLabel_Volume.setFocusable(false);
 
         TF_Volume.setDocument(new PlainDocument() {
@@ -268,7 +263,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
         TF_Volume.setNextFocusableComponent(CB_Unit);
 
-        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Виды; Масса (Объем)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
+        jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Р’РёРґС‹; РњР°СЃСЃР° (РћР±СЉРµРј)", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 11))); // NOI18N
 
         JL_KindList.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         JL_KindList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
@@ -295,7 +290,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addGap(1, 1, 1))
         );
 
-        CB_Unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "кг.", "г.", "мг.", "л.", "мл." }));
+        CB_Unit.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РєРі.", "Рі.", "РјРі.", "Р».", "РјР»." }));
         CB_Unit.setSelectedIndex(-1);
         CB_Unit.setToolTipText("");
         CB_Unit.setNextFocusableComponent(JB_AddKind);
@@ -311,11 +306,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Unit.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel_Unit.setText("Ед.изм.");
+        jLabel_Unit.setText("Р•Рґ.РёР·Рј.");
         jLabel_Unit.setFocusable(false);
 
         JB_AddKind.setMnemonic('+');
-        JB_AddKind.setText("Добавить этот ВИД");
+        JB_AddKind.setText("Р”РѕР±Р°РІРёС‚СЊ СЌС‚РѕС‚ Р’РР”");
         JB_AddKind.setNextFocusableComponent(TF_NameOfKind);
         JB_AddKind.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -324,7 +319,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jButton__DeleteKind.setMnemonic('+');
-        jButton__DeleteKind.setText("Удалить");
+        jButton__DeleteKind.setText("РЈРґР°Р»РёС‚СЊ");
         jButton__DeleteKind.setEnabled(false);
         jButton__DeleteKind.setNextFocusableComponent(TF_NameOfKind);
         jButton__DeleteKind.addActionListener(new java.awt.event.ActionListener() {
@@ -334,9 +329,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jComboBox_Customer.setEditable(true);
-        jComboBox_Customer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Бец", "Бортниченко", "Чекмасов", "Лунгол" }));
+        jComboBox_Customer.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Р‘РµС†", "Р‘РѕСЂС‚РЅРёС‡РµРЅРєРѕ", "Р§РµРєРјР°СЃРѕРІ", "Р›СѓРЅРіРѕР»" }));
         jComboBox_Customer.setSelectedIndex(-1);
-        jComboBox_Customer.setRenderer(new CB_DataRenderer("Выберите значение"));
+        jComboBox_Customer.setRenderer(new CB_DataRenderer("Р’С‹Р±РµСЂРёС‚Рµ Р·РЅР°С‡РµРЅРёРµ"));
         jComboBox_Customer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox_CustomerActionPerformed(evt);
@@ -353,7 +348,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_Job_Number.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel_Job_Number.setText("№ ТЗ");
+        jLabel_Job_Number.setText("в„– РўР—");
         jLabel_Job_Number.setFocusable(false);
 
         TF_Job_Number.setDocument(new PlainDocument() {
@@ -415,10 +410,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_Job_Number1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number1.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number1.setText("Менеджер");
+        jLabel_Job_Number1.setText("РњРµРЅРµРґР¶РµСЂ");
         jLabel_Job_Number1.setFocusable(false);
 
-        CB_Manager.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ МЕНЕДЖЕРА"));
+        CB_Manager.setRenderer(new CB_DataRenderer("Р’Р«Р‘Р•Р РРўР• РњР•РќР•Р”Р–Р•Р Рђ"));
         CB_Manager.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_ManagerActionPerformed(evt);
@@ -553,7 +548,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTabbed_Pan1.addTab("Ввод новых ТЗ", jPanel_NewJob);
+        jTabbed_Pan1.addTab("Р’РІРѕРґ РЅРѕРІС‹С… РўР—", jPanel_NewJob);
 
         jPanel_FirstCheck.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
@@ -564,10 +559,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel_Status.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         jLabel_Job_Number2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number2.setText("Статус ");
+        jLabel_Job_Number2.setText("РЎС‚Р°С‚СѓСЃ ");
 
         jComboBox_Status_Of_Choice.setMaximumRowCount(5);
-        jComboBox_Status_Of_Choice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "ОК", "Не соответствует требованиям", "Не хватает материалов, файлов" }));
+        jComboBox_Status_Of_Choice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РЎР”Р•Р›РђР™РўР• Р’Р«Р‘РћР ", "РћРљ", "РќРµ СЃРѕРѕС‚РІРµС‚СЃС‚РІСѓРµС‚ С‚СЂРµР±РѕРІР°РЅРёСЏРј", "РќРµ С…РІР°С‚Р°РµС‚ РјР°С‚РµСЂРёР°Р»РѕРІ, С„Р°Р№Р»РѕРІ" }));
         jComboBox_Status_Of_Choice.setEnabled(false);
         jComboBox_Status_Of_Choice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -577,9 +572,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         jLabel_Job_Number3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Job_Number3.setHorizontalAlignment(javax.swing.SwingConstants.TRAILING);
-        jLabel_Job_Number3.setText("Вид работы");
+        jLabel_Job_Number3.setText("Р’РёРґ СЂР°Р±РѕС‚С‹");
 
-        jComboBox_TypeOfWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "Изменения", "Адаптация", "Отрисовка", "Разработка" }));
+        jComboBox_TypeOfWork.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РЎР”Р•Р›РђР™РўР• Р’Р«Р‘РћР ", "РР·РјРµРЅРµРЅРёСЏ", "РђРґР°РїС‚Р°С†РёСЏ", "РћС‚СЂРёСЃРѕРІРєР°", "Р Р°Р·СЂР°Р±РѕС‚РєР°" }));
         jComboBox_TypeOfWork.setEnabled(false);
         jComboBox_TypeOfWork.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -588,9 +583,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Job_Number4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number4.setText("Сложность");
+        jLabel_Job_Number4.setText("РЎР»РѕР¶РЅРѕСЃС‚СЊ");
 
-        jComboBox_Difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "СДЕЛАЙТЕ ВЫБОР", "Очень низкая", "Низкая", "Средняя", "Высокая", "Очень высокая" }));
+        jComboBox_Difficulty.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "РЎР”Р•Р›РђР™РўР• Р’Р«Р‘РћР ", "РћС‡РµРЅСЊ РЅРёР·РєР°СЏ", "РќРёР·РєР°СЏ", "РЎСЂРµРґРЅСЏСЏ", "Р’С‹СЃРѕРєР°СЏ", "РћС‡РµРЅСЊ РІС‹СЃРѕРєР°СЏ" }));
         jComboBox_Difficulty.setEnabled(false);
         jComboBox_Difficulty.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -599,10 +594,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Job_Number5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number5.setText("Время в часах минимум");
+        jLabel_Job_Number5.setText("Р’СЂРµРјСЏ РІ С‡Р°СЃР°С… РјРёРЅРёРјСѓРј");
 
         jLabel_Job_Number6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number6.setText("Время в часах максимум");
+        jLabel_Job_Number6.setText("Р’СЂРµРјСЏ РІ С‡Р°СЃР°С… РјР°РєСЃРёРјСѓРј");
 
         jLabel_Max_Time.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel_Max_Time.setForeground(new java.awt.Color(0, 0, 204));
@@ -618,7 +613,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         CB_Designer.setMaximumSize(new java.awt.Dimension(266, 20));
         CB_Designer.setMinimumSize(new java.awt.Dimension(266, 20));
         CB_Designer.setPreferredSize(new java.awt.Dimension(266, 20));
-        CB_Designer.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ ДИЗАЙНЕРА"));
+        CB_Designer.setRenderer(new CB_DataRenderer("Р’Р«Р‘Р•Р РРўР• Р”РР—РђР™РќР•Р Рђ"));
         CB_Designer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CB_DesignerActionPerformed(evt);
@@ -626,9 +621,9 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jLabel_Job_Number7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel_Job_Number7.setText("Дизайнер");
+        jLabel_Job_Number7.setText("Р”РёР·Р°Р№РЅРµСЂ");
 
-        jButton_Clear_CB_Designer.setText("<- Очистить");
+        jButton_Clear_CB_Designer.setText("<- РћС‡РёСЃС‚РёС‚СЊ");
         jButton_Clear_CB_Designer.setEnabled(false);
         jButton_Clear_CB_Designer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -700,7 +695,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel_Note.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Примечание"));
+        jPanel_Note.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "РџСЂРёРјРµС‡Р°РЅРёРµ"));
 
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -734,7 +729,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jPanel_InfoTab2.setRequestFocusEnabled(false);
 
         jLabel_CheckJobInfo.setForeground(new java.awt.Color(0, 0, 204));
-        jLabel_CheckJobInfo.setText("Выберите строку ТЗ  в списке сверху...");
+        jLabel_CheckJobInfo.setText("Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂРѕРєСѓ РўР—  РІ СЃРїРёСЃРєРµ СЃРІРµСЂС…Сѓ...");
         jLabel_CheckJobInfo.setAlignmentX(1.0F);
         jLabel_CheckJobInfo.setAlignmentY(1.0F);
         jLabel_CheckJobInfo.setFocusable(false);
@@ -756,8 +751,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             .addComponent(jLabel_CheckJobInfo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
         );
 
-        jPanel_JobList.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Задания для проверки"));
-        jPanel_JobList.setToolTipText("Кликните мышкой для обновления списка");
+        jPanel_JobList.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(""), "Р—Р°РґР°РЅРёСЏ РґР»СЏ РїСЂРѕРІРµСЂРєРё"));
+        jPanel_JobList.setToolTipText("РљР»РёРєРЅРёС‚Рµ РјС‹С€РєРѕР№ РґР»СЏ РѕР±РЅРѕРІР»РµРЅРёСЏ СЃРїРёСЃРєР°");
         jPanel_JobList.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jPanel_JobListMouseClicked(evt);
@@ -818,7 +813,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 .addContainerGap(36, Short.MAX_VALUE))
         );
 
-        jTabbed_Pan1.addTab("Проверка и назначение Исполнителя", jPanel_FirstCheck);
+        jTabbed_Pan1.addTab("РџСЂРѕРІРµСЂРєР° Рё РЅР°Р·РЅР°С‡РµРЅРёРµ РСЃРїРѕР»РЅРёС‚РµР»СЏ", jPanel_FirstCheck);
 
         jPanel_AssigneDesigner.setEnabled(false);
         jPanel_AssigneDesigner.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -828,7 +823,21 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jList_NotAssignedJobs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jList_NotAssignedJobs.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jList_NotAssignedJobsMouseClicked(evt);
+            }
+        });
         jScrollPane4.setViewportView(jList_NotAssignedJobs);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Р’ РґР°РЅРЅС‹Р№ РјРѕРјРµРЅС‚ РІ СЂР°Р±РѕС‚Рµ" }));
+        jComboBox1.setRenderer(new CB_DataRenderer("Р’Р«Р‘Р•Р РРўР• Р’РђР РРђРќРў"));
+        jComboBox1.setSelectedIndex(-1);
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel_AssigneDesignerLayout = new javax.swing.GroupLayout(jPanel_AssigneDesigner);
         jPanel_AssigneDesigner.setLayout(jPanel_AssigneDesignerLayout);
@@ -836,18 +845,24 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             jPanel_AssigneDesignerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_AssigneDesignerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
+                .addGroup(jPanel_AssigneDesignerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
+                    .addGroup(jPanel_AssigneDesignerLayout.createSequentialGroup()
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel_AssigneDesignerLayout.setVerticalGroup(
             jPanel_AssigneDesignerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel_AssigneDesignerLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_AssigneDesignerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 414, Short.MAX_VALUE)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jTabbed_Pan1.addTab("Просмотр", jPanel_AssigneDesigner);
+        jTabbed_Pan1.addTab("РџСЂРѕСЃРјРѕС‚СЂ", jPanel_AssigneDesigner);
 
         jLabel_Status.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel_Status.setMaximumSize(new java.awt.Dimension(890, 35));
@@ -856,21 +871,21 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Status.setRequestFocusEnabled(false);
         jLabel_Status.setVerifyInputWhenFocusTarget(false);
 
-        jButton_OK.setText("ОК");
+        jButton_OK.setText("РћРљ");
         jButton_OK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_OKActionPerformed(evt);
             }
         });
 
-        jButton_Cancel.setText("Отмена");
+        jButton_Cancel.setText("РћС‚РјРµРЅР°");
         jButton_Cancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_CancelActionPerformed(evt);
             }
         });
 
-        jButton_Exit.setText("Выход");
+        jButton_Exit.setText("Р’С‹С…РѕРґ");
         jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ExitActionPerformed(evt);
@@ -878,7 +893,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         });
 
         jCheckBox_Send_Mail.setSelected(true);
-        jCheckBox_Send_Mail.setText("Оповестить по E-Mail");
+        jCheckBox_Send_Mail.setText("РћРїРѕРІРµСЃС‚РёС‚СЊ РїРѕ E-Mail");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -903,10 +918,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jTabbed_Pan1, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jCheckBox_Send_Mail)
@@ -916,7 +931,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                             .addComponent(jButton_Cancel)
                             .addComponent(jButton_Exit)))
                     .addComponent(jLabel_Status, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         pack();
@@ -958,59 +973,55 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
         int i = jList_NotCheckedJobs.getSelectedIndex();
 
-        if (i >= 0) { // Если выбран элемент из списка
+        if (i >= 0) { // Р•СЃР»Рё РІС‹Р±СЂР°РЅ СЌР»РµРјРµРЅС‚ РёР· СЃРїРёСЃРєР°
             DefaultListModel dlm = (DefaultListModel) jList_NotCheckedJobs.getModel();
             JobDataObject_Full item = ((JobDataObject_Full) dlm.getElementAt(i));
             jLabel_CheckJobInfo.setText(item.toStringHTML());
             jComboBox_Status_Of_Choice.setEnabled(true);
             int status = item.getJob_StatusCheck().getStatus_ID();
-            System.out.println("Статус = " + status);
 
-            // активируем Статус и переключаем его в значение из текущего ТЗ
+            // Р°РєС‚РёРІРёСЂСѓРµРј РЎС‚Р°С‚СѓСЃ Рё РїРµСЂРµРєР»СЋС‡Р°РµРј РµРіРѕ РІ Р·РЅР°С‡РµРЅРёРµ РёР· С‚РµРєСѓС‰РµРіРѕ РўР—
             jComboBox_Status_Of_Choice.setEnabled(true);
             jComboBox_Status_Of_Choice.setSelectedIndex(status);
+            // СЃР±СЂР°СЃС‹РІР°РµРј Р’С‹Р±РѕСЂ РґРёР·Р°Р№РЅРµСЂР°
+            CB_Designer.setSelectedIndex(-1);
 
             if (status == 1) {
-                // активируем ТипРаботы и переключаем его в значение из текущего ТЗ
+                // Р°РєС‚РёРІРёСЂСѓРµРј РўРёРїР Р°Р±РѕС‚С‹ Рё РїРµСЂРµРєР»СЋС‡Р°РµРј РµРіРѕ РІ Р·РЅР°С‡РµРЅРёРµ РёР· С‚РµРєСѓС‰РµРіРѕ РўР—
                 int type_OfWork = item.getJob_TypeOfWork().getField1();
-                System.out.println("Тип = " + type_OfWork);
                 if (type_OfWork > 0) {
                     jComboBox_TypeOfWork.setEnabled(true);
                     jComboBox_TypeOfWork.setSelectedIndex(type_OfWork);
                 }
-                // активируем Сложность и переключаем его в значение из текущего ТЗ
+                // Р°РєС‚РёРІРёСЂСѓРµРј РЎР»РѕР¶РЅРѕСЃС‚СЊ Рё РїРµСЂРµРєР»СЋС‡Р°РµРј РµРіРѕ РІ Р·РЅР°С‡РµРЅРёРµ РёР· С‚РµРєСѓС‰РµРіРѕ РўР—
                 int difficulty = item.getJob_Difficulty().getField1();
-                System.out.println("Сложность = " + difficulty);
                 if (difficulty > 0) {
                     jComboBox_Difficulty.setEnabled(true);
                     jComboBox_Difficulty.setSelectedIndex(difficulty);
                 }
-                // деактивируем Примечание
-                jTextArea1.setEditable(false);
-                // активируем и сбрасываем Выбор дизайнера
-                CB_Designer.setSelectedIndex(-1);
+                // РґРµР°РєС‚РёРІРёСЂСѓРµРј РџСЂРёРјРµС‡Р°РЅРёРµ
+                jTextArea1.setEnabled(false);
+                // Р°РєС‚РёРІРёСЂСѓРµРј Р’С‹Р±РѕСЂ РґРёР·Р°Р№РЅРµСЂР°
                 CB_Designer.setEnabled(true);
             } else if (status > 1) {
-                // деактивируем Тип и Сложность работы, обнуляем показания Мин Макс
+                // РґРµР°РєС‚РёРІРёСЂСѓРµРј РўРёРї Рё РЎР»РѕР¶РЅРѕСЃС‚СЊ СЂР°Р±РѕС‚С‹, РѕР±РЅСѓР»СЏРµРј РїРѕРєР°Р·Р°РЅРёСЏ РњРёРЅ РњР°РєСЃ
                 jComboBox_TypeOfWork.setEnabled(false);
                 jComboBox_Difficulty.setEnabled(false);
                 jComboBox_TypeOfWork.setSelectedIndex(0);
                 jComboBox_Difficulty.setSelectedIndex(0);
-                // активируем Примечание
-                jTextArea1.setEditable(true);
-                // деактивируем и сбрасываем Выбор дизайнера
-                CB_Designer.setSelectedIndex(-1);
+                // Р°РєС‚РёРІРёСЂСѓРµРј РџСЂРёРјРµС‡Р°РЅРёРµ
+                jTextArea1.setEnabled(true);
+                // РґРµР°РєС‚РёРІРёСЂСѓРµРј Р’С‹Р±РѕСЂ РґРёР·Р°Р№РЅРµСЂР°
                 CB_Designer.setEnabled(false);
             } else {
-                // деактивируем Тип и Сложность работы, обнуляем показания Мин Макс
+                // РґРµР°РєС‚РёРІРёСЂСѓРµРј РўРёРї Рё РЎР»РѕР¶РЅРѕСЃС‚СЊ СЂР°Р±РѕС‚С‹, РѕР±РЅСѓР»СЏРµРј РїРѕРєР°Р·Р°РЅРёСЏ РњРёРЅ РњР°РєСЃ
                 jComboBox_TypeOfWork.setEnabled(false);
                 jComboBox_Difficulty.setEnabled(false);
                 jComboBox_TypeOfWork.setSelectedIndex(0);
                 jComboBox_Difficulty.setSelectedIndex(0);
-                // деактивируем Примечание
+                // РґРµР°РєС‚РёРІРёСЂСѓРµРј РџСЂРёРјРµС‡Р°РЅРёРµ
                 jTextArea1.setEnabled(false);
-                // деактивируем и сбрасываем Выбор дизайнера
-                CB_Designer.setSelectedIndex(-1);
+                // РґРµР°РєС‚РёРІРёСЂСѓРµРј Р’С‹Р±РѕСЂ РґРёР·Р°Р№РЅРµСЂР°
                 CB_Designer.setEnabled(false);
             }
         }
@@ -1060,21 +1071,21 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
     private void TF_Job_Number_IndexFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TF_Job_Number_IndexFocusLost
 
-        // подключаемся к базе и проверяем нет ли такого номера ТЗ
+        // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РїСЂРѕРІРµСЂСЏРµРј РЅРµС‚ Р»Рё С‚Р°РєРѕРіРѕ РЅРѕРјРµСЂР° РўР—
         if (TF_Job_Number.getText().length() > 0 ) {
             int jNum = Integer.parseInt(TF_Job_Number.getText());
             int jIndex = (TF_Job_Number_Index.getText().length()> 0) ? Integer.parseInt(TF_Job_Number_Index.getText()): 0;
             String Query = "CALL JobNumberIndexIsPresent("
             + jNum + ", "
             + jIndex + ")";
-            ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+            ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
             conn.init();
             ResultSet rs = conn.query(Query);
             try {
                 if (rs.next()) {
                     /*
-                    * JOptionPane.showMessageDialog(null, "В этом году ТЗ с
-                        * таким номером уже есть!!!");
+                    * JOptionPane.showMessageDialog(null, "Р’ СЌС‚РѕРј РіРѕРґСѓ РўР— СЃ
+                        * С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј СѓР¶Рµ РµСЃС‚СЊ!!!");
                         * TF_Job_Number.grabFocus();
                         * TF_Job_Number.selectAll();
                         */
@@ -1085,10 +1096,10 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
                         /*
                         JOptionPane.showMessageDialog(null,
-                        "В этом году ТЗ с номером: "
+                        "Р’ СЌС‚РѕРј РіРѕРґСѓ РўР— СЃ РЅРѕРјРµСЂРѕРј: "
                         + jNum
                         + (jIndex == 0 ? "" : "/" + jIndex)
-                        + "  уже есть!!! "
+                        + "  СѓР¶Рµ РµСЃС‚СЊ!!! "
                         );
                         */
 
@@ -1102,7 +1113,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 conn.close();
 
@@ -1115,17 +1126,17 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
     private void TF_Job_NumberFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_TF_Job_NumberFocusLost
 
-        // подключаемся к базе и проверяем нет ли такого номера ТЗ
+        // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РїСЂРѕРІРµСЂСЏРµРј РЅРµС‚ Р»Рё С‚Р°РєРѕРіРѕ РЅРѕРјРµСЂР° РўР—
         if (TF_Job_Number.getText().length() > 0) {
             try {
                 int jNum = Integer.parseInt(TF_Job_Number.getText().trim());
                 String Query = "CALL JobNumberIsPresent(" + TF_Job_Number.getText().trim() + ")";
-                ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+                ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
                 conn.init();
                 ResultSet rs = conn.query(Query);
                 try {
                     if (rs.next()) {
-                        /*                        JOptionPane.showMessageDialog(null, "В этом году ТЗ с таким номером уже есть!!!");
+                        /*                        JOptionPane.showMessageDialog(null, "Р’ СЌС‚РѕРј РіРѕРґСѓ РўР— СЃ С‚Р°РєРёРј РЅРѕРјРµСЂРѕРј СѓР¶Рµ РµСЃС‚СЊ!!!");
                         * TF_Job_Number.grabFocus();
                         * TF_Job_Number.selectAll();
                         */
@@ -1137,11 +1148,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
 
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 conn.close();
             } catch (NumberFormatException | HeadlessException e) {
-                JOptionPane.showMessageDialog(null, "Введите число в поле [№ ТЗ]");
+                JOptionPane.showMessageDialog(null, "Р’РІРµРґРёС‚Рµ С‡РёСЃР»Рѕ РІ РїРѕР»Рµ [в„– РўР—]");
                 TF_Job_Number.grabFocus();
                 TF_Job_Number.selectAll();
             }
@@ -1239,11 +1250,14 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         switch (jTabbed_Pan1.getSelectedIndex()) {
             case 0:
                 initTabNewJob();
+                jCheckBox_Send_Mail.setVisible(true);
                 break;
             case 1:
                 initTabCheck();
+                jCheckBox_Send_Mail.setVisible(true);
                 break;
             case 2:
+                jCheckBox_Send_Mail.setVisible(false);
                 break;
             default:
                 break;
@@ -1258,6 +1272,22 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         TF_Job_Number_Index.setBackground(Color.white);
         TF_Job_Number_Index.setForeground(Color.black);
     }//GEN-LAST:event_TF_Job_NumberFocusGained
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        switch (jComboBox1.getSelectedIndex()) {
+            case 0:
+                jList_NotAssignedJobs.setModel(getList_Now_Working());
+                break;
+        }
+
+
+
+
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jList_NotAssignedJobsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_NotAssignedJobsMouseClicked
+        jList_NotAssignedJobs.setModel(getList_Now_Working());
+    }//GEN-LAST:event_jList_NotAssignedJobsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -1276,21 +1306,22 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new JOB_Jornal_JFrame().setVisible(true);
+                new jFrame_JOB_Jornal().setVisible(true);
             }
         });
     }
@@ -1314,6 +1345,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     private javax.swing.JButton jButton_OK;
     private javax.swing.JButton jButton__DeleteKind;
     private javax.swing.JCheckBox jCheckBox_Send_Mail;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox_Customer;
     private javax.swing.JComboBox<String> jComboBox_Difficulty;
     private javax.swing.JComboBox<String> jComboBox_Status_Of_Choice;
@@ -1362,6 +1394,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         TF_Volume.setText("");
         TF_Job_Number.grabFocus();
         jComboBox_Customer.setModel(getCustomerListModel(""));
+        fillManagerComboBox();
         CB_Manager.setSelectedIndex(-1);
         CB_Unit.setSelectedIndex(-1);
         CB_Manager.setSelectedIndex(-1);
@@ -1374,29 +1407,29 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
      * DefaultListModel dlm = new DefaultListModel();
      * String Query = "CALL GetCustomerDataObjectsByManagerID(";
      * Query = Query + Integer.toString(ID) + ")";
-     * ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+     * ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
      * conn.init();
      * ResultSet rs = conn.query(Query);
      * try {
      * while (rs.next()) {
-     * // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
+     * // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
      * CustomerDataObject Customer_Object = new CustomerDataObject(
      * rs.getInt("cust_ID"),
      * rs.getString("cust_Alias"),
      * rs.getString("cust_Name"));
-     * // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
+     * // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
      * dlm.addElement(Customer_Object);
      * }
      * JL_Customers.setModel(dlm);
      * } catch (SQLException ex) {
-     * Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+     * Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
      * }
      * conn.close();
      * }*/
     void fillNotAssignedJobList() {
 
         String Query = "CALL GetNotAssignedJobs_split()";
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         ResultSet rs = conn.query(Query);
         try {
@@ -1419,7 +1452,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
             jList_NotAssignedJobs.setModel(NotAssignedJob_ObjectModel);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.close();
 
@@ -1427,7 +1460,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     void fillJobListObjectsList() {
 
         String Query = "CALL GetNotCheckedJobs_split()";
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         ResultSet rs = conn.query(Query);
         try {
@@ -1459,7 +1492,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             }
             jList_NotCheckedJobs.setModel(NotCheckedJob_ObjectModel);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.close();
     }
@@ -1478,7 +1511,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         jLabel_Min_Time.setText("0");
         jLabel_Max_Time.setText("0");
         fillJobListObjectsList();
-        jLabel_CheckJobInfo.setText("Выберите строку ТЗ в списке сверху...");
+        jLabel_CheckJobInfo.setText("Р’С‹Р±РµСЂРёС‚Рµ СЃС‚СЂРѕРєСѓ РўР— РІ СЃРїРёСЃРєРµ СЃРІРµСЂС…Сѓ...");
     }
 
     void cleanAssigneDesignerTab() {
@@ -1494,7 +1527,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String Query = "CALL GetMinMaxTime("
                         + jComboBox_TypeOfWork.getSelectedIndex() + ", "
                         + jComboBox_Difficulty.getSelectedIndex() + ")";
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         ResultSet rs = conn.query(Query);
         try {
@@ -1504,7 +1537,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         jLabel_Max_Time.setText(Integer.toString(rs.getInt("max")));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.close();
     }
@@ -1520,11 +1553,11 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String subj;
         String body;
 
-        // Проверим, выбран ли Менеджер...
+        // РџСЂРѕРІРµСЂРёРј, РІС‹Р±СЂР°РЅ Р»Рё РњРµРЅРµРґР¶РµСЂ...
         if (CB_Manager.getSelectedIndex() >=0){
         rcpt = ((UserDataObjectWithEmail) CB_Manager.getSelectedItem()).getEmp_EMail();
         } else {
-            JOptionPane.showMessageDialog(null, "Не выбран Менеджер");
+            JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ РњРµРЅРµРґР¶РµСЂ");
             CB_Manager.grabFocus();
             return;
         }
@@ -1552,26 +1585,26 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             String JobNumIndexStr = (Job_NUM_INDEX==0) ? "" : "/" + Integer.toString(Job_NUM_INDEX);
 
 
-            output =  "ТЗ №: "
+            output =  "РўР— в„–: "
                     + Job_NUM
                     + JobNumIndexStr + "\n"
-                    + "Менеджер: "
+                    + "РњРµРЅРµРґР¶РµСЂ: "
                     + MName+ ";\n"
-                    + "Заказчик: "
-                    + CName + "; \nТМ: " + TM + ";\n";
-            subj = "ТЗ №: "
+                    + "Р—Р°РєР°Р·С‡РёРє: "
+                    + CName + "; \nРўРњ: " + TM + ";\n";
+            subj = "РўР— в„–: "
                     + Job_NUM
-                    + JobNumIndexStr + " зарегистрировано в Журнале Заказов";
+                    + JobNumIndexStr + " Р·Р°СЂРµРіРёСЃС‚СЂРёСЂРѕРІР°РЅРѕ РІ Р–СѓСЂРЅР°Р»Рµ Р—Р°РєР°Р·РѕРІ";
 
-            statusHTML = "<html><b>Запись внесена в базу:</b><bi> ТЗ №: </bi>"
+            statusHTML = "<html><b>Р—Р°РїРёСЃСЊ РІРЅРµСЃРµРЅР° РІ Р±Р°Р·Сѓ:</b><bi> РўР— в„–: </bi>"
                     + Job_NUM + JobNumIndexStr + "; "
-                    + "<bi>Менеджер: </bi>"
+                    + "<bi>РњРµРЅРµРґР¶РµСЂ: </bi>"
                     + MName + ";<br>"
-                    + "<bi>Заказчик: </bi>"
-                    + CName + "; <bi>ТМ: </bi>" + TM;
-// Определяем количество видов дизайна (х)
+                    + "<bi>Р—Р°РєР°Р·С‡РёРє: </bi>"
+                    + CName + "; <bi>РўРњ: </bi>" + TM;
+// РћРїСЂРµРґРµР»СЏРµРј РєРѕР»РёС‡РµСЃС‚РІРѕ РІРёРґРѕРІ РґРёР·Р°Р№РЅР° (С…)
             int x = KDO_Model.getSize();
-// Запишем это количество в базу
+// Р—Р°РїРёС€РµРј СЌС‚Рѕ РєРѕР»РёС‡РµСЃС‚РІРѕ РІ Р±Р°Р·Сѓ
 
             query = "INSERT INTO designers_jobs (Job_Number, Job_Number_Index, Create_Date, ID_Manager, ID_Customer, Trade_Mark, number_of_kinds) "
                     + "  VALUES ("
@@ -1588,12 +1621,12 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 query2 = "INSERT INTO kind_of_job (Job_ID, kind, volume, unit)  VALUES ";
 
                 for (int j = 0; j < x; j++) {
-                    output = output + "\t Вид № "
+                    output = output + "\t Р’РёРґ в„– "
                             + Integer.toString(j + 1) + " - "
                             + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
                             + ";\n";
 
-                    statusHTML = statusHTML + " Вид № "
+                    statusHTML = statusHTML + " Р’РёРґ в„– "
                             + Integer.toString(j + 1) + " - "
                             + ((KindDataObject) KDO_Model.getElementAt(j)).toString()
                             + "; ";
@@ -1614,12 +1647,12 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         query2 = query2 + ", ";
                     }
                 }
-                output = output + "\t\t\tЗаполнил: " + LB_FIO_Redactor.getText() + "\n";
+                output = output + "\t\t\tР—Р°РїРѕР»РЅРёР»: " + LB_FIO_Redactor.getText() + "\n";
             }
             if (JOptionPane.showConfirmDialog(null, output,
-                                              "Внести информацию в базу?",
+                                              "Р’РЅРµСЃС‚Рё РёРЅС„РѕСЂРјР°С†РёСЋ РІ Р±Р°Р·Сѓ?",
                                               JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-                ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+                ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
                 conn.init();
                 conn.updateTransactionOneToMany(query, query2, "-###-");
                 conn.close();
@@ -1632,7 +1665,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
             clearTab_1();
 
         } else {
-            JOptionPane.showMessageDialog(null, "Не выбран Заказчик");
+            JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ Р—Р°РєР°Р·С‡РёРє");
             jComboBox_Customer.grabFocus();
         }
     }
@@ -1650,16 +1683,16 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String body = "";
 
 //        int designer = ((ComboBoxDataObject) CB_Designer.getSelectedItem()).getField1();
-        //Проверяем, выбран ли ТЗ в списке
+        //РџСЂРѕРІРµСЂСЏРµРј, РІС‹Р±СЂР°РЅ Р»Рё РўР— РІ СЃРїРёСЃРєРµ
         if (i >= 0) {
-            // Если выбран, проверяем выбран ли СТАТУС проверки
+            // Р•СЃР»Рё РІС‹Р±СЂР°РЅ, РїСЂРѕРІРµСЂСЏРµРј РІС‹Р±СЂР°РЅ Р»Рё РЎРўРђРўРЈРЎ РїСЂРѕРІРµСЂРєРё
             DefaultListModel dlm = (DefaultListModel) jList_NotCheckedJobs.getModel();
             JobDataObject_Full item = ((JobDataObject_Full) dlm.getElementAt(i));
             rcpt = item.getJob_Manager().getEmp_EMail();
 //            rcpt = rcpt1;
 
             if (status > 0) {
-                //Получаем Объект ТЗ
+                //РџРѕР»СѓС‡Р°РµРј РћР±СЉРµРєС‚ РўР—
                 String query;
                 String query1;
                 int Job_NUM_INDEX = item.getJob_NumberIndex();
@@ -1671,27 +1704,27 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         + "Check_1_Status_ID = "
                         + status ;
                 query1 = " WHERE ID = " + item.getJob_ID();
-                // Если выбран СТАТУС, проверяем выбраны ли ТипРаботы и Сложность
+                // Р•СЃР»Рё РІС‹Р±СЂР°РЅ РЎРўРђРўРЈРЎ, РїСЂРѕРІРµСЂСЏРµРј РІС‹Р±СЂР°РЅС‹ Р»Рё РўРёРїР Р°Р±РѕС‚С‹ Рё РЎР»РѕР¶РЅРѕСЃС‚СЊ
 
-                    subj = "ТЗ № "
+                    subj = "РўР— в„– "
                             + item.getJob_Number()
                             + JobNumIndexStr
-                            + " проверено, присвоен статус: "
+                            + " РїСЂРѕРІРµСЂРµРЅРѕ, РїСЂРёСЃРІРѕРµРЅ СЃС‚Р°С‚СѓСЃ: "
                             + jComboBox_Status_Of_Choice.getSelectedItem().toString();
-                    body = "ТЗ № "
+                    body = "РўР— в„– "
                             + item.getJob_Number()
                             + JobNumIndexStr
-                            + " проверено.\nПрисвоен статус: "
+                            + " РїСЂРѕРІРµСЂРµРЅРѕ.\nРџСЂРёСЃРІРѕРµРЅ СЃС‚Р°С‚СѓСЃ: "
                             + jComboBox_Status_Of_Choice.getSelectedItem().toString() + "\n";
 
-                if (status >1) { // Если статус проверки отличен от ОК
-                    subj = subj + " (комментарии в тексте письма)";
+                if (status >1) { // Р•СЃР»Рё СЃС‚Р°С‚СѓСЃ РїСЂРѕРІРµСЂРєРё РѕС‚Р»РёС‡РµРЅ РѕС‚ РћРљ
+                    subj = subj + " (РєРѕРјРјРµРЅС‚Р°СЂРёРё РІ С‚РµРєСЃС‚Рµ РїРёСЃСЊРјР°)";
                     if (jTextArea1.getText().length()>0){
                             body = body + "\n"
                             + jTextArea1.getText() + "\n\n";
                     } else {
                         body = body + "\n"
-                                + "-=  Комментариев нет  =- \n\n";
+                                + "-=  РљРѕРјРјРµРЅС‚Р°СЂРёРµРІ РЅРµС‚  =- \n\n";
 ;
                     }
 
@@ -1703,35 +1736,35 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                                 + "Difficulty = "
                                 + difficulty;
 
-                                body = body + "Необходима обработка заказа. \n"
-                                        + "Тип обработки:\t"
+                                body = body + "РќРµРѕР±С…РѕРґРёРјР° РѕР±СЂР°Р±РѕС‚РєР° Р·Р°РєР°Р·Р°. \n"
+                                        + "РўРёРї РѕР±СЂР°Р±РѕС‚РєРё:\t"
                                         + jComboBox_TypeOfWork.getSelectedItem().toString() + "\n"
-                                        + "Сложность:\t"
+                                        + "РЎР»РѕР¶РЅРѕСЃС‚СЊ:\t"
                                         + jComboBox_Difficulty.getSelectedItem().toString() + "\n"
-                                        + "Ориентировочно, потребуется от "
-                                        + jLabel_Min_Time.getText() + " до "
-                                        + jLabel_Max_Time.getText() + " часов работы дизайнера.\n"
-                                        + "Время указано без учета загрузки дизайнера другими ТЗ!" + "\n";
+                                        + "РћСЂРёРµРЅС‚РёСЂРѕРІРѕС‡РЅРѕ, РїРѕС‚СЂРµР±СѓРµС‚СЃСЏ РѕС‚ "
+                                        + jLabel_Min_Time.getText() + " РґРѕ "
+                                        + jLabel_Max_Time.getText() + " С‡Р°СЃРѕРІ СЂР°Р±РѕС‚С‹ РґРёР·Р°Р№РЅРµСЂР°.\n"
+                                        + "Р’СЂРµРјСЏ СѓРєР°Р·Р°РЅРѕ Р±РµР· СѓС‡РµС‚Р° Р·Р°РіСЂСѓР·РєРё РґРёР·Р°Р№РЅРµСЂР° РґСЂСѓРіРёРјРё РўР—!" + "\n";
 
                         if (designer >= 0){
                            query = query
                             + ", Designer_ID = "
                             + ((ComboBoxDataObject) CB_Designer.getSelectedItem()).getField1();
 
-                           body = body + "Заказ передан для работы дизайнеру : "
+                           body = body + "Р—Р°РєР°Р· РїРµСЂРµРґР°РЅ РґР»СЏ СЂР°Р±РѕС‚С‹ РґРёР·Р°Р№РЅРµСЂСѓ : "
                                         + CB_Designer.getSelectedItem().toString() + "\n";
                         }
                     } else {
                         if (status == 1) {
-                            JOptionPane.showMessageDialog(null, "Не выбран Тип работы и Сложность!");
+                            JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ РўРёРї СЂР°Р±РѕС‚С‹ Рё РЎР»РѕР¶РЅРѕСЃС‚СЊ!");
                             return;
                         }
                     }
-                         body = body + "\n\t\t\t проверил - "
+                         body = body + "\n\t\t\t РїСЂРѕРІРµСЂРёР» - "
                                 + LB_FIO_Redactor.getText();
 
 //                    JOptionPane.showMessageDialog(null, "SQL: \n" + query + "\n" + query1);
-                    ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+                    ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
                     conn.init();
                     conn.updateQuery(query + query1);
                     conn.close();
@@ -1740,41 +1773,41 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         Mailer.sendMailTo(rcpt, subj, body);
                     }
 
-            } else  JOptionPane.showMessageDialog(null, "Не выбран Статус ТЗ после проверки!");
-        } else  JOptionPane.showMessageDialog(null, "Не выбрано ТЗ из списка!");
+            } else  JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ РЎС‚Р°С‚СѓСЃ РўР— РїРѕСЃР»Рµ РїСЂРѕРІРµСЂРєРё!");
+        } else  JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅРѕ РўР— РёР· СЃРїРёСЃРєР°!");
     }
 
     /*    void checkBeforeSaveAssigneDesigner() {
      *
      * int i = jList_NotAssignedJobs.getSelectedIndex();
      * int designer = CB_Designer_1.getSelectedIndex();
-     * //Проверяем, выбран ли ТЗ в списке
+     * //РџСЂРѕРІРµСЂСЏРµРј, РІС‹Р±СЂР°РЅ Р»Рё РўР— РІ СЃРїРёСЃРєРµ
      * if (i >= 0) {
-     * // Если выбран, проверяем выбран ли Дизайнер
+     * // Р•СЃР»Рё РІС‹Р±СЂР°РЅ, РїСЂРѕРІРµСЂСЏРµРј РІС‹Р±СЂР°РЅ Р»Рё Р”РёР·Р°Р№РЅРµСЂ
      * if (designer >= 0) {
-     * //Получаем Объект ТЗ
+     * //РџРѕР»СѓС‡Р°РµРј РћР±СЉРµРєС‚ РўР—
      * DefaultListModel dlm = (DefaultListModel) jList_NotAssignedJobs.getModel();
      * JobDataObject_Full item = ((JobDataObject_Full) dlm.getElementAt(i));
      * int designer_ID = ((ComboBoxDataObject) CB_Designer_1.getSelectedItem()).getField1();
      * assigneDesignerDB(designer_ID, item.getJob_ID());
      * } else {
-     * JOptionPane.showMessageDialog(null, "Не выбран Дизайнер!");
+     * JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅ Р”РёР·Р°Р№РЅРµСЂ!");
      * }
      * } else {
-     * JOptionPane.showMessageDialog(null, "Не выбрано ТЗ из списка!");
+     * JOptionPane.showMessageDialog(null, "РќРµ РІС‹Р±СЂР°РЅРѕ РўР— РёР· СЃРїРёСЃРєР°!");
      * }
      * }*/
 
     void fillManagerComboBox() {
         String Query = "CALL GetUserDataObject_by_Departament(2)";
 
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         ResultSet rs = conn.query(Query);
         try {
         DefaultComboBoxModel cbm = new DefaultComboBoxModel();
             while (rs.next()) {
-                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
+                // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
                 UserDataObjectWithEmail CB_Object = new UserDataObjectWithEmail(rs.getInt("emp_ID"),
                         rs.getString("emp_Surname"),
                         rs.getString("emp_Name"),
@@ -1784,13 +1817,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                         rs.getString("dep_Name"),
                         rs.getInt("pos_ID"),
                         rs.getString("pos_Name"));
-                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
+                // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
                 cbm.addElement(CB_Object);
             }
-            // ВСТАВЛЯЕМ ДАННЫЕ МОДЕЛИ В ComboBox
+            // Р’РЎРўРђР’Р›РЇР•Рњ Р”РђРќРќР«Р• РњРћР”Р•Р›Р Р’ ComboBox
             CB_Manager.setModel(cbm);
         } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.close();
         CB_Manager.setSelectedIndex(-1);
@@ -1798,8 +1831,8 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
     }
 
     void fillDesignerComboBox(){
-      // подключаемся к базе и вытаскиваем из нее данные
-      // Заполняем ComboBox Менеджеры
+      // РїРѕРґРєР»СЋС‡Р°РµРјСЃСЏ Рє Р±Р°Р·Рµ Рё РІС‹С‚Р°СЃРєРёРІР°РµРј РёР· РЅРµРµ РґР°РЅРЅС‹Рµ
+      // Р—Р°РїРѕР»РЅСЏРµРј ComboBox РњРµРЅРµРґР¶РµСЂС‹
       String Query = "SELECT "
       + "employers.ID AS emp_ID, "
       + "CONCAT_WS(' ', employers.surname , employers.name) AS emp_Name "
@@ -1807,23 +1840,23 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
       + "WHERE employers.department_ID = 4 "
       + "ORDER BY employers.surname, employers.name";
       DefaultComboBoxModel Designer_CB_Model = new DefaultComboBoxModel();
-      ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+      ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
       conn.init();
       ResultSet rs = conn.query(Query);
       try {
       while (rs.next()) {
-      // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
+      // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
       ComboBoxDataObject CB_Object = new ComboBoxDataObject(
       rs.getInt("emp_ID"),
       rs.getString("emp_Name"));
-      // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
+      // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
       Designer_CB_Model.addElement(CB_Object);
       }
-      // ВСТАВЛЯЕМ ДАННЫЕ МОДЕЛИ В ComboBox
+      // Р’РЎРўРђР’Р›РЇР•Рњ Р”РђРќРќР«Р• РњРћР”Р•Р›Р Р’ ComboBox
       CB_Designer.setModel(Designer_CB_Model);
 //      CB_Designer_1.setModel(Designer_CB_Model);
       } catch (SQLException ex) {
-      Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+      Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
       }
       conn.close();
       CB_Designer.setSelectedIndex(-1);
@@ -1841,7 +1874,7 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
                 + Designer_ID
                 + " WHERE ID = " + Job_ID;
 //        JOptionPane.showMessageDialog(null, "SQL: \n" + query);
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         conn.updateQuery(query);
         conn.close();
@@ -1851,13 +1884,13 @@ public class JOB_Jornal_JFrame extends javax.swing.JFrame {
         String Email = null;
          String Query = "SELECT employers.EMail AS EMail FROM employers WHERE employers.ID = "
          + ID ;
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         ResultSet rs = conn.query(Query);
         try {
              if (rs.next())  Email = rs.getString("EMail");
         } catch (SQLException ex) {
-            Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.close();
         return Email;
@@ -1869,7 +1902,7 @@ public DefaultComboBoxModel getCustomerListModel(String str){
             + "')";
 
     DefaultComboBoxModel dcbm = new DefaultComboBoxModel();
-    ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+    ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
     conn.init();
     ResultSet rs = conn.query(query);
 
@@ -1880,11 +1913,11 @@ public DefaultComboBoxModel getCustomerListModel(String str){
                         rs.getInt("cust_ID"),
                         rs.getString("cust_Alias"),
                         rs.getString("cust_Name"));
-                // ДОБАВЛЯЕМ ЭТОТ ОБЪЕКТ В МОДЕЛЬ
+                // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
                 dcbm.addElement(cdo);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(JOB_Jornal_JFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     conn.close();
@@ -1892,10 +1925,57 @@ public DefaultComboBoxModel getCustomerListModel(String str){
 }
     void initTabNewJob(){
         clearTab_1();
+
     }
 
     void initTabCheck(){
         cleanFirstCheckTab();
+    }
+
+    DefaultListModel getList_Now_Working(){
+
+        DefaultListModel dlm = null;
+        String Query = "SELECT * FROM now_work";
+
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
+        conn.init();
+        ResultSet rs = conn.query(Query);
+        try {
+        dlm = new DefaultListModel();
+            while (rs.next()) {
+                // РЎРћР—Р”РђР•Рњ РћР‘РЄР•РљРў РќРђ РћРЎРќРћР’Р• РџРћР›РЈР§Р•РќРќР«РҐ Р”РђРќРќР«РҐ
+                String list_Object = ""
+                        + rs.getString("j_Designer") + "; ["
+                        + rs.getString("j_NumIdx") + "]; "
+                        + rs.getString("j_Stage") + " c "
+                        + rs.getString("j_Started")+ "; "
+                        + rs.getString("j_Manager") + "; "
+                        + rs.getString("j_Customer") + "; "
+                        + rs.getString("j_TM") + "; "
+                        + rs.getString("j_Kinds") + "; "
+                        + rs.getString("j_Type") + "; "
+                        + rs.getInt("j_WorkingTime");
+
+                // Р”РћР‘РђР’Р›РЇР•Рњ Р­РўРћРў РћР‘РЄР•РљРў Р’ РњРћР”Р•Р›Р¬
+                dlm.addElement(list_Object);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+        return dlm;
+    }
+    String intToTimeString(double i){
+
+        int hours = 0;
+        int minutes = 0;
+        int seconds = 0;
+        int buffer = 0;
+
+
+        String str = ""
+        + (int) i;
+        return str;
     }
 
 }

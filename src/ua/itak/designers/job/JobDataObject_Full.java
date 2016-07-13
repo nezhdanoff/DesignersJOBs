@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 /**
  *
@@ -33,6 +33,27 @@ public class JobDataObject_Full {
         this.job_Customer = job_Customer;
         this.job_TM = job_TM;
         this.job_KindString = job_KindString;
+    }
+
+    public JobDataObject_Full(int job_ID,
+                              int job_Number,
+                              int job_NumberIndex,
+                              EmployerDataObject job_Manager,
+                              CustomerDataObject job_Customer,
+                              String job_TM, String job_KindString,
+                              StatusCheckDataObject job_StatusCheck,
+                              ComboBoxDataObject job_TypeOfWork,
+                              ComboBoxDataObject job_Difficulty) {
+        this.job_ID = job_ID;
+        this.job_Number = job_Number;
+        this.job_NumberIndex = job_NumberIndex;
+        this.job_Manager = job_Manager;
+        this.job_Customer = job_Customer;
+        this.job_TM = job_TM;
+        this.job_KindString = job_KindString;
+        this.job_StatusCheck = job_StatusCheck;
+        this.job_TypeOfWork = job_TypeOfWork;
+        this.job_Difficulty = job_Difficulty;
     }
 
     public int getJob_ID() {
@@ -195,18 +216,23 @@ public class JobDataObject_Full {
 
     @Override
     public String toString() {
-        return "�ǹ-" + job_Number
+        return "ТЗ№-" + job_Number
                 + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex))
                 + "; " + job_Manager.getEmp_SurName() + "; "
                 + job_Customer.getCust_Name()+ "; "
-                + job_TM + "; " + job_KindString + '.';
+                + job_TM + "; "
+                + (job_KindString.equals("") ? "" : job_KindString+ ".")
+                + (job_StatusCheck == null ? "" : (job_StatusCheck.getStatus_Name()== null ? "" : "Статус=[" + job_StatusCheck.getStatus_Name() + "]; "))
+                + (job_TypeOfWork == null ? "" : (job_TypeOfWork.getField2() == null ? "" : "Вид работы=[" + job_TypeOfWork.toString()+ "]; "))
+                + (job_Difficulty == null ? "" : (job_Difficulty.getField2() == null ? "" : "Сложность=[" + job_Difficulty.toString()+ "]; "))
+                ;
     }
 
     public String toStringHTML() {
-        return "<html>�ǹ-" + job_Number
+        return "<html>ТЗ№-" + job_Number
                 + ((job_NumberIndex==0)  ? "" : ("/"+job_NumberIndex))
                 + "; " + job_Manager.getEmp_SurName()
-                + "; <br>" + job_Customer.getCust_Name()+ "; "
+                + ";    " + job_Customer.getCust_Name()+ "; <br>"
                 + job_TM + "; " + job_KindString + ".</html>";
     }
 }

@@ -3,24 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static jobsfordesigners.JobsForDesigners.BASE;
-import static jobsfordesigners.JobsForDesigners.PASSWORD;
-import static jobsfordesigners.JobsForDesigners.SERVER;
-import static jobsfordesigners.JobsForDesigners.USER;
-import static jobsfordesigners.JobsForDesigners.User;
+import static ua.itak.designers.job.JobsForDesigners.BASE;
+import static ua.itak.designers.job.JobsForDesigners.PASSWORD;
+import static ua.itak.designers.job.JobsForDesigners.SERVER;
+import static ua.itak.designers.job.JobsForDesigners.USER;
+import static ua.itak.designers.job.JobsForDesigners.User;
 
 /**
  *
  * @author Nezhdanoff
  */
-public class LoginJFrame extends javax.swing.JFrame {
+public class jFrame_Login extends javax.swing.JFrame {
 
     private final boolean DEBUGMESSAGE_ON = false;
 
@@ -29,7 +29,7 @@ public class LoginJFrame extends javax.swing.JFrame {
     /**
      * Creates new form LoginJFrame
      */
-    public LoginJFrame() {
+    public jFrame_Login() {
         initComponents();
     }
 
@@ -67,13 +67,13 @@ public class LoginJFrame extends javax.swing.JFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setText("Вход в программу");
+        jLabel1.setText("Р’С…РѕРґ РІ РїСЂРѕРіСЂР°РјРјСѓ");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jLabel2.setText("Логин");
+        jLabel2.setText("Р›РѕРіРёРЅ");
 
-        jLabel3.setText("Пароль");
+        jLabel3.setText("РџР°СЂРѕР»СЊ");
 
         jTextField_Login.setNextFocusableComponent(jPassword_Password);
         jTextField_Login.addActionListener(new java.awt.event.ActionListener() {
@@ -91,7 +91,7 @@ public class LoginJFrame extends javax.swing.JFrame {
             }
         });
 
-        jCheckBox_ShowPassword.setText("Показывать пароль");
+        jCheckBox_ShowPassword.setText("РџРѕРєР°Р·С‹РІР°С‚СЊ РїР°СЂРѕР»СЊ");
         jCheckBox_ShowPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jCheckBox_ShowPasswordActionPerformed(evt);
@@ -130,14 +130,14 @@ public class LoginJFrame extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jButton_Login.setText("Вход");
+        jButton_Login.setText("Р’С…РѕРґ");
         jButton_Login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_LoginActionPerformed(evt);
             }
         });
 
-        jButton_Exit.setText("Выход");
+        jButton_Exit.setText("Р’С‹С…РѕРґ");
         jButton_Exit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton_ExitActionPerformed(evt);
@@ -212,27 +212,27 @@ public class LoginJFrame extends javax.swing.JFrame {
                 rs.getInt("priv_ID")
                 );
                 if (DEBUGMESSAGE_ON) {
-                    JOptionPane.showMessageDialog(null, "Пароль : " + EncryptorMD5.getMD5(jPassword_Password.getText()));
+                    JOptionPane.showMessageDialog(null, "РџР°СЂРѕР»СЊ : " + EncryptorMD5.getMD5(jPassword_Password.getText()));
                 }
                 if (DEBUGMESSAGE_ON) {
                     JOptionPane.showMessageDialog(null, User.getLogin() + " " + User.getPassword() + " " + User.getEmp_Surname() + " " + User.getEmp_Name() + " " + User.getEmp_Mname());
                 }
                 if (EncryptorMD5.getMD5(jPassword_Password.getText()).equals(User.getPassword())) {
                     if (DEBUGMESSAGE_ON) {
-                        JOptionPane.showMessageDialog(null, ("Пароли совпадают : " + EncryptorMD5.getMD5(jPassword_Password.getText()) + " | " + User.getPassword()));
+                        JOptionPane.showMessageDialog(null, ("РџР°СЂРѕР»Рё СЃРѕРІРїР°РґР°СЋС‚ : " + EncryptorMD5.getMD5(jPassword_Password.getText()) + " | " + User.getPassword()));
                     }
-                    JOB_Jornal_JFrame Form_2 = new JOB_Jornal_JFrame();
-// Сюда вставляем форму ввода журнала
+                    jFrame_JOB_Jornal Form_2 = new jFrame_JOB_Jornal();
+// РЎСЋРґР° РІСЃС‚Р°РІР»СЏРµРј С„РѕСЂРјСѓ РІРІРѕРґР° Р¶СѓСЂРЅР°Р»Р°
                     jTextField_Login.setText("");
                     jPassword_Password.setText("");
                     this.setVisible(false);
                     Form_2.setVisible(true);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Не угадали ПАРОЛЬ");
+                    JOptionPane.showMessageDialog(null, "РќРµ СѓРіР°РґР°Р»Рё РџРђР РћР›Р¬");
                 }
             }
         } catch (SQLException ex) {
-            Logger.getLogger(LoginJFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         conn.close();
     }//GEN-LAST:event_jButton_LoginActionPerformed
@@ -270,21 +270,23 @@ public class LoginJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(LoginJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(jFrame_Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LoginJFrame().setVisible(true);
+                new jFrame_Login().setVisible(true);
             }
         });
     }

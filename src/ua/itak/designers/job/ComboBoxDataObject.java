@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 /**
  *
@@ -36,7 +36,7 @@ public class ComboBoxDataObject {
         @Override
        public String toString()
         {
-//            return " Код : " + Integer.toString(field1) + " - " + field2;
+//            return " РљРѕРґ : " + Integer.toString(field1) + " - " + field2;
             return field2;
         }
         

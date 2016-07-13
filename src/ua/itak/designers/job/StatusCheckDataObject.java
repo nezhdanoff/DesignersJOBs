@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 /**
  *
@@ -14,7 +14,8 @@ class StatusCheckDataObject {
     private int status_ID;
     private String status_Name;
 
-    public StatusCheckDataObject(int status_ID, String status_Name) {
+    public StatusCheckDataObject(int status_ID,
+                                 String status_Name) {
         this.status_ID = status_ID;
         this.status_Name = status_Name;
     }

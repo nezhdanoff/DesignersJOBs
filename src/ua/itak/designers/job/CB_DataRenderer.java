@@ -4,7 +4,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package jobsfordesigners;
+package ua.itak.designers.job;
 
 import java.awt.Component;
 import javax.swing.JLabel;
@@ -18,18 +18,18 @@ import javax.swing.ListCellRenderer;
  * @author Nezhdanoff
  */
 
-class CB_DataRenderer extends JLabel implements ListCellRenderer
+public class CB_DataRenderer extends JLabel implements ListCellRenderer
 {
     private final String _title;
 
-    public CB_DataRenderer(String title) {   // Конструктор
+    public CB_DataRenderer(String title) {   // РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ
         _title = title;
-        setOpaque(true);   // не знаю, зачем это надо, взял из примера :)
+        setOpaque(true);   // РЅРµ Р·РЅР°СЋ, Р·Р°С‡РµРј СЌС‚Рѕ РЅР°РґРѕ, РІР·СЏР» РёР· РїСЂРёРјРµСЂР° :)
     }
 
     @Override
     public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-        if (isSelected) // если элемент выделен - выставляем ему одни цвета, если нет - другие
+        if (isSelected) // РµСЃР»Рё СЌР»РµРјРµРЅС‚ РІС‹РґРµР»РµРЅ - РІС‹СЃС‚Р°РІР»СЏРµРј РµРјСѓ РѕРґРЅРё С†РІРµС‚Р°, РµСЃР»Рё РЅРµС‚ - РґСЂСѓРіРёРµ
         {
             setBackground(list.getSelectionBackground());
             setForeground(list.getSelectionForeground());
@@ -38,7 +38,7 @@ class CB_DataRenderer extends JLabel implements ListCellRenderer
             setForeground(list.getForeground());
         }
         if (index == -1 && value == null) setText(_title);
-        else setText(value.toString());   // ЗАДАЕМ ТЕКСТ ЭЛЕМЕНТА!!
+        else setText(value.toString());   // Р—РђР”РђР•Рњ РўР•РљРЎРў Р­Р›Р•РњР•РќРўРђ!!
 
         return this;
     }
