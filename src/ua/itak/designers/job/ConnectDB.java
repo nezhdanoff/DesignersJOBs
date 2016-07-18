@@ -5,9 +5,6 @@
  */
 package ua.itak.designers.job;
 
-//import com.mysql.jdbc.Connection;
-//import com.mysql.jdbc.Statement;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,8 +16,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
- *
- * @author Nezhdanoff
+
+ @author Nezhdanoff
  */
 public class ConnectDB {
 
@@ -31,10 +28,11 @@ public class ConnectDB {
     private String iDBName;
     private String iURL;
     private Properties iProperties;
-    public Connection iConnection;
+    public Connection iConnection = null;
 
 //    private  boolean iConnected = false;
     public ConnectDB(String Host, String User, String Password, String DBName) {
+        LoadDriver();
         this.iHost = Host;
         this.iUser = User;
         this.iPassword = Password;
@@ -43,15 +41,38 @@ public class ConnectDB {
         //   int reply = JOptionPane.showConfirmDialog(null, "URL :" + iURL, "Title", JOptionPane.YES_NO_OPTION);
     }
 
+    public static void LoadDriver() {
+
+        try {
+            try {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+            } catch (ClassNotFoundException ex) {
+                JOptionPane.showMessageDialog(null, "Не найден путь к классу " + ex.getMessage());
+                Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (InstantiationException ex) {
+            JOptionPane.showMessageDialog(null, "Не создан Instance of " + ex.getMessage());
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            JOptionPane.showMessageDialog(null, "Ошибка доступа к " + ex.getMessage());
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void init() {
         if (iConnection == null) {
+
             try {
                 iConnection = DriverManager.getConnection(
                         iURL, iUser, iPassword
                 );
             } catch (SQLException ex) {
                 Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-                JOptionPane.showMessageDialog(null, "База Данных не доступна");
+                JOptionPane.showMessageDialog(null, "База Данных не доступна \n"
+                                              + ex.getMessage() + "\n"
+                                              + "SQLState: " + ex.getSQLState() + "\n"
+                                              + "VendorError: " + ex.getErrorCode()
+                );
             }
         }
     }
@@ -59,7 +80,7 @@ public class ConnectDB {
     public ResultSet query(String Query) {
         ResultSet result = null;
         try {
-            Statement stmt = (Statement) iConnection.createStatement();
+            Statement stmt = iConnection.createStatement();
             result = stmt.executeQuery(Query);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -70,7 +91,7 @@ public class ConnectDB {
 
     public void updateQuery(String Query) {
         try {
-            Statement stmt = (Statement) iConnection.createStatement();
+            Statement stmt = iConnection.createStatement();
             stmt.executeUpdate(Query);
         } catch (SQLException ex) {
             Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
@@ -81,11 +102,10 @@ public class ConnectDB {
     public void updateTransactionOneToMany(String qry1, String qry2, String WldCRD) {
 
         int ID = 0;
-//        JOptionPane.showMessageDialog(null, "SQL =" + str);
-//        System.out.println(str);
+
         try {
             this.iConnection.setAutoCommit(false);
-            Statement ss = (Statement) this.iConnection.createStatement();
+            Statement ss = this.iConnection.createStatement();
             ss.executeUpdate(qry1);
             ResultSet result = ss.executeQuery("SELECT LAST_INSERT_ID()");
             if (result.next()) {
@@ -104,15 +124,15 @@ public class ConnectDB {
                 JOptionPane.showMessageDialog(null, "Ошибка. ОТКАТ ТРАНЗАКЦИИ!");
                 this.iConnection.rollback();
             } catch (SQLException ex1) {
-                Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex1);
+                Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex1);
             }
-            Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             try {
                 this.iConnection.setAutoCommit(true);
                 this.close();
             } catch (SQLException ex) {
-                Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
@@ -122,9 +142,7 @@ public class ConnectDB {
             try {
                 iConnection.close();
             } catch (SQLException ex) {
-                Logger.getLogger(
-                        ConnectDB.class.getName()).log(Level.SEVERE, null, ex);
-            }
+                       }
         }
     }
 }

@@ -9,7 +9,7 @@ package ua.itak.designers.job;
  *
  * @author Nezhdanoff
  */
-class EmployerDataObject {
+public class  EmployerDataObject {
 
     private int     emp_ID;
     private String  emp_SurName;

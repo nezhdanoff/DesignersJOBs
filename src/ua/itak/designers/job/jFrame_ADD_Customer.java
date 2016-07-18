@@ -11,6 +11,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+//import ua.itak.db.ConnectDB;
+//import ua.itak.db.I_DB;
 
 /**
  *

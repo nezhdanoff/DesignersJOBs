@@ -4,17 +4,16 @@
  * and open the template in the editor.
  */
 package ua.itak.designers.job;
-
 /**
 
  @author Nezhdanoff
  */
-
 public interface I_DB {
 //***** Адрес (DNS-Name) : PORT MySQL сервера
 //        public static final String SERVER = "base:3306";
 //        public static final String SERVER = "ED-HOME-X64-PC:3306";
 //        public static final String SERVER = "localhost:3306";
+//        public static final String SERVER = "PC-117:3306";
         public static final String SERVER = "192.168.0.117:3306";
 
 //***** имя пользователя MySQL сервера

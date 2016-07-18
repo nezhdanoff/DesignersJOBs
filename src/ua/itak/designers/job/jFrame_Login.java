@@ -10,10 +10,6 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import static ua.itak.designers.job.JobsForDesigners.BASE;
-import static ua.itak.designers.job.JobsForDesigners.PASSWORD;
-import static ua.itak.designers.job.JobsForDesigners.SERVER;
-import static ua.itak.designers.job.JobsForDesigners.USER;
 import static ua.itak.designers.job.JobsForDesigners.User;
 
 /**
@@ -193,7 +189,7 @@ public class jFrame_Login extends javax.swing.JFrame {
         String Query = "CALL GetUserDataObject('" +
                 jTextField_Login.getText() +
                 "')";
-        ConnectDB conn = new ConnectDB(SERVER, USER, PASSWORD, BASE);
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
         conn.init();
         ResultSet rs = conn.query(Query);
         try {

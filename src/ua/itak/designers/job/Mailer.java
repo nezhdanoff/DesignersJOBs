@@ -34,9 +34,9 @@ public class Mailer {
 //        String RCPT_TO = "RCPT TO: <nezhdanoff@itak.ua> ";
         String RCPT_TO = "RCPT TO: <" + rcpt + "> ";
         String SUBJECT = "SUBJECT: " + subj;
-        String MIME_VERSION = "MIME-Version: 1.0 \r\n" ;
-        String CONTENT_TYPE = "Content-Type: text/plain; charset=UTF-8; \r\n";
-        String CONTENT_ENCODING = "Content-Transfer-Encoding: 8bit \r\n";
+//        String MIME_VERSION = "MIME-Version: 1.0 \r\n" ;
+        String CONTENT_TYPE = "Content-Type: text/plain; charset=UTF-8; "
+                + "Content-Transfer-Encoding: 8bit ;";
         String DATA = "DATA ";    // начало сообщения*/
 
 
@@ -69,9 +69,9 @@ public class Mailer {
             receive();          // получение ответа SMTP
             send(SUBJECT);      // посылка темы на SMTP
             receive();          // получение ответа SMTP
-            send(MIME_VERSION);         // посылка MIME_VERSION
+//            send(MIME_VERSION);         // посылка MIME_VERSION
             send(CONTENT_TYPE);         // посылка CONTENTTYPE
-            send(CONTENT_ENCODING);     // посылка CONTENT_ENCODING
+//            send(CONTENT_ENCODING);     // посылка CONTENT_ENCODING
             send(BODY);         // посылка тела сообщения
             receive();          // получение ответа SMTP
             smtp.close();       //
