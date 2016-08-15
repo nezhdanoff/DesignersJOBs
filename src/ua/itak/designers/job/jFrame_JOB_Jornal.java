@@ -12,8 +12,11 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -34,6 +37,8 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
     /**
      Creates new form JOB_Jornal_JFrame
      */
+    TablePopUP tablePopup;
+
     jFrame_JOB_Jornal() {
 
         initComponents();
@@ -52,7 +57,48 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
             }
         });
 //*****************************************************************************
+        tablePopup = new TablePopUP(jTable_NowWork);
 
+        jTable_NowWork.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                int r = jTable_NowWork.rowAtPoint(e.getPoint());
+                if (r >= 0 && r < jTable_NowWork.getRowCount()) {
+                    jTable_NowWork.setRowSelectionInterval(r, r);
+                } else {
+                    jTable_NowWork.clearSelection();
+                }
+
+                int rowindex = jTable_NowWork.getSelectedRow();
+                if (rowindex < 0) {
+                    return;
+                }
+
+                if (e.isPopupTrigger()) {
+                    tablePopup.show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+
+//*****************************************************************************
+//********** Selection Model для выбора подробностей о записи из таблицы
+//********** переносим в PopUP меню
+//            ListSelectionModel selModel = jTable_NowWork.getSelectionModel();
+//
+//            selModel.addListSelectionListener(new ListSelectionListener() {
+//               public void valueChanged(ListSelectionEvent e) {
+//
+//
+//                    if (jTable_NowWork.getSelectedRowCount() == 1) {
+//                        int selectedRow = jTable_NowWork.getSelectedRow();
+//                        TableModel model = jTable_NowWork.getModel();
+//                         String str = ((TableModel_NowWork)model).getHTMLString(selectedRow);
+//                        JOptionPane.showMessageDialog(null, str);
+//                    } else {
+////                        JOptionPane.showMessageDialog(null, "Выделено больше одной строки");
+//                    }
+//               }
+//          });
 // Создаем Listener клавиатуры, отлавливаем ввод текста и формируем модель для ComboBox
         jComboBox_Customer.getEditor().getEditorComponent().addKeyListener(new KeyAdapter() {
 
@@ -177,6 +223,8 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
         jLabel_Job_Number1 = new javax.swing.JLabel();
         CB_Manager = new javax.swing.JComboBox<>();
         LB_FIO_Redactor = new javax.swing.JLabel();
+        jLabel_Unit1 = new javax.swing.JLabel();
+        jTextField1_BarCode = new javax.swing.JTextField();
         jPanel_FirstCheck = new javax.swing.JPanel();
         jPanel_Status = new javax.swing.JPanel();
         jLabel_Job_Number2 = new javax.swing.JLabel();
@@ -201,9 +249,8 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         jList_NotCheckedJobs = new javax.swing.JList<>();
         jPanel_AssigneDesigner = new javax.swing.JPanel();
-        jScrollPane4 = new javax.swing.JScrollPane();
-        jList_NotAssignedJobs = new javax.swing.JList<>();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable_NowWork = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -432,6 +479,29 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
         LB_FIO_Redactor.setText("User");
         LB_FIO_Redactor.setFocusable(false);
 
+        jLabel_Unit1.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel_Unit1.setText("Штрихкод");
+        jLabel_Unit1.setFocusable(false);
+
+        jTextField1_BarCode.setDocument(new PlainDocument() {
+            String chars = "0123456789";
+            @Override
+            public void insertString(int offs, String str, AttributeSet a) throws BadLocationException {
+                if (chars.contains(str)) {
+                    if (getLength()< 13) {
+                        super.insertString(offs, str, a);
+                    }
+                }
+            }
+        });
+        jTextField1_BarCode.setToolTipText("");
+        jTextField1_BarCode.setAlignmentX(1.0F);
+        jTextField1_BarCode.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1_BarCodeActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -447,10 +517,14 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
                         .addComponent(jLabel_Unit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(CB_Unit, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_Unit1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTextField1_BarCode, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(JB_AddKind)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton__DeleteKind, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButton__DeleteKind, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -480,7 +554,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(CB_Manager, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(LB_FIO_Redactor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(LB_FIO_Redactor, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel_TM)
                         .addGap(5, 5, 5))
@@ -524,7 +598,9 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
                     .addComponent(jLabel_Unit)
                     .addComponent(TF_Volume, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel_Volume)
-                    .addComponent(jButton__DeleteKind))
+                    .addComponent(jButton__DeleteKind)
+                    .addComponent(jLabel_Unit1)
+                    .addComponent(jTextField1_BarCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -823,22 +899,11 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
             }
         });
 
-        jList_NotAssignedJobs.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jList_NotAssignedJobs.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList_NotAssignedJobsMouseClicked(evt);
-            }
-        });
-        jScrollPane4.setViewportView(jList_NotAssignedJobs);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "В данный момент в работе" }));
-        jComboBox1.setRenderer(new CB_DataRenderer("ВЫБЕРИТЕ ВАРИАНТ"));
-        jComboBox1.setSelectedIndex(-1);
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
+        jTable_NowWork.setModel(new TableModel_NowWork(getArray_Now_Working())
+        );
+        jTable_NowWork.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jTable_NowWork.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(jTable_NowWork);
 
         javax.swing.GroupLayout jPanel_AssigneDesignerLayout = new javax.swing.GroupLayout(jPanel_AssigneDesigner);
         jPanel_AssigneDesigner.setLayout(jPanel_AssigneDesignerLayout);
@@ -846,21 +911,15 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
             jPanel_AssigneDesignerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_AssigneDesignerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel_AssigneDesignerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
-                    .addGroup(jPanel_AssigneDesignerLayout.createSequentialGroup()
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 817, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel_AssigneDesignerLayout.setVerticalGroup(
             jPanel_AssigneDesignerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_AssigneDesignerLayout.createSequentialGroup()
+            .addGroup(jPanel_AssigneDesignerLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 388, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 417, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbed_Pan1.addTab("Сейчас в работе", jPanel_AssigneDesigner);
@@ -980,7 +1039,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
 
     private void jTabbed_Pan1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTabbed_Pan1FocusGained
         cleanFirstCheckTab();
-        fillNotAssignedJobList();
+//        fillNotAssignedJobList();
     }//GEN-LAST:event_jTabbed_Pan1FocusGained
 
     private void jComboBox_DifficultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_DifficultyActionPerformed
@@ -1080,7 +1139,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
     }//GEN-LAST:event_CB_DesignerActionPerformed
 
     private void jPanel_AssigneDesignerFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel_AssigneDesignerFocusGained
-        fillNotAssignedJobList();
+//        fillNotAssignedJobList();
     }//GEN-LAST:event_jPanel_AssigneDesignerFocusGained
 
     private void jPanel_FirstCheckFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPanel_FirstCheckFocusGained
@@ -1258,7 +1317,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
                 cleanFirstCheckTab();
                 break;
             case 2:
-//                checkBeforeSaveAssigneDesigner();
+                jTable_NowWork.setModel(new TableModel_NowWork(getArray_Now_Working()));
                 cleanAssigneDesignerTab();
                 break;
             default:
@@ -1292,7 +1351,6 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
             case 0:
                 initTabNewJob();
                 jCheckBox_Send_Mail.setVisible(true);
-
                 break;
             case 1:
                 initTabCheck();
@@ -1300,6 +1358,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
                 break;
             case 2:
                 jCheckBox_Send_Mail.setVisible(false);
+                jTable_NowWork.setModel(new TableModel_NowWork(getArray_Now_Working()));
             case 3:
                 fillTableJobInfoTable();
                 jCheckBox_Send_Mail.setVisible(false);
@@ -1319,19 +1378,9 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
         TF_Job_Number_Index.setForeground(Color.black);
     }//GEN-LAST:event_TF_Job_NumberFocusGained
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        switch (jComboBox1.getSelectedIndex()) {
-            case 0:
-                jList_NotAssignedJobs.setModel(getList_Now_Working());
-                break;
-        }
-
-
-    }//GEN-LAST:event_jComboBox1ActionPerformed
-
-    private void jList_NotAssignedJobsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList_NotAssignedJobsMouseClicked
-        jList_NotAssignedJobs.setModel(getList_Now_Working());
-    }//GEN-LAST:event_jList_NotAssignedJobsMouseClicked
+    private void jTextField1_BarCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1_BarCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1_BarCodeActionPerformed
 
     /**
      @param args the command line arguments
@@ -1389,7 +1438,6 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
     private javax.swing.JButton jButton_OK;
     private javax.swing.JButton jButton__DeleteKind;
     private javax.swing.JCheckBox jCheckBox_Send_Mail;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox_Customer;
     private javax.swing.JComboBox<String> jComboBox_Difficulty;
     private javax.swing.JComboBox<String> jComboBox_Status_Of_Choice;
@@ -1410,8 +1458,8 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_Status;
     private javax.swing.JLabel jLabel_TM;
     private javax.swing.JLabel jLabel_Unit;
+    private javax.swing.JLabel jLabel_Unit1;
     private javax.swing.JLabel jLabel_Volume;
-    private javax.swing.JList<String> jList_NotAssignedJobs;
     private javax.swing.JList<String> jList_NotCheckedJobs;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -1424,14 +1472,16 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel_NewJob;
     private javax.swing.JPanel jPanel_Note;
     private javax.swing.JPanel jPanel_Status;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JTabbedPane jTabbed_Pan1;
     private javax.swing.JTable jTable_JobInfoTable;
+    private javax.swing.JTable jTable_NowWork;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTextField jTextField1_BarCode;
     // End of variables declaration//GEN-END:variables
 
     private void clearTab_1() {
@@ -1474,38 +1524,37 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
      * }
      * conn.close();
      * }*/
-    void fillNotAssignedJobList() {
-
-        String Query = "CALL GetNotAssignedJobs_split()";
-        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
-        conn.init();
-        ResultSet rs = conn.query(Query);
-        try {
-            DefaultListModel NotAssignedJob_ObjectModel = new DefaultListModel();
-            while (rs.next()) {
-                JobDataObject_Full jobDataObject = new JobDataObject_Full(
-                        rs.getInt("job_ID"),
-                        rs.getInt("job_Number"),
-                        rs.getInt("job_Number_Index"),
-                        new EmployerDataObject(rs.getInt("job_Manager_ID"),
-                                               rs.getString("job_Manager_Surname"),
-                                               rs.getString("job_Manager_Name"),
-                                               rs.getString("job_Manager_EMail")),
-                        new CustomerDataObject(rs.getInt("job_Customer_ID"),
-                                               rs.getString("job_Customer_Alias"),
-                                               rs.getString("job_Customer_Name")),
-                        rs.getString("job_TM"),
-                        (rs.getString("job_KindString") == null ? "" : rs.getString("job_KindString")));
-                NotAssignedJob_ObjectModel.addElement(jobDataObject);
-            }
-            jList_NotAssignedJobs.setModel(NotAssignedJob_ObjectModel);
-        } catch (SQLException ex) {
-            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        conn.close();
-
-    }
-
+//    void fillNotAssignedJobList() {
+//
+//        String Query = "CALL GetNotAssignedJobs_split()";
+//        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
+//        conn.init();
+//        ResultSet rs = conn.query(Query);
+//        try {
+//            DefaultListModel NotAssignedJob_ObjectModel = new DefaultListModel();
+//            while (rs.next()) {
+//                JobDataObject_Full jobDataObject = new JobDataObject_Full(
+//                        rs.getInt("job_ID"),
+//                        rs.getInt("job_Number"),
+//                        rs.getInt("job_Number_Index"),
+//                        new EmployerDataObject(rs.getInt("job_Manager_ID"),
+//                                               rs.getString("job_Manager_Surname"),
+//                                               rs.getString("job_Manager_Name"),
+//                                               rs.getString("job_Manager_EMail")),
+//                        new CustomerDataObject(rs.getInt("job_Customer_ID"),
+//                                               rs.getString("job_Customer_Alias"),
+//                                               rs.getString("job_Customer_Name")),
+//                        rs.getString("job_TM"),
+//                        (rs.getString("job_KindString") == null ? "" : rs.getString("job_KindString")));
+//                NotAssignedJob_ObjectModel.addElement(jobDataObject);
+//            }
+//            jList_NotAssignedJobs.setModel(NotAssignedJob_ObjectModel);
+//        } catch (SQLException ex) {
+//            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        conn.close();
+//
+//    }
     void fillJobListObjectsList() {
 
         String Query = "CALL GetNotCheckedJobs_split()";
@@ -1568,7 +1617,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
 //        jButton_OK.setEnabled(false);
 //        jButton_ClearAssigne.setEnabled(false);
 //        CB_Designer_1.setSelectedIndex(-1);
-        fillNotAssignedJobList();
+        jTable_NowWork.setModel(new TableModel_NowWork(getArray_Now_Working()));
     }
 
     void getMinMaxTime() {
@@ -1763,7 +1812,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
                         + "Заказчик: "
                         + item.getJob_Customer() + "; \nТМ: "
                         + item.getJob_TM() + ";\n"
-                        + item.getJob_KindString()+ ";\n"
+                        + item.getJob_KindString() + ";\n"
                         + " проверено.\nПрисвоен статус: "
                         + jComboBox_Status_Of_Choice.getSelectedItem().toString() + "\n";
 
@@ -2021,6 +2070,27 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
         return dlm;
     }
 
+    ArrayList<Object_NowWorkJob> getArray_Now_Working() {
+
+        ArrayList<Object_NowWorkJob> nfj = new ArrayList<Object_NowWorkJob>();
+
+        String Query = "SELECT * FROM now_work";
+
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
+        conn.init();
+        ResultSet rs = conn.query(Query);
+        try {
+            while (rs.next()) {
+                // СОЗДАЕМ ОБЪЕКТ НА ОСНОВЕ ПОЛУЧЕННЫХ ДАННЫХ
+                nfj.add(new Object_NowWorkJob(rs));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(jFrame_Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+        return nfj;
+    }
+
     String intToTimeString(double i) {
 
         int hours = 0;
@@ -2034,7 +2104,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
     }
 
 //    public  TableModel_1 fillTableJobInfoTable() {
-    public  void fillTableJobInfoTable() {
+    public void fillTableJobInfoTable() {
 
         String query = "SELECT * FROM jobinfotable";  //your data
         ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
@@ -2049,7 +2119,7 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
         }
-         conn.close();
+        conn.close();
 //        return model;
 
         jTable_JobInfoTable.setModel(model);
@@ -2069,8 +2139,37 @@ public class jFrame_JOB_Jornal extends javax.swing.JFrame {
 //        jTable_JobInfoTable.getColumnModel().getColumn(9).setPreferredWidth(40);
 //        jTable_JobInfoTable.getColumnModel().getColumn(10).setPreferredWidth(30);
 
-
-
-
     }
+
+    public void closeActiveJob(int jobID) {
+
+        // Закрываем запись в журнале TimeLine с Идентификатором jobID
+        int time_line_ID;
+
+        ConnectDB conn = new ConnectDB(I_DB.SERVER, I_DB.USER, I_DB.PASSWORD, I_DB.BASE);
+        conn.init();
+        String Query = "SELECT "
+                + "tlj.time_line_ID AS ID"
+                + "FROM time_line_jornal tlj "
+                + "WHERE tlj.is_finished = 0 "
+                + "AND tlj.job_ID = "
+                + jobID;
+        ResultSet rs = conn.query(Query);
+        try {
+            if (rs.next()) {
+                time_line_ID = rs.getInt("ID");
+                    JOptionPane.showMessageDialog(null, "Завершаем ТЗ!!!");
+                    String Query1 = "UPDATE designer_time_line dtl "
+                            + " SET dtl.stop = NOW(), "
+                            + " dtl.trouble = 1 "
+                            + " WHERE dtl.ID = "
+                            + time_line_ID;
+                    conn.updateQuery(Query1);
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(jFrame_JOB_Jornal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        conn.close();
+    }
+
 }
